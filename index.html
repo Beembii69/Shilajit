@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Монгол Алтайн Барагшун — Байгалийн цэвэр эрч хүч</title>
+  <meta property="og:title" content="Монгол Алтайн Барагшун — Байгалийн цэвэр эрч хүч" />
+  <meta property="og:description" content="Монгол Алтайн нурууны 3500–4000 м өндрөөс цуглуулсан байгалийн цэвэр барагшун." />
+  <meta property="og:image" content="https://beembii69.github.io/Shilajit/preview.png" />
+  <meta property="og:url" content="https://beembii69.github.io/Shilajit/" />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -2392,7 +2397,7 @@
             </div>
             <div class="fg">
               <label data-i18n="contact.f_phone">Утасны дугаар</label>
-              <input id="orderPhone" type="tel" placeholder="9901-XXXX" required />
+              <input id="orderPhone" type="tel" placeholder="88887777" maxlength="8" required />
             </div>
           </div>
           <div class="fg">
@@ -2567,6 +2572,7 @@
       'contact.f_note':'Нэмэлт тайлбар','contact.f_note_ph':'Хүргэлтийн хаяг, асуулт болон бусад...',
       'contact.f_submit':'Захиалга илгээх',
       'contact.form_required':'Нэр болон утасны дугаараа оруулна уу.',
+      'contact.form_phone_digits':'Утасны дугаар яг 8 оронтой байх ёстой.',
       'contact.form_loading':'Илгээж байна...',
       'contact.form_error':'Алдаа гарлаа. Дахин оролдоно уу.',
       'contact.form_success_title':'Захиалга амжилттай!',
@@ -2696,6 +2702,7 @@
       'contact.f_note':'Additional Notes','contact.f_note_ph':'Delivery address, questions, etc.',
       'contact.f_submit':'Send Order',
       'contact.form_required':'Please enter your name and phone number.',
+      'contact.form_phone_digits':'Phone number must be exactly 8 digits.',
       'contact.form_loading':'Sending...',
       'contact.form_error':'Something went wrong. Please try again.',
       'contact.form_success_title':'Order Submitted!',
@@ -2825,6 +2832,7 @@
       'contact.f_note':'备注','contact.f_note_ph':'收货地址、问题及其他...',
       'contact.f_submit':'提交订单',
       'contact.form_required':'请输入您的姓名和联系电话。',
+      'contact.form_phone_digits':'电话号码必须是8位数字。',
       'contact.form_loading':'提交中...',
       'contact.form_error':'提交失败，请重试。',
       'contact.form_success_title':'订单提交成功！',
@@ -3015,6 +3023,11 @@
       errorEl.textContent = '';
       if (!name || !phone) {
         errorEl.textContent = t['contact.form_required'];
+        return;
+      }
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length !== 8) {
+        errorEl.textContent = t['contact.form_phone_digits'];
         return;
       }
 
