@@ -1135,6 +1135,21 @@
     .social-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(197,160,90,0.5); }
     .social-facebook { color: #fff; }
     .social-facebook svg { color: #1877F2; }
+    .phone-input-row {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-gold);
+      border-radius: 6px; overflow: hidden;
+    }
+    .phone-prefix {
+      padding: 10px 12px; font-size: 0.85rem;
+      color: var(--muted); border-right: 1px solid var(--border-gold);
+      background: rgba(255,255,255,0.03); white-space: nowrap;
+    }
+    .phone-input-row input {
+      border: none !important; background: transparent !important;
+      flex: 1; padding: 10px 12px;
+    }
     .auth-divider {
       display: flex; align-items: center; gap: 12px;
       margin: 4px 0;
@@ -1260,6 +1275,7 @@
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
            signOut, onAuthStateChanged, updateProfile,
            GoogleAuthProvider, signInWithPopup,
+           signInWithPhoneNumber, RecaptchaVerifier,
            sendPasswordResetEmail }
     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
   import { getFirestore, collection, addDoc, serverTimestamp,
@@ -1423,12 +1439,27 @@
   function switchTab(name) {
     tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
     forms.forEach(f => f.classList.toggle('active', f.id === name + 'Form'));
-    // hide social buttons and divider when on forgot panel
+    // hide social buttons and divider when on forgot or phone panel
     const socialBlock = document.querySelector('.auth-social');
     const divider     = document.querySelector('.auth-divider');
-    const isForgot    = name === 'forgot';
-    if (socialBlock) socialBlock.style.display = isForgot ? 'none' : '';
-    if (divider)     divider.style.display     = isForgot ? 'none' : '';
+    const hideExtra   = name === 'forgot' || name === 'phone';
+    if (socialBlock) socialBlock.style.display = hideExtra ? 'none' : '';
+    if (divider)     divider.style.display     = hideExtra ? 'none' : '';
+    // reset phone steps when switching away
+    if (name !== 'phone') {
+      const s1 = document.getElementById('phoneStep1');
+      const s2 = document.getElementById('phoneStep2');
+      if (s1) s1.style.display = '';
+      if (s2) s2.style.display = 'none';
+      const pi = document.getElementById('phoneInput');
+      const oi = document.getElementById('otpInput');
+      if (pi) pi.value = '';
+      if (oi) oi.value = '';
+      const e1 = document.getElementById('phoneError1');
+      const e2 = document.getElementById('phoneError2');
+      if (e1) e1.textContent = '';
+      if (e2) e2.textContent = '';
+    }
     loginError.textContent = '';
     registerError.textContent = '';
     document.getElementById('forgotMsg').textContent = '';
@@ -1479,6 +1510,69 @@
   }
 
   document.getElementById('btnGoogle').addEventListener('click', () => socialLogin(gglProvider));
+
+  /* ── Phone auth ── */
+  document.getElementById('btnPhone').addEventListener('click', () => switchTab('phone'));
+
+  let confirmationResult = null;
+  let recaptchaVerifier  = null;
+
+  function initRecaptcha() {
+    if (recaptchaVerifier) { try { recaptchaVerifier.clear(); } catch(e) {} }
+    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible' });
+  }
+
+  document.getElementById('phoneSendBtn').addEventListener('click', async () => {
+    const t    = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
+    const errEl = document.getElementById('phoneError1');
+    errEl.textContent = '';
+    const digits = document.getElementById('phoneInput').value.replace(/\D/g, '');
+    if (digits.length !== 8) {
+      errEl.textContent = t['auth.phone_8digits'] || 'Утасны дугаар яг 8 оронтой байх ёстой.';
+      return;
+    }
+    const btn = document.getElementById('phoneSendBtn');
+    btn.disabled = true;
+    try {
+      initRecaptcha();
+      confirmationResult = await signInWithPhoneNumber(auth, '+976' + digits, recaptchaVerifier);
+      document.getElementById('phoneStep1').style.display = 'none';
+      document.getElementById('phoneStep2').style.display = '';
+      document.getElementById('otpInput').focus();
+    } catch(err) {
+      console.error(err);
+      errEl.textContent = t['auth.err_default'] || 'Алдаа гарлаа. Дахин оролдоно уу.';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById('phoneVerifyBtn').addEventListener('click', async () => {
+    const t     = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
+    const errEl = document.getElementById('phoneError2');
+    errEl.textContent = '';
+    const code  = document.getElementById('otpInput').value.trim();
+    if (!code) { errEl.textContent = t['auth.phone_enter_otp'] || 'Кодоо оруулна уу.'; return; }
+    const btn = document.getElementById('phoneVerifyBtn');
+    btn.disabled = true;
+    try {
+      await confirmationResult.confirm(code);
+      closeAuth();
+      if (pendingOrderLink) { goToContact(pendingProduct); pendingOrderLink = null; pendingProduct = null; }
+    } catch(err) {
+      errEl.textContent = t['auth.phone_wrong_otp'] || 'Код буруу байна. Дахин оролдоно уу.';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById('phoneBackBtn').addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('phoneStep1').style.display = '';
+    document.getElementById('phoneStep2').style.display = 'none';
+    document.getElementById('phoneError2').textContent = '';
+    document.getElementById('otpInput').value = '';
+  });
 
   /* ── Order buttons — require login, then pre-fill & scroll ── */
   function goToContact(productVal) {
@@ -1688,6 +1782,12 @@
 
     <!-- Social buttons (shared, always visible) -->
     <div class="auth-social">
+      <button class="social-btn" id="btnPhone">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        <span data-i18n="auth.phone_btn">Утасны дугаараар</span>
+      </button>
       <button class="social-btn social-google" id="btnGoogle">
         <svg width="20" height="20" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
@@ -1749,6 +1849,34 @@
       <button type="submit" class="btn btn-gold auth-submit" data-i18n="auth.register_submit">Бүртгүүлэх</button>
       <p class="auth-switch"><span data-i18n="auth.register_switch_text">Бүртгэл байгаа юу?</span> <a href="#" data-tab="login" data-i18n="auth.tab_login">Нэвтрэх</a></p>
     </form>
+
+    <!-- Phone auth panel -->
+    <div class="auth-form" id="phoneForm">
+      <div id="phoneStep1">
+        <p class="auth-sub" style="text-align:left;margin-bottom:14px;" data-i18n="auth.phone_sub">Монгол дугаараа оруулна уу. SMS код илгээнэ.</p>
+        <div class="auth-field">
+          <label data-i18n="auth.phone_lbl">Утасны дугаар</label>
+          <div class="phone-input-row">
+            <span class="phone-prefix">+976</span>
+            <input type="tel" id="phoneInput" placeholder="88887777" maxlength="8" inputmode="numeric" />
+          </div>
+        </div>
+        <div id="phoneError1" class="auth-error"></div>
+        <div id="recaptcha-container"></div>
+        <button type="button" class="btn btn-gold auth-submit" id="phoneSendBtn" data-i18n="auth.phone_send">Код илгээх</button>
+        <p class="auth-switch"><a href="#" data-tab="login" data-i18n="auth.forgot_back">← Нэвтрэх хэсэгт буцах</a></p>
+      </div>
+      <div id="phoneStep2" style="display:none">
+        <p class="auth-sub" style="text-align:left;margin-bottom:14px;" data-i18n="auth.phone_otp_sub">SMS-ээр ирсэн 6 оронтой кодоо оруулна уу.</p>
+        <div class="auth-field">
+          <label data-i18n="auth.phone_otp_lbl">Баталгаажуулах код</label>
+          <input type="text" id="otpInput" placeholder="123456" maxlength="6" inputmode="numeric" />
+        </div>
+        <div id="phoneError2" class="auth-error"></div>
+        <button type="button" class="btn btn-gold auth-submit" id="phoneVerifyBtn" data-i18n="auth.phone_verify">Баталгаажуулах</button>
+        <p class="auth-switch"><a href="#" id="phoneBackBtn" data-i18n="auth.phone_back">← Дугаар өөрчлөх</a></p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2659,6 +2787,17 @@
       'auth.err_default':'Алдаа гарлаа. Дахин оролдоно уу.',
       'auth.err_enter_email':'Имэйл хаягаа оруулна уу.',
       'auth.forgot_success':'✓ Имэйл илгээгдлээ. Ирсэн мэйлийг шалгана уу.',
+      'auth.phone_btn':'Утасны дугаараар',
+      'auth.phone_sub':'Монгол дугаараа оруулна уу. SMS код илгээнэ.',
+      'auth.phone_lbl':'Утасны дугаар',
+      'auth.phone_send':'Код илгээх',
+      'auth.phone_otp_sub':'SMS-ээр ирсэн 6 оронтой кодоо оруулна уу.',
+      'auth.phone_otp_lbl':'Баталгаажуулах код',
+      'auth.phone_verify':'Баталгаажуулах',
+      'auth.phone_back':'← Дугаар өөрчлөх',
+      'auth.phone_8digits':'Утасны дугаар яг 8 оронтой байх ёстой.',
+      'auth.phone_enter_otp':'Кодоо оруулна уу.',
+      'auth.phone_wrong_otp':'Код буруу байна. Дахин оролдоно уу.',
     },
     en: {
       'nav.what':'What is Baragshun','nav.benefits':'Benefits','nav.products':'Products',
@@ -2789,6 +2928,17 @@
       'auth.err_default':'An error occurred. Please try again.',
       'auth.err_enter_email':'Please enter your email address.',
       'auth.forgot_success':'✓ Email sent. Please check your inbox.',
+      'auth.phone_btn':'Sign in with Phone',
+      'auth.phone_sub':'Enter your Mongolian number. We\'ll send an SMS code.',
+      'auth.phone_lbl':'Phone number',
+      'auth.phone_send':'Send Code',
+      'auth.phone_otp_sub':'Enter the 6-digit code sent to your phone.',
+      'auth.phone_otp_lbl':'Verification code',
+      'auth.phone_verify':'Verify',
+      'auth.phone_back':'← Change number',
+      'auth.phone_8digits':'Phone number must be exactly 8 digits.',
+      'auth.phone_enter_otp':'Please enter the code.',
+      'auth.phone_wrong_otp':'Incorrect code. Please try again.',
     },
     zh: {
       'nav.what':'喜来芝简介','nav.benefits':'功效','nav.products':'产品',
@@ -2919,6 +3069,17 @@
       'auth.err_default':'发生错误，请重试。',
       'auth.err_enter_email':'请输入您的电子邮件地址。',
       'auth.forgot_success':'✓ 邮件已发送，请查收您的邮箱。',
+      'auth.phone_btn':'手机号登录',
+      'auth.phone_sub':'输入您的蒙古手机号，我们将发送短信验证码。',
+      'auth.phone_lbl':'手机号码',
+      'auth.phone_send':'发送验证码',
+      'auth.phone_otp_sub':'请输入短信中收到的6位验证码。',
+      'auth.phone_otp_lbl':'验证码',
+      'auth.phone_verify':'验证',
+      'auth.phone_back':'← 更改号码',
+      'auth.phone_8digits':'手机号必须是8位数字。',
+      'auth.phone_enter_otp':'请输入验证码。',
+      'auth.phone_wrong_otp':'验证码错误，请重试。',
     }
   };
 
