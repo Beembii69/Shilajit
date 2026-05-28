@@ -1541,7 +1541,7 @@
       document.getElementById('otpInput').focus();
     } catch(err) {
       console.error(err);
-      errEl.textContent = t['auth.err_default'] || 'Алдаа гарлаа. Дахин оролдоно уу.';
+      errEl.textContent = (err.code || err.message || 'unknown error');
     } finally {
       btn.disabled = false;
     }
