@@ -1643,7 +1643,7 @@
   /* ── Auth state ── */
   onAuthStateChanged(auth, user => {
     if (user) {
-      const name = user.displayName || user.email.split('@')[0];
+      const name = user.displayName || (user.email ? user.email.split('@')[0] : user.phoneNumber || 'User');
       const initial = name.charAt(0).toUpperCase();
       // Desktop
       navLoginBtn.style.display = 'none';
