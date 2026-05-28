@@ -1518,7 +1518,9 @@
   let recaptchaVerifier  = null;
 
   function initRecaptcha() {
-    if (recaptchaVerifier) { try { recaptchaVerifier.clear(); } catch(e) {} }
+    if (recaptchaVerifier) { try { recaptchaVerifier.clear(); } catch(e) {} recaptchaVerifier = null; }
+    const container = document.getElementById('recaptcha-container');
+    if (container) container.innerHTML = '';
     recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible' });
   }
 
