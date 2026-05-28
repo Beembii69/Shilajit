@@ -93,7 +93,7 @@
     .admin-main { max-width: 1280px; margin: 0 auto; padding: 32px 28px; }
 
     /* Stats */
-    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
     .stat-card {
       background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
       padding: 20px 24px;
@@ -179,6 +179,8 @@
     .act-btn.set-done:hover:not(:disabled)   { background: rgba(111,207,151,0.1); }
     .act-btn.set-new    { border-color: rgba(74,158,255,0.35);  color: var(--blue); }
     .act-btn.set-new:hover:not(:disabled)    { background: rgba(74,158,255,0.1); }
+    .act-btn.set-cancelled { border-color: rgba(224,112,112,0.35); color: var(--red); }
+    .act-btn.set-cancelled:hover:not(:disabled) { background: rgba(224,112,112,0.1); }
 
     .empty-row td { padding: 56px 20px; text-align: center; color: var(--muted); }
     .loading-row td { padding: 40px; text-align: center; color: var(--muted); font-size: 0.875rem; }
@@ -197,7 +199,7 @@
     }
 
     @media (max-width: 900px) {
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
       .admin-main { padding: 20px 16px; }
       .admin-user-email { display: none; }
     }
@@ -495,6 +497,7 @@
       if (status !== 'called') b.push(`<button class="act-btn set-called" data-id="${id}" data-status="called">Холбогдсон</button>`);
       if (status !== 'done')   b.push(`<button class="act-btn set-done"   data-id="${id}" data-status="done">Дууссан</button>`);
       if (status !== 'new')    b.push(`<button class="act-btn set-new"    data-id="${id}" data-status="new">Шинэ болгох</button>`);
+      b.push(`<button class="act-btn set-cancelled" data-id="${id}" data-status="cancelled">Цуцлах</button>`);
     }
     return b.join('');
   }

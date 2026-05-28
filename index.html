@@ -1644,7 +1644,7 @@
   <!-- Logged-out: login button -->
   <button id="mobileLoginBtn" class="btn btn-gold ml" style="margin-top:10px;width:100%;justify-content:center;" data-i18n="nav.login">Нэвтрэх</button>
   <!-- Logged-in: user info + logout -->
-  <div id="mobileUser" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-gold);display:flex;align-items:center;justify-content:space-between;gap:10px;">
+  <div id="mobileUser" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-gold);align-items:center;justify-content:space-between;gap:10px;">
     <div style="display:flex;align-items:center;gap:10px;">
       <div id="mobileAvatar" class="nav-avatar"></div>
       <span id="mobileUsername" style="font-size:0.85rem;color:var(--cream);"></span>
@@ -1749,8 +1749,8 @@
       <filter id="ethereal-filter" x="-20%" y="-20%" width="140%" height="140%">
         <feTurbulence id="etTurb" result="undulation" numOctaves="2"
           baseFrequency="0.0005,0.002" seed="0" type="turbulence"/>
-        <feColorMatrix id="etHue" in="undulation" type="hueRotate" values="180"/>
-        <feColorMatrix in="dist" result="circulation" type="matrix"
+        <feColorMatrix id="etHue" in="undulation" type="hueRotate" values="180" result="hueRotated"/>
+        <feColorMatrix in="hueRotated" result="circulation" type="matrix"
           values="4 0 0 0 1  4 0 0 0 1  4 0 0 0 1  1 0 0 0 0"/>
         <feDisplacementMap in="SourceGraphic" in2="circulation" scale="80" result="dist"/>
         <feDisplacementMap in="dist" in2="undulation" scale="80" result="output"/>
@@ -1959,7 +1959,7 @@
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
 <div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div>
-          <img src="Products/100мл өтгөн барагшун.jpeg" alt="Өтгөн барагшун 100мл">
+          <img src="Products/product-1.jpg" alt="Өтгөн барагшун 100мл">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
@@ -1974,7 +1974,7 @@
       <!-- Product 2: Өтгөн барагшун 50мл -->
       <div class="product-card fade-up fade-up-d2">
         <div class="product-img">
-<img src="Products/50мл өтгөн барагшун.jpeg" alt="Өтгөн барагшун 50мл">
+<img src="Products/product-2.jpg" alt="Өтгөн барагшун 50мл">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
@@ -1989,7 +1989,7 @@
       <!-- Product 3: Шингэн барагшун 60ш -->
       <div class="product-card fade-up fade-up-d3">
         <div class="product-img">
-<img src="Products/Шингэн барагшун 60ш.jpeg" alt="Шингэн барагшун 60ш">
+<img src="Products/product-3.jpg" alt="Шингэн барагшун 60ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
@@ -2004,7 +2004,7 @@
       <!-- Product 4: Шингэн барагшун 30ш -->
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
-<img src="Products/Шингэн барагшун 30ш.png" alt="Шингэн барагшун 30ш">
+<img src="Products/product-4.jpg" alt="Шингэн барагшун 30ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
@@ -2019,7 +2019,7 @@
       <!-- Product 5: Шингэн барагшун 15ш -->
       <div class="product-card fade-up fade-up-d2">
         <div class="product-img">
-<img src="Products/Шингэн барагшун 15ш.jpeg" alt="Шингэн барагшун 15ш">
+<img src="Products/product-5.jpg" alt="Шингэн барагшун 15ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
@@ -2034,7 +2034,7 @@
       <!-- Product 6: Шингэн барагшун 10ш -->
       <div class="product-card fade-up fade-up-d3">
         <div class="product-img">
-<img src="Products/Шингэн барагшун 10ш.jpeg" alt="Шингэн барагшун 10ш">
+<img src="Products/product-6.jpg" alt="Шингэн барагшун 10ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
@@ -2050,7 +2050,7 @@
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
 <div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div>
-          <img src="Products/Барагшунтай жасминтай цай 50ш.png" alt="Барагшунтай жасминтай цай 50ш">
+          <img src="Products/product-7.jpg" alt="Барагшунтай жасминтай цай 50ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
@@ -2513,7 +2513,7 @@
   const TRANSLATIONS = {
     mn: {
       'nav.what':'Барагшун гэж юу','nav.benefits':'Ач тус','nav.products':'Бүтээгдэхүүн',
-      'nav.about':'Компани','nav.contact':'Холбоо барих','nav.login':'Нэвтрэх','nav.order':'Захиалах',
+      'nav.about':'Компани','nav.contact':'Холбоо барих','nav.login':'Нэвтрэх','nav.logout':'Гарах','nav.order':'Захиалах',
       'hero.label':'Байгалийн цэвэр эрч хүч · Монгол Алтай',
       'hero.h1':'Монгол Алтайн<br><span class="accent">3000 жилийн</span><br>эрдэнэс — таны гарт',
       'hero.tagline':'"Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br><em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>',
@@ -2642,7 +2642,7 @@
     },
     en: {
       'nav.what':'What is Baragshun','nav.benefits':'Benefits','nav.products':'Products',
-      'nav.about':'Company','nav.contact':'Contact','nav.login':'Sign In','nav.order':'Order',
+      'nav.about':'Company','nav.contact':'Contact','nav.login':'Sign In','nav.logout':'Sign Out','nav.order':'Order',
       'hero.label':'Pure Natural Energy · Mongolian Altai',
       'hero.h1':'Mongolian Altai\'s<br><span class="accent">3000-Year</span><br>Treasure — in Your Hands',
       'hero.tagline':'"The mineral resin is the highest of all things..."<br><em style="font-size:0.85em;opacity:0.7">— Lunregdandar, XVIII century</em>',
@@ -2771,7 +2771,7 @@
     },
     zh: {
       'nav.what':'喜来芝简介','nav.benefits':'功效','nav.products':'产品',
-      'nav.about':'公司介绍','nav.contact':'联系我们','nav.login':'登录','nav.order':'立即购买',
+      'nav.about':'公司介绍','nav.contact':'联系我们','nav.login':'登录','nav.logout':'退出','nav.order':'立即购买',
       'hero.label':'纯天然能量 · 蒙古阿尔泰',
       'hero.h1':'蒙古阿尔泰<br><span class="accent">3000年</span><br>珍宝 — 就在您手中',
       'hero.tagline':'"矿物树脂乃万物之最上者..."<br><em style="font-size:0.85em;opacity:0.7">— 伦热格丹达尔，十八世纪</em>',
