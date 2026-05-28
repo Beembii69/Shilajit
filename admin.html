@@ -314,7 +314,7 @@
   import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-  import { getFirestore, collection, onSnapshot, doc, updateDoc, query, orderBy }
+  import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy }
     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
   // ─── CONFIG — same values as index.html ────────────────────────
@@ -493,6 +493,7 @@
     const b = [];
     if (status === 'cancelled') {
       b.push(`<button class="act-btn set-new" data-id="${id}" data-status="new">Сэргээх</button>`);
+      b.push(`<button class="act-btn delete-order" data-id="${id}" style="background:rgba(224,112,112,0.15);color:#e07070;border-color:rgba(224,112,112,0.3);">Устгах</button>`);
     } else {
       if (status !== 'called') b.push(`<button class="act-btn set-called" data-id="${id}" data-status="called">Холбогдсон</button>`);
       if (status !== 'done')   b.push(`<button class="act-btn set-done"   data-id="${id}" data-status="done">Дууссан</button>`);
@@ -504,14 +505,27 @@
 
   // ── Status change (event delegation) ──
   ordersBody.addEventListener('click', async e => {
-    const btn = e.target.closest('[data-status]');
-    if (!btn) return;
-    btn.disabled = true;
-    try {
-      await updateDoc(doc(db, 'orders', btn.dataset.id), { status: btn.dataset.status });
-    } catch (err) {
-      console.error(err);
-      btn.disabled = false;
+    const statusBtn = e.target.closest('[data-status]');
+    if (statusBtn) {
+      statusBtn.disabled = true;
+      try {
+        await updateDoc(doc(db, 'orders', statusBtn.dataset.id), { status: statusBtn.dataset.status });
+      } catch (err) {
+        console.error(err);
+        statusBtn.disabled = false;
+      }
+      return;
+    }
+    const delBtn = e.target.closest('.delete-order');
+    if (delBtn) {
+      if (!confirm('Энэ захиалгыг устгах уу? Энэ үйлдлийг буцаах боломжгүй.')) return;
+      delBtn.disabled = true;
+      try {
+        await deleteDoc(doc(db, 'orders', delBtn.dataset.id));
+      } catch (err) {
+        console.error(err);
+        delBtn.disabled = false;
+      }
     }
   });
 
