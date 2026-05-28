@@ -641,6 +641,21 @@
       font-size: 0.75rem; font-weight: 400;
       color: var(--muted); font-family: 'Noto Sans', sans-serif;
     }
+    .price-original {
+      display: block;
+      font-size: 0.82rem; font-weight: 400;
+      text-decoration: line-through;
+      color: var(--muted); opacity: 0.7;
+      font-family: 'Noto Sans', sans-serif;
+      line-height: 1.3;
+    }
+    .sale-badge-card {
+      position: absolute; top: 16px; left: 16px; z-index: 3;
+      background: #c0392b; color: #fff;
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 9px; border-radius: 2px;
+    }
 
     /* ─── HOW TO USE ─── */
     #how {
@@ -1788,15 +1803,15 @@
         <div class="label fade-up" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</div>
         <h1 class="h1 fade-up fade-up-d1" data-i18n="hero.h1">
           3000 жилийн<br>
-          <span class="accent">эрдэнэсийг</span><br>
-          нээж авах цаг
+          <span class="accent">түүхт эрдэнэсийг</span><br>
+          нээх цаг
         </h1>
         <p class="hero-tagline fade-up fade-up-d2" data-i18n="hero.tagline">
           "Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br>
           <em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>
         </p>
         <p class="body-text fade-up fade-up-d2" data-i18n="hero.body">
-          Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
+          Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
         </p>
         <div class="hero-actions fade-up fade-up-d3">
           <a href="#products" class="btn btn-gold" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
@@ -1857,16 +1872,16 @@
         <div class="label" data-i18n="what.label">Барагшун гэж юу вэ?</div>
         <h2 class="h2" data-i18n="what.h2">Хүн төрөлхтөн 3000 жил хэрэглэсэн байгалийн гайхамшиг</h2>
         <p class="body-text" data-i18n="what.body1">
-          Барагшун нь Монгол Алтайн нурууны өндөрлөг хэсэгт, далайн түвшнээс 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч бодис юм.
+          Барагшун нь Монгол Алтайн нурууны өндөрлөг хэсэгт, далайн түвшнээс 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис юм.
         </p>
         <p class="body-text" data-i18n="what.body2">
-          Энэ эртний соёл Грек, Дорно дахины орнуудаас эхлэн Араб, Туркаас дамжин Төв, Хятад, Монголын эрдэмтдийн туурвилд тэмдэглэгдэн үлджээ. Дэлхий даяар <strong style="color:var(--cream)">500 гаруй томоохон бүтээлд</strong> эрдэм шинжилгээ–анагааны ухааны чиглэлээр бичигджээ.
+          Энэ эртний соёл Грек, Дорно дахины орнуудаас эхлэн Араб, Туркаас дамжин Төв Ази, Хятад, Монголын эрдэмтдийн бүтээлүүдэд тэмдэглэгдэн үлджээ. Дэлхий даяар <strong style="color:var(--cream)">500 гаруй томоохон бүтээлд</strong> эрдэм шинжилгээ–анагааны ухааны чиглэлээр бичигджээ.
         </p>
         <p class="body-text" data-i18n="what.body3">
           Барагшуны найрлаганд <strong style="color:var(--cream)">60–70%</strong> шим гаралтай бодисууд, <strong style="color:var(--cream)">20–30%</strong>-ийг кальци, кали, цахиур, төмөр, магни мэт 10 гаруй макро эрдсүүд мөн титан, никель, зэс, хөнгөн цагаан, ванадий зэрэг 30 орчим микро эрдсүүд эзэлдэг аж.
         </p>
         <div class="avicenna-quote">
-          <p data-i18n="what.avicenna_q">"Барагшун нь оюун санааг хурцалж, ходоодны галыг бадраан, амьсгалыг уужим болгогооро нэн увдистай..."</p>
+          <p data-i18n="what.avicenna_q">"Барагшун нь оюун санааг хурцалж, ходоодны галыг бадраан, амьсгалыг уужим болгохоороо нэн увдистай..."</p>
           <cite data-i18n="what.avicenna_c">— Авиценна (Абу-Али ибн Сина), ок. 980–1037</cite>
         </div>
       </div>
@@ -1928,14 +1943,14 @@
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
         </div>
-        <div class="benefit-title" data-i18n="benefits.b7_title">Булчин мэжрийн системийг сэргээнэ</div>
+        <div class="benefit-title" data-i18n="benefits.b7_title">Булчин мэдрэлийн системийг сэргээнэ</div>
         <div class="benefit-desc" data-i18n="benefits.b7_desc">Яс, мөч хугарах, цээжний гэмтэл, үе булгах үед барагшуныг хэрэглэвэл үр дүнтэй болох нь олон улсын судлаачдаар нотлогдсон.</div>
       </div>
       <div class="benefit-card fade-up fade-up-d4">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
-        <div class="benefit-title" data-i18n="benefits.b8_title">Яс мөчний өвдалтийг намдааж залуу насыг хадгална</div>
+        <div class="benefit-title" data-i18n="benefits.b8_title">Яс мөчний өвдөлтийг намдааж залуу насыг хадгална</div>
         <div class="benefit-desc" data-i18n="benefits.b8_desc">Дорно дахины анагааx ухаанд тархины тэжээл, залуу нас хадгалагч хэмээн өдөр бүр уухыг зөвлөсөн байдаг.</div>
       </div>
     </div>
@@ -1958,6 +1973,7 @@
       <!-- Product 1: Өтгөн барагшун 100мл -->
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div>
           <img src="Products/product-1.jpg" alt="Өтгөн барагшун 100мл">
         </div>
@@ -1965,7 +1981,7 @@
           <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
           <div class="product-sub" data-i18n="products.p1_sub">100мл · Дусаалгын сав</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p1_price">50,000 ₮ <span class="unit">/ ш</span></div>
+            <div class="product-price" data-i18n="products.p1_price"><span class="price-original">50,000 ₮</span>45,000 ₮ <span class="unit">/ ш</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p1" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -1974,13 +1990,14 @@
       <!-- Product 2: Өтгөн барагшун 50мл -->
       <div class="product-card fade-up fade-up-d2">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <img src="Products/product-2.jpg" alt="Өтгөн барагшун 50мл">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
           <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
+            <div class="product-price" data-i18n="products.p2_price"><span class="price-original">30,000 ₮</span>27,000 ₮ <span class="unit">/ ш</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p2" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -1989,13 +2006,14 @@
       <!-- Product 3: Шингэн барагшун 60ш -->
       <div class="product-card fade-up fade-up-d3">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <img src="Products/product-3.jpg" alt="Шингэн барагшун 60ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p3_sub">60 ширхэг · Саше хайрцаг</div>
+          <div class="product-sub" data-i18n="products.p3_sub">60 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p3_price">70,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p3_price"><span class="price-original">70,000 ₮</span>63,000 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p3" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -2004,13 +2022,14 @@
       <!-- Product 4: Шингэн барагшун 30ш -->
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <img src="Products/product-4.jpg" alt="Шингэн барагшун 30ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Саше хайрцаг</div>
+          <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p4_price">40,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p4_price"><span class="price-original">40,000 ₮</span>36,000 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p4" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -2019,13 +2038,14 @@
       <!-- Product 5: Шингэн барагшун 15ш -->
       <div class="product-card fade-up fade-up-d2">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <img src="Products/product-5.jpg" alt="Шингэн барагшун 15ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p5_sub">15 ширхэг · Саше хайрцаг</div>
+          <div class="product-sub" data-i18n="products.p5_sub">15 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p5_price">25,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p5_price"><span class="price-original">25,000 ₮</span>22,500 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p5" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -2034,13 +2054,14 @@
       <!-- Product 6: Шингэн барагшун 10ш -->
       <div class="product-card fade-up fade-up-d3">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <img src="Products/product-6.jpg" alt="Шингэн барагшун 10ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p6_sub">10 ширхэг · Саше хайрцаг</div>
+          <div class="product-sub" data-i18n="products.p6_sub">10 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p6_price">16,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p6_price"><span class="price-original">16,000 ₮</span>14,400 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p6" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -2049,14 +2070,15 @@
       <!-- Product 7: Барагшунтай жасминтай цай 50ш -->
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
+<div class="sale-badge-card">-10%</div>
 <div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div>
           <img src="Products/product-7.jpg" alt="Барагшунтай жасминтай цай 50ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
-          <div class="product-sub" data-i18n="products.p7_sub">50 ширхэг · Саше хайрцаг</div>
+          <div class="product-sub" data-i18n="products.p7_sub">50 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p7_price">20,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p7_price"><span class="price-original">20,000 ₮</span>18,000 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p7" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -2081,7 +2103,7 @@
           Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.
         </p>
         <p class="body-text" data-i18n="about.body2">
-          Уламжлалт эм эмчилгээний 3000 жилийн түүхтэй үнэт түүхий эд барагшун нь Монгол орны Алтайн нурууны өндөрлөг хэсэгт далайн түвшнээс 3500-4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч юм.
+          Уламжлалт эм эмчилгээний 3000 жилийн түүхтэй үнэт түүхий эд барагшун нь Монгол орны Алтайн нурууны өндөрлөг хэсэгт далайн түвшнээс 3500-4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бүтээгдэхүүн юм.
         </p>
         <p class="body-text" data-i18n="about.body3">
           Барагшун нь хүнд үйлдвэрт ажиллагсдын цацрагийн хордлого, хүнд металлийн хордлого тайлахад өндөр үр дүнтэй юм.
@@ -2162,15 +2184,15 @@
           <div class="step-num">01</div>
           <div class="step-content">
             <div class="step-title" data-i18n="how.step1_title">6 дусал хэмжээгээр авна</div>
-            <div class="step-desc" data-i18n="how.step1_desc">Өдөрт 2–3 удаа 6–8 дусаль авна. Нас болон биеийн байдлаасаа хамааруулан тунг эмчтэйгээ зөвлөлдөн тохируулаарай.</div>
+            <div class="step-desc" data-i18n="how.step1_desc">Өдөрт 2–3 удаа 6–8 дусал хэрэглэнэ. Нас болон биеийн байдлаасаа хамааруулан тунг эмчтэйгээ зөвлөлдөн тохируулаарай.</div>
           </div>
         </div>
 
         <div class="how-step">
           <div class="step-num">02</div>
           <div class="step-content">
-            <div class="step-title" data-i18n="how.step2_title">Халуун бүлэн усанд найруулж уух</div>
-            <div class="step-desc" data-i18n="how.step2_desc">Халуун бүлэн усанд найрулж уух — хүйтэн усанд уусгахыг зөвлөдөггүй. Оройн хоолноос 30 минутын өмнө уух нь хамгийн тохиромжтой.</div>
+            <div class="step-title" data-i18n="how.step2_title">Халуун бүлээн усанд найруулж уух</div>
+            <div class="step-desc" data-i18n="how.step2_desc">Халуун бүлээн усанд найруулж уух — хүйтэн усанд уусгахыг зөвлөдөггүй. Оройн хоолноос 30 минутын өмнө уух нь хамгийн тохиромжтой.</div>
           </div>
         </div>
 
@@ -2192,7 +2214,7 @@
 
         <div class="how-note">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <p data-i18n="how.note"><strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмслэн болон хөхүүлж байх хоногт хэрэглэлгүй байхаар зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.</p>
+          <p data-i18n="how.note"><strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмсэн болон хөхүүл үедээ хэрэглэхгүй байхыг зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.</p>
         </div>
       </div>
 
@@ -2515,9 +2537,9 @@
       'nav.what':'Барагшун гэж юу','nav.benefits':'Ач тус','nav.products':'Бүтээгдэхүүн',
       'nav.about':'Компани','nav.contact':'Холбоо барих','nav.login':'Нэвтрэх','nav.logout':'Гарах','nav.order':'Захиалах',
       'hero.label':'Байгалийн цэвэр эрч хүч · Монгол Алтай',
-      'hero.h1':'Монгол Алтайн<br><span class="accent">3000 жилийн</span><br>эрдэнэс — таны гарт',
+      'hero.h1':'Монгол Алтайн<br><span class="accent">3000 жилийн түүхт</span><br>эрдэнэс — таны гарт',
       'hero.tagline':'"Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br><em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>',
-      'hero.body':'<strong style="color:var(--cream)">Барагшун</strong> — зөвхөн Монгол Алтайн 3500–4000 м өндрөөс гардаг, 40 гаруй биоидэвхт бодис агуулсан байгалийн эрдэс. Эрдэм шинжилгээгээр батлагдсан. Монголд ганцхан эх үүсвэртэй.',
+      'hero.body':'<strong style="color:var(--cream)">Барагшун</strong> — зөвхөн Монгол Алтайн 3500–4000 м өндрөөс гардаг, 40 гаруй биологийн идэвхт бодис агуулсан байгалийн эрдэс. Эрдэм шинжилгээгээр батлагдсан. Монголд ганцхан эх үүсвэртэй.',
       'hero.cta1':'Бүтээгдэхүүн үзэх','hero.cta2':'Илүүг мэдэх',
       'hero.proof1':'Жилийн түүх','hero.proof2':'Эрдэс бодис','hero.proof3':'Байгалийн цэвэр','hero.proof4':'Монгол стандарт',
       'hero.chip1':'Фулвик хүчил','hero.chip2':'40+ эрдэс','hero.chip3':'Антиоксидант','hero.chip4':'Адаптоген',
@@ -2562,10 +2584,10 @@
       'footer.fp3':'Шингэн барагшун 60ш','footer.fp4':'Жасминтай цай 50ш','footer.fp5':'Хүргэлтийн үйлчилгээ',
       'footer.fl1':'Барагшун гэж юу?','footer.fl2':'Ач тус','footer.fl3':'Хэрэглэх заавар',
       'footer.fl4':'Судалгаа','footer.fl5':'Компанийн тухай',
-      'what.body1':'Барагшун нь Монгол Алтайн нурууны өндөрлөг хэсэгт, далайн түвшнээс 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч бодис юм.',
-      'what.body2':'Энэ эртний соёл Грек, Дорно дахины орнуудаас эхлэн Араб, Туркаас дамжин Төв, Хятад, Монголын эрдэмтдийн туурвилд тэмдэглэгдэн үлджээ. Дэлхий даяар <strong style="color:var(--cream)">500 гаруй томоохон бүтээлд</strong> эрдэм шинжилгээ–анагааны ухааны чиглэлээр бичигджээ.',
+      'what.body1':'Барагшун нь Монгол Алтайн нурууны өндөрлөг хэсэгт, далайн түвшнээс 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис юм.',
+      'what.body2':'Энэ эртний соёл Грек, Дорно дахины орнуудаас эхлэн Араб, Туркаас дамжин Төв Ази, Хятад, Монголын эрдэмтдийн бүтээлүүдэд тэмдэглэгдэн үлджээ. Дэлхий даяар <strong style="color:var(--cream)">500 гаруй томоохон бүтээлд</strong> эрдэм шинжилгээ–анагааны ухааны чиглэлээр бичигджээ.',
       'what.body3':'Барагшуны найрлаганд <strong style="color:var(--cream)">60–70%</strong> шим гаралтай бодисууд, <strong style="color:var(--cream)">20–30%</strong>-ийг кальци, кали, цахиур, төмөр, магни мэт 10 гаруй макро эрдсүүд мөн титан, никель, зэс, хөнгөн цагаан, ванадий зэрэг 30 орчим микро эрдсүүд эзэлдэг аж.',
-      'what.avicenna_q':'"Барагшун нь оюун санааг хурцалж, ходоодны галыг бадраан, амьсгалыг уужим болгогооро нэн увдистай..."',
+      'what.avicenna_q':'"Барагшун нь оюун санааг хурцалж, ходоодны галыг бадраан, амьсгалыг уужим болгохоороо нэн увдистай..."',
       'what.avicenna_c':'— Авиценна (Абу-Али ибн Сина), ок. 980–1037',
       'benefits.b1_title':'Зүрх судасны үрэвслийг намдаана','benefits.b1_desc':'Фульвик болон гуминик хүчил нь судасны хатуурлыг бууруулж, цусны эргэлтийг сайжруулж, зүрхний ачааллыг хөнгөлдөг.',
       'benefits.b2_title':'Дархлааг бөхжүүлж биеийг хамгаалдаг','benefits.b2_desc':'Биеийн эсэргүүцлийг дэмжиж, вирус, бактерийн эсрэг байгалийн хамгаалалтыг сайжруулдаг.',
@@ -2573,22 +2595,22 @@
       'benefits.b4_title':'Уушигны эрүүл мэндийг сайжруулна','benefits.b4_desc':'Амьсгалын замыг цэвэрлэж, уушгийг хамгаалж, гуурсан хоолойн өвчнүүдийг намдаахад дэмждэг.',
       'benefits.b5_title':'Жадарлыг тайлж эрч хүч нэмэгдүүлнэ','benefits.b5_desc':'Митохондрийн ATP үйлдвэрлэлийг идэвхжүүлж, физик болон оюун санааны ядаргааг 3–5 хоногт мэдэгдэхүйц бууруулдаг.',
       'benefits.b6_title':'Бодисын солилцоог идэвхжүүлнэ','benefits.b6_desc':'Бодисын солилцоог идэвхжүүлж, эд эсийн шинэ төлжилтийг дэмжиж, хорыг гадагшлуулахад тусалдаг.',
-      'benefits.b7_title':'Булчин мэжрийн системийг сэргээнэ','benefits.b7_desc':'Яс, мөч хугарах, цээжний гэмтэл, үе булгах үед барагшуныг хэрэглэвэл үр дүнтэй болох нь олон улсын судлаачдаар нотлогдсон.',
-      'benefits.b8_title':'Яс мөчний өвдалтийг намдааж залуу насыг хадгална','benefits.b8_desc':'Фульвик хүчил нь үений шингэнд шингэж, мөгөөрсний элэгдлийг удаашруулж, өвдөлтгүй хөдөлгөөнийг дэмждэг.',
+      'benefits.b7_title':'Булчин мэдрэлийн системийг сэргээнэ','benefits.b7_desc':'Яс, мөч хугарах, цээжний гэмтэл, үе булгах үед барагшуныг хэрэглэвэл үр дүнтэй болох нь олон улсын судлаачдаар нотлогдсон.',
+      'benefits.b8_title':'Яс мөчний өвдөлтийг намдааж залуу насыг хадгална','benefits.b8_desc':'Фульвик хүчил нь үений шингэнд шингэж, мөгөөрсний элэгдлийг удаашруулж, өвдөлтгүй хөдөлгөөнийг дэмждэг.',
       'products.p1_name':'Өтгөн барагшун','products.p1_sub':'100мл · Дусаалгын сав · Хамгийн хүчтэй найрлага',
       'products.p2_name':'Өтгөн барагшун','products.p2_sub':'50мл · Дусаалгын сав · Туршилтын хэмжээ',
-      'products.p3_name':'Шингэн барагшун','products.p3_sub':'60 ширхэг · Саше хайрцаг · 2 сарын тун',
-      'products.p4_name':'Шингэн барагшун','products.p4_sub':'30 ширхэг · Саше хайрцаг · 1 сарын тун',
-      'products.p5_name':'Шингэн барагшун','products.p5_sub':'15 ширхэг · Саше хайрцаг · Туршилтын багц',
-      'products.p6_name':'Шингэн барагшун','products.p6_sub':'10 ширхэг · Саше хайрцаг · Эхлэгчдэд',
-      'products.p7_name':'Барагшунтай жасминтай цай','products.p7_sub':'50 ширхэг · Саше хайрцаг · Өдөр тутмын тайвшруулах цай',
-      'products.p1_price':'50,000 ₮ <span class="unit">/ ш</span>',
-      'products.p2_price':'30,000 ₮ <span class="unit">/ ш</span>',
-      'products.p3_price':'70,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p4_price':'40,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p5_price':'25,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p6_price':'16,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p7_price':'20,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p3_name':'Шингэн барагшун','products.p3_sub':'60 ширхэг · Хайрцаг · 2 сарын тун',
+      'products.p4_name':'Шингэн барагшун','products.p4_sub':'30 ширхэг · Хайрцаг · 1 сарын тун',
+      'products.p5_name':'Шингэн барагшун','products.p5_sub':'15 ширхэг · Хайрцаг · Туршилтын багц',
+      'products.p6_name':'Шингэн барагшун','products.p6_sub':'10 ширхэг · Хайрцаг · Эхлэгчдэд',
+      'products.p7_name':'Барагшунтай жасминтай цай','products.p7_sub':'50 ширхэг · Хайрцаг · Өдөр тутмын тайвшруулах цай',
+      'products.p1_price':'<span class="price-original">50,000 ₮</span>45,000 ₮ <span class="unit">/ ш</span>',
+      'products.p2_price':'<span class="price-original">30,000 ₮</span>27,000 ₮ <span class="unit">/ ш</span>',
+      'products.p3_price':'<span class="price-original">70,000 ₮</span>63,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p4_price':'<span class="price-original">40,000 ₮</span>36,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p5_price':'<span class="price-original">25,000 ₮</span>22,500 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p6_price':'<span class="price-original">16,000 ₮</span>14,400 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p7_price':'<span class="price-original">20,000 ₮</span>18,000 ₮ <span class="unit">/ хайрцаг</span>',
       'products.delivery_note':'* Худалдан авагчийн хүсэлтээр хүргэлтийн үйлчилгээ болон борлуулалтын нийлүүлэлт хийгдэнэ.',
       'about.body1':'Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.',
       'about.body2':'Бид Монголын Шинжлэх Ухааны Академийн Биологийн хүрээлэнтэй хамтран, БНСУ болон Данийн өндөр технологийн тоног төхөөрөмжийг ашиглан барагшуныг <strong style="color:var(--cream)">байгалийн цэвэр байдлаар</strong> боловсруулдаг. Найрлагад нэмэлт бодис, хадгалалтын бодис огт ордоггүй.',
@@ -2600,11 +2622,11 @@
       'about.cert2_name':'Магадлан итгэмжлэгдсэн лаборатори','about.cert2_desc':'Эко стандарт лаборатори (MNS ISO/IEC 17025) — E.coli, Salmonella илрэхгүй. Хар тугалга &lt;0.015 мг/кг, Кадьми &lt;0.001 мг/кг.',
       'about.cert3_name':'qcTestLab.com — Олон улсын шинжилгээ','about.cert3_desc':'Микробиологийн болон хүнд металлийн (Pb, Hg, As, Cd) шинжилгээгээр бүгд PASS. ICP-OES аргаар 30+ элемент тодорхойлогдсон.',
       'about.cert4_name':'Монгол ШУА-ийн Биологийн хүрээлэн','about.cert4_desc':'БНСУлс болон Данийн тоног төхөөрөмжөөр хамтран ажиллаж, Монголд анх удаа байгалийн цэвэр барагшун үйлдвэрлэсэн.',
-      'how.step1_title':'6–8 дусал хэмжээгээр авна','how.step1_desc':'Өдөрт 2–3 удаа 6–8 дусаль авна. Нас болон биеийн байдлаасаа хамааруулан тунг эмчтэйгээ зөвлөлдөн тохируулаарай.',
-      'how.step2_title':'Халуун бүлэн усанд найруулж уух','how.step2_desc':'Халуун бүлэн усанд найрулж уух — хүйтэн усанд уусгахыг зөвлөдөггүй. Оройн хоолноос 30 минутын өмнө уух нь хамгийн тохиромжтой.',
+      'how.step1_title':'6–8 дусал хэмжээгээр авна','how.step1_desc':'Өдөрт 2–3 удаа 6–8 дусал хэрэглэнэ. Нас болон биеийн байдлаасаа хамааруулан тунг эмчтэйгээ зөвлөлдөн тохируулаарай.',
+      'how.step2_title':'Халуун бүлээн усанд найруулж уух','how.step2_desc':'Халуун бүлээн усанд найруулж уух — хүйтэн усанд уусгахыг зөвлөдөггүй. Оройн хоолноос 30 минутын өмнө уух нь хамгийн тохиромжтой.',
       'how.step3_title':'Уусны дараа амарна','how.step3_desc':'Уусны дараа 30–40 минут орондоо хэвтэх нь илүү зохимжтой. Хэрвээ барагшуны тосон түрхлэг эсвэл уусмал байдлаар бэлтгэж бигнүүр хэлбэрээр тавих бол орой унтахын өмнө хийвэл сайн.',
       'how.step4_title':'Тогтмол хэрэглэнэ','how.step4_desc':'30–90 хоногийн курсээр хэрэглэхийг зөвлөдөг. Курс дуусан 2–4 долоо хоног завсарлаж, дахин эхлүүлж болно. Тогтмол хэрэглэлт урт хугацааны үр дүнг өгдөг.',
-      'how.note':'<strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмслэн болон хөхүүлж байх хоногт хэрэглэлгүй байхаар зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.',
+      'how.note':'<strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмсэн болон хөхүүл үедээ хэрэглэхгүй байхыг зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.',
       'science.body':'Барагшуны судлалын талаар одоогоор нийт 500 гаруй томоохон бүтээлүүд байгаагийн дийлэнх хэсэг нь эрдэм шинжилгээ–анагаах ухааны чиглэлээр бичигджээ.',
       'science.c1_label':'Эрдэм шинжилгээний бүтээл','science.c1_desc':'Дэлхий дахинд барагшуны талаарх судалгааны ажлуудын тоо байнга нэмэгдэж байна.',
       'science.c2_label':'Эрдэс бодис агуулдаг','science.c2_desc':'Амин хүчил, фульвийн хүчил зэрэг биологийн идэвхт бодисууд нэг бүтээгдэхүүнд агуулагддаг.',
@@ -2711,13 +2733,13 @@
       'products.p5_name':'Liquid Baragshun','products.p5_sub':'15 pcs · Sachet Box · Starter Pack',
       'products.p6_name':'Liquid Baragshun','products.p6_sub':'10 pcs · Sachet Box · For Beginners',
       'products.p7_name':'Baragshun Jasmine Tea','products.p7_sub':'50 pcs · Sachet Box · Daily Calming Tea',
-      'products.p1_price':'$21 <span class="unit">/ bottle</span>',
-      'products.p2_price':'$14 <span class="unit">/ bottle</span>',
-      'products.p3_price':'$26 <span class="unit">/ box</span>',
-      'products.p4_price':'$17 <span class="unit">/ box</span>',
-      'products.p5_price':'$12 <span class="unit">/ box</span>',
-      'products.p6_price':'$7 <span class="unit">/ box</span>',
-      'products.p7_price':'$12 <span class="unit">/ box</span>',
+      'products.p1_price':'<span class="price-original">$21</span>$19 <span class="unit">/ bottle</span>',
+      'products.p2_price':'<span class="price-original">$14</span>$13 <span class="unit">/ bottle</span>',
+      'products.p3_price':'<span class="price-original">$26</span>$23 <span class="unit">/ box</span>',
+      'products.p4_price':'<span class="price-original">$17</span>$15 <span class="unit">/ box</span>',
+      'products.p5_price':'<span class="price-original">$12</span>$11 <span class="unit">/ box</span>',
+      'products.p6_price':'<span class="price-original">$7</span>$6 <span class="unit">/ box</span>',
+      'products.p7_price':'<span class="price-original">$12</span>$11 <span class="unit">/ box</span>',
       'products.delivery_note':'* Delivery service and wholesale supply available upon customer request.',
       'about.body1':'Our company, in collaboration with the Institute of Biology of the Mongolian Academy of Sciences using equipment from South Korea and Denmark, is a national manufacturer that — <strong style="color:var(--cream)">for the first time in Mongolia</strong> — produces pure natural Baragshun combined with honey as a bioactive product for the people.',
       'about.body2':'Working alongside the Institute of Biology of the Mongolian Academy of Sciences, we process Baragshun using advanced equipment from South Korea and Denmark — keeping it <strong style="color:var(--cream)">completely pure</strong>, with no additives or preservatives.',
@@ -2840,13 +2862,13 @@
       'products.p5_name':'液态喜来芝','products.p5_sub':'15袋 · 袋装盒 · 入门套装',
       'products.p6_name':'液态喜来芝','products.p6_sub':'10袋 · 袋装盒 · 初次尝试',
       'products.p7_name':'喜来芝茉莉花茶','products.p7_sub':'50袋 · 袋装盒 · 日常舒缓茶',
-      'products.p1_price':'¥149 <span class="unit">/ 瓶</span>',
-      'products.p2_price':'¥99 <span class="unit">/ 瓶</span>',
-      'products.p3_price':'¥189 <span class="unit">/ 盒</span>',
-      'products.p4_price':'¥119 <span class="unit">/ 盒</span>',
-      'products.p5_price':'¥89 <span class="unit">/ 盒</span>',
-      'products.p6_price':'¥49 <span class="unit">/ 盒</span>',
-      'products.p7_price':'¥89 <span class="unit">/ 盒</span>',
+      'products.p1_price':'<span class="price-original">¥149</span>¥134 <span class="unit">/ 瓶</span>',
+      'products.p2_price':'<span class="price-original">¥99</span>¥89 <span class="unit">/ 瓶</span>',
+      'products.p3_price':'<span class="price-original">¥189</span>¥170 <span class="unit">/ 盒</span>',
+      'products.p4_price':'<span class="price-original">¥119</span>¥107 <span class="unit">/ 盒</span>',
+      'products.p5_price':'<span class="price-original">¥89</span>¥80 <span class="unit">/ 盒</span>',
+      'products.p6_price':'<span class="price-original">¥49</span>¥44 <span class="unit">/ 盒</span>',
+      'products.p7_price':'<span class="price-original">¥89</span>¥80 <span class="unit">/ 盒</span>',
       'products.delivery_note':'* 可按客户要求提供配送服务及批量供货。',
       'about.body1':'我们公司与蒙古科学院生物研究所合作，采用韩国和丹麦的先进设备，在蒙古国<strong style="color:var(--cream)">首次生产</strong>纯天然喜来芝与蜂蜜结合的生物活性产品，献给广大消费者。',
       'about.body2':'我们与蒙古科学院生物研究所合作，利用韩国和丹麦的高科技设备加工喜来芝，保持其<strong style="color:var(--cream)">完全纯净</strong>，不含任何添加剂或防腐剂。',
