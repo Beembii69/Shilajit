@@ -1,0 +1,3051 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Монгол Алтайн Барагшун — Байгалийн цэвэр эрч хүч</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080c14;
+      --bg-2:     #0d1220;
+      --bg-3:     #0a0f1a;
+      --gold:     #c9a96e;
+      --gold-lt:  #e2c98a;
+      --gold-dk:  #a07840;
+      --orange:   #f7941d;
+      --teal:     #00abc5;
+      --cream:    #f0ece4;
+      --muted:    rgba(240,236,228,0.50);
+      --muted-2:  rgba(240,236,228,0.25);
+      --white:    #ffffff;
+      --navy:     #052746;
+      --border-gold: rgba(201,169,110,0.18);
+      --border-gold-bright: rgba(201,169,110,0.45);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      color: var(--cream);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILS ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    .label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .label::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--gold);
+    }
+    .h1 {
+      font-family: 'Cormorant Infant', serif;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      font-weight: 700; line-height: 1.02; color: var(--cream);
+    }
+    .h2 {
+      font-family: 'Cormorant Infant', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600; line-height: 1.1; color: var(--cream);
+    }
+    .h3 {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.5rem; font-weight: 600; color: var(--cream);
+    }
+    .body-text {
+      font-size: 0.975rem; line-height: 1.85;
+      color: var(--muted); max-width: 560px;
+    }
+    .gold { color: var(--gold); }
+    .teal { color: var(--teal); }
+
+    /* buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 15px 36px; border-radius: 3px;
+      font-family: 'Noto Sans', sans-serif; font-size: 0.82rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all 0.28s ease;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold), var(--gold-lt));
+      color: var(--bg); background-size: 200% 100%; background-position: right;
+    }
+    .btn-gold:hover {
+      background-position: left;
+      box-shadow: 0 8px 32px rgba(201,169,110,0.3);
+      transform: translateY(-2px);
+    }
+    @keyframes orderPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.0); }
+      50%       { box-shadow: 0 0 0 7px rgba(201,169,110,0.28); }
+    }
+    .order-btn {
+      animation: orderPulse 2.8s ease-in-out infinite;
+    }
+    .order-btn:hover {
+      animation: none;
+    }
+    .btn-outline-gold {
+      background: transparent; color: var(--gold);
+      border: 1px solid var(--border-gold-bright);
+    }
+    .btn-outline-gold:hover {
+      background: rgba(201,169,110,0.08);
+      border-color: var(--gold); transform: translateY(-2px);
+    }
+    .btn-teal {
+      background: var(--teal); color: var(--bg);
+    }
+    .btn-teal:hover {
+      background: #009db6; transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,171,197,0.25);
+    }
+
+    /* ─── GOLD DIVIDER ─── */
+    .gold-line {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    .gold-ornament {
+      display: flex; align-items: center; gap: 16px;
+      justify-content: center; margin: 20px 0;
+    }
+    .gold-ornament::before,
+    .gold-ornament::after {
+      content: ''; flex: 1; max-width: 80px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+    .gold-ornament::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .gold-ornament span {
+      font-size: 1rem; color: var(--gold); opacity: 0.6;
+    }
+
+    /* ─── WAVE SVG DECORATOR ─── */
+    .wave-gold {
+      position: absolute; pointer-events: none; overflow: visible;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      transition: background 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(8,12,20,0.97);
+      border-bottom-color: var(--border-gold);
+      backdrop-filter: blur(16px);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; padding: 0 24px;
+      gap: 16px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img { height: 50px; width: auto; }
+    .nav-logo-text { line-height: 1.1; }
+    .nav-logo-text .top {
+      display: block; font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+    }
+    .nav-logo-text .bottom {
+      display: block; font-family: 'Cormorant Infant', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--cream);
+      letter-spacing: 0.06em;
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; list-style: none; }
+    .nav-links a {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color 0.2s; white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1px;
+      background: var(--cream); transition: all 0.3s;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 76px; left: 0; right: 0;
+      background: rgba(8,12,20,0.98);
+      border-top: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 28px; z-index: 199;
+      backdrop-filter: blur(20px);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; }
+    .mobile-menu ul li a {
+      display: block; padding: 13px 0;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--border-gold);
+      transition: color 0.2s;
+    }
+    .mobile-menu ul li a:hover { color: var(--gold); }
+    .mobile-menu .btn { margin-top: 24px; width: 100%; justify-content: center; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden; background: var(--bg);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 140px 0 100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 64px;
+    }
+    /* ── Hero Visual (right column) ── */
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      height: 540px;
+      margin-top: -290px;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(197,160,90,0.22) 0%, rgba(197,160,90,0.06) 50%, transparent 72%);
+      border-radius: 50%;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { transform: scale(1); opacity: 0.8; }
+      50%      { transform: scale(1.12); opacity: 1; }
+    }
+    .hero-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(197,160,90,0.28);
+      width: 340px; height: 340px;
+      animation: ringRotate 20s linear infinite;
+    }
+    .hero-ring::before {
+      content: '';
+      position: absolute; top: -4px; left: 50%;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); opacity: 0.7;
+      transform: translateX(-50%);
+    }
+    .hero-ring-2 {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(197,160,90,0.12);
+      width: 480px; height: 480px;
+      animation: ringRotate 34s linear infinite reverse;
+    }
+    .hero-ring-2::before {
+      content: '';
+      position: absolute; bottom: -4px; right: 20%;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(197,160,90,0.5);
+    }
+    @keyframes ringRotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .hero-logo-float {
+      position: relative; z-index: 3;
+      width: 220px; height: auto;
+      animation: logoGlow 4s ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes logoGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 14px rgba(197,160,90,0.45))
+          drop-shadow(0 0 40px rgba(197,160,90,0.20))
+          drop-shadow(0 0 80px rgba(197,160,90,0.08));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 24px rgba(197,160,90,0.75))
+          drop-shadow(0 0 64px rgba(197,160,90,0.38))
+          drop-shadow(0 0 110px rgba(197,160,90,0.18));
+      }
+    }
+    /* mineral chips floating around the logo */
+    .hero-chip {
+      position: absolute; z-index: 4;
+      background: rgba(197,160,90,0.08);
+      border: 1px solid rgba(197,160,90,0.3);
+      border-radius: 100px;
+      padding: 7px 14px;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold);
+      backdrop-filter: blur(6px);
+      animation: chipFloat 6s ease-in-out infinite;
+    }
+    .hero-chip:nth-child(1) { top: 12%; right: 6%;  animation-delay: 0s; }
+    .hero-chip:nth-child(2) { top: 40%; left: 2%;  animation-delay: 1.5s; }
+    .hero-chip:nth-child(3) { bottom: 18%; right: 10%; animation-delay: 3s; }
+    .hero-chip:nth-child(4) { bottom: 32%; left: 8%;  animation-delay: 4.5s; }
+    @keyframes chipFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    /* hero curve at bottom */
+    .hero-curve {
+      position: absolute; bottom: -1px; left: 0; right: 0; z-index: 3;
+      line-height: 0;
+    }
+    .hero-text .label { margin-bottom: 28px; }
+    .hero-text .h1 { margin-bottom: 20px; }
+    .hero-text .h1 .accent { color: var(--gold); display: block; }
+    .hero-tagline {
+      font-family: 'Cormorant Infant', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-style: italic; font-weight: 300;
+      color: var(--muted); margin-bottom: 28px;
+    }
+    .hero-text .body-text { margin-bottom: 44px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+    .hero-proof {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      padding-top: 36px;
+      border-top: 1px solid var(--border-gold);
+    }
+    .proof-num {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .proof-num sup { font-size: 1rem; }
+    .proof-label {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-top: 5px;
+    }
+    .scroll-cue {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      animation: scrollBounce 2.5s ease-in-out infinite;
+    }
+    .scroll-cue svg { width: 18px; height: 18px; }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+      50% { transform: translateX(-50%) translateY(7px); opacity: 1; }
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { position: relative; overflow: hidden; }
+    .section-header { margin-bottom: 60px; }
+    .section-header.center { text-align: center; }
+    .section-header.center .label { justify-content: center; }
+    .section-header.center .label::before,
+    .section-header.center .label::after { content: none; }
+    .section-header.center .label {
+      display: flex; gap: 10px;
+    }
+    .section-header .h2 { margin: 16px 0 20px; }
+    .section-header .body-text { margin: 0; }
+
+    /* ─── WHAT IS SHILAJIT ─── */
+    #what {
+      padding: 80px 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(8,12,22,0.85) 0%,
+          rgba(8,12,22,0.70) 40%,
+          rgba(8,12,22,0.85) 100%
+        ),
+        url('background photo/hf_20260413_080332_f223d04d-4ed0-4bda-8a69-7200ce1f2596.png') center/cover no-repeat;
+      border-top: 1px solid var(--border-gold);
+      position: relative;
+    }
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .what-text .label { margin-bottom: 20px; }
+    .what-text .h2 { margin-bottom: 24px; }
+    .what-text .body-text { margin-bottom: 20px; }
+    .avicenna-quote {
+      margin-top: 40px; padding: 24px 24px 24px 20px;
+      border-left: 1px solid var(--gold);
+    }
+    .avicenna-quote p {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.1rem; font-style: italic;
+      color: var(--cream); line-height: 1.7; margin-bottom: 10px;
+    }
+    .avicenna-quote cite {
+      font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    /* ─── BENEFITS ─── */
+    #benefits {
+      padding: 80px 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border-gold);
+    }
+    .benefits-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .benefit-card {
+      padding: 32px 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .benefit-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold-dk), var(--gold-lt));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .benefit-card:hover { background: rgba(201,169,110,0.05); border-color: var(--border-gold-bright); }
+    .benefit-card:hover::before { transform: scaleX(1); }
+    .benefit-icon {
+      width: 48px; height: 48px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .benefit-icon svg { width: 30px; height: 30px; }
+    .benefit-title {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--cream); margin-bottom: 10px; line-height: 1.3;
+    }
+    .benefit-desc {
+      font-size: 0.83rem; line-height: 1.7; color: var(--muted);
+    }
+
+    /* ─── ABOUT COMPANY ─── */
+    #about {
+      padding: 80px 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(8,12,22,0.82) 0%,
+          rgba(8,12,22,0.68) 40%,
+          rgba(8,12,22,0.82) 100%
+        ),
+        url('background photo/hf_20260413_080332_f223d04d-4ed0-4bda-8a69-7200ce1f2596.png') center/cover no-repeat;
+      border-top: 1px solid var(--border-gold);
+      position: relative;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .about-text .label { margin-bottom: 20px; }
+    .about-text .h2 { margin-bottom: 28px; }
+    .about-text .body-text { margin-bottom: 20px; max-width: 100%; }
+    .about-facts {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-top: 40px;
+    }
+    .fact-box {
+      padding: 22px 20px;
+      background: rgba(8,12,22,0.55);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px;
+      backdrop-filter: blur(6px);
+    }
+    .fact-box .num {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 2rem; font-weight: 700; color: var(--gold);
+      line-height: 1;
+    }
+    .fact-box .lbl {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-top: 6px;
+    }
+
+    /* Certifications */
+    .about-certs {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .cert-card {
+      display: flex; align-items: center; gap: 20px;
+      padding: 24px 24px;
+      background: rgba(8,12,22,0.55);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px;
+      transition: border-color 0.2s;
+      backdrop-filter: blur(6px);
+    }
+    .cert-card:hover { border-color: var(--border-gold-bright); }
+    .cert-badge {
+      width: 52px; height: 52px; border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Infant', serif;
+      font-size: 0.85rem; font-weight: 700;
+      text-align: center; line-height: 1.2;
+    }
+    .cert-badge.gold-badge {
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      color: var(--bg);
+    }
+    .cert-badge.teal-badge {
+      background: linear-gradient(135deg, #005a6b, var(--teal));
+      color: var(--white);
+    }
+    .cert-badge.navy-badge {
+      background: linear-gradient(135deg, #021b36, var(--navy));
+      color: var(--cream);
+    }
+    .cert-info .cert-name {
+      font-weight: 600; font-size: 0.9rem; color: var(--cream);
+      margin-bottom: 5px;
+    }
+    .cert-info .cert-desc {
+      font-size: 0.78rem; color: var(--muted); line-height: 1.5;
+    }
+    .cert-check {
+      margin-left: auto; width: 22px; height: 22px;
+      border-radius: 50%; background: rgba(201,169,110,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); flex-shrink: 0;
+    }
+    .cert-check svg { width: 12px; height: 12px; }
+
+    /* ─── PRODUCTS ─── */
+    #products {
+      padding: 80px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border-gold);
+    }
+    .products-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @property --gradient-angle {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+    @keyframes gradient-rotate {
+      from { --gradient-angle: 0deg; }
+      to   { --gradient-angle: 360deg; }
+    }
+    .product-card {
+      border: 1.5px solid transparent;
+      border-radius: 3px; overflow: hidden;
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s cubic-bezier(.22,1,.36,1);
+      background-image:
+        linear-gradient(#0a0f1a, #0a0f1a),
+        conic-gradient(
+          from var(--gradient-angle),
+          #3d2a0a 0%,
+          #c9a96e 30%,
+          #f0d99a 50%,
+          #c9a96e 70%,
+          #3d2a0a 100%
+        );
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      animation: gradient-rotate 6s linear infinite;
+    }
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 48px rgba(201,169,110,0.22), 0 4px 16px rgba(0,0,0,0.4);
+    }
+    /* Ensure card hover stays snappy even when fade-up transition is active */
+    .products-grid .product-card {
+      transition: opacity 0.75s ease, transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s cubic-bezier(.22,1,.36,1) !important;
+    }
+    .product-img {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(145deg, #0d1525, #0a0e1a);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .product-img img {
+      position: relative; z-index: 1;
+      max-width: 70%; max-height: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 40px rgba(201,169,110,0.2));
+    }
+    .product-img-placeholder {
+      position: relative; z-index: 1;
+      text-align: center; padding: 20px;
+    }
+    .product-img-placeholder svg {
+      width: 48px; height: 48px; color: var(--gold); opacity: 0.3;
+      margin-bottom: 12px;
+    }
+    .product-img-placeholder p {
+      font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); opacity: 0.4;
+    }
+    .product-badge-top {
+      position: absolute; top: 16px; right: 16px; z-index: 2;
+      background: var(--gold); color: var(--bg);
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 2px;
+    }
+    .product-info { padding: 22px 20px; }
+    .product-info .product-name {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--cream); margin-bottom: 4px;
+    }
+    .product-info .product-sub {
+      font-size: 0.76rem; color: var(--muted);
+      letter-spacing: 0.05em; margin-bottom: 0;
+    }
+    .product-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--border-gold);
+    }
+    .product-price {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--gold);
+    }
+    .product-price .unit {
+      font-size: 0.75rem; font-weight: 400;
+      color: var(--muted); font-family: 'Noto Sans', sans-serif;
+    }
+
+    /* ─── HOW TO USE ─── */
+    #how {
+      padding: 80px 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border-gold);
+    }
+    .how-inner {
+      max-width: 640px;
+    }
+    .how-steps {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .how-step {
+      display: flex; align-items: flex-start; gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .how-step:first-child { padding-top: 0; }
+    .how-step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 2.5rem; font-weight: 700;
+      color: var(--gold); opacity: 0.25; line-height: 1;
+      flex-shrink: 0; width: 40px;
+    }
+    .step-content {}
+    .step-title {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--cream); margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 0.875rem; line-height: 1.75;
+      color: var(--muted);
+    }
+    .how-note {
+      margin-top: 36px; padding: 22px 24px;
+      background: rgba(201,169,110,0.05);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px;
+      display: flex; gap: 16px;
+    }
+    .how-note svg { width: 20px; height: 20px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .how-note p { font-size: 0.82rem; line-height: 1.7; color: var(--muted); }
+
+    /* ─── SCIENCE ─── */
+    #science {
+      padding: 80px 0;
+      background: var(--bg-3);
+      border-top: 1px solid var(--border-gold);
+    }
+    .science-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 0;
+    }
+    .sci-card {
+      padding: 36px 28px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px; text-align: center;
+      transition: all 0.3s;
+    }
+    .sci-card:hover { background: rgba(201,169,110,0.05); border-color: var(--border-gold-bright); }
+    .sci-num {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 3rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .sci-num sup { font-size: 1.2rem; }
+    .sci-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin: 10px 0 16px;
+    }
+    .sci-desc {
+      font-size: 0.83rem; line-height: 1.7; color: var(--muted);
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    #testimonials {
+      padding: 80px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border-gold);
+    }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testi-card {
+      padding: 36px 32px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px; transition: border-color 0.3s;
+    }
+    .testi-card:hover { border-color: var(--border-gold-bright); }
+    .testi-stars { display: flex; gap: 4px; margin-bottom: 20px; }
+    .testi-stars svg { width: 13px; height: 13px; fill: var(--gold); }
+    .testi-quote-mark {
+      font-family: 'Cormorant Infant', serif; font-size: 3rem;
+      line-height: 0.5; color: var(--gold); opacity: 0.35;
+      display: block; margin-bottom: 16px;
+    }
+    .testi-text {
+      font-size: 0.9rem; line-height: 1.8;
+      color: var(--muted); font-style: italic; margin-bottom: 28px;
+    }
+    .testi-divider { width: 32px; height: 1px; background: var(--gold); margin-bottom: 20px; opacity: 0.5; }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .testi-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1rem; font-weight: 700; color: var(--bg);
+      flex-shrink: 0;
+    }
+    .testi-name { font-weight: 600; font-size: 0.88rem; color: var(--cream); }
+    .testi-role { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      padding: 80px 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border-gold);
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .contact-text .label { margin-bottom: 20px; }
+    .contact-text .h2 { margin-bottom: 24px; }
+    .contact-text .body-text { margin-bottom: 40px; max-width: 100%; }
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+    .ci-item {
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .ci-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      border: 1px solid var(--border-gold);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .ci-icon svg { width: 18px; height: 18px; }
+    .ci-lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .ci-val { font-size: 0.9rem; color: var(--cream); font-weight: 500; }
+
+    /* form */
+    .contact-form {
+      padding: 44px 40px;
+      background: rgba(201,169,110,0.03);
+      border: 1px solid var(--border-gold);
+      border-radius: 3px;
+    }
+    .contact-form .form-title {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--cream); margin-bottom: 28px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fg { margin-bottom: 18px; }
+    .fg label {
+      display: block; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .fg input, .fg textarea, .fg select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-gold);
+      border-radius: 2px; padding: 12px 14px;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 0.875rem; color: var(--cream);
+      outline: none; transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .fg input::placeholder, .fg textarea::placeholder { color: var(--muted-2); }
+    .fg input:focus, .fg textarea:focus, .fg select:focus {
+      border-color: var(--gold); background: rgba(201,169,110,0.05);
+    }
+    .fg select option { background: var(--bg); color: var(--cream); }
+    .fg textarea { resize: vertical; min-height: 100px; }
+    .form-submit-row { margin-top: 8px; }
+    .form-submit-row .btn { width: 100%; justify-content: center; }
+    .form-error-msg {
+      font-size: 0.82rem; color: #e07070;
+      min-height: 1.2em; margin-bottom: 6px;
+    }
+    .form-success-msg {
+      display: none; flex-direction: column; align-items: center;
+      gap: 12px; padding: 32px 20px; text-align: center;
+    }
+    .form-success-msg .success-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(111,207,151,0.15);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .form-success-msg .success-icon svg { stroke: #6fcf97; }
+    .form-success-msg .success-title {
+      font-family: 'Cormorant Infant', serif; font-size: 1.5rem;
+      font-weight: 600; color: var(--cream);
+    }
+    .form-success-msg .success-body { font-size: 0.875rem; color: var(--muted); }
+    .form-success-msg .order-id {
+      font-family: monospace; font-size: 0.8rem; letter-spacing: 0.12em;
+      background: rgba(201,169,110,0.12); border: 1px solid var(--border-gold);
+      padding: 6px 14px; border-radius: 4px; color: var(--gold);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #05080f;
+      border-top: 1px solid var(--border-gold);
+      padding: 56px 0 28px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px; margin-bottom: 40px;
+    }
+    .footer-brand img { height: 56px; margin-bottom: 20px; }
+    .footer-brand p {
+      font-size: 0.83rem; line-height: 1.8;
+      color: var(--muted); max-width: 260px; margin-bottom: 24px;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1rem; font-style: italic;
+      color: var(--gold); opacity: 0.7;
+    }
+    .footer-social { display: flex; gap: 10px; margin-top: 24px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 2px;
+      border: 1px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.07); }
+    .social-btn svg { width: 15px; height: 15px; }
+    .footer-col h4 {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 22px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border-gold);
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: 0.83rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 28px; border-top: 1px solid var(--border-gold);
+      gap: 16px; flex-wrap: wrap;
+    }
+    .footer-bottom p { font-size: 0.75rem; color: var(--muted); opacity: 0.6; }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom-links a {
+      font-size: 0.75rem; color: var(--muted); opacity: 0.6;
+      text-decoration: none; transition: opacity 0.2s, color 0.2s;
+    }
+    .footer-bottom-links a:hover { color: var(--gold); opacity: 1; }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-d1 { transition-delay: 0.1s; }
+    .fade-up-d2 { transition-delay: 0.2s; }
+    .fade-up-d3 { transition-delay: 0.3s; }
+    .fade-up-d4 { transition-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .what-grid { grid-template-columns: 1fr; gap: 48px; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .science-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      /* Nav */
+      .nav-links, nav .btn { display: none; }
+      #navUser { display: none !important; }
+      .hamburger { display: flex; }
+      .nav-inner { height: 64px; padding: 0 20px; }
+      .nav-logo img { height: 42px; }
+      .nav-logo-text .bottom { font-size: 0.95rem; }
+
+      /* Hero */
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-top: 100px;
+        padding-bottom: 60px;
+      }
+      .hero-visual {
+        height: 280px;
+        margin-top: -20px;
+        order: -1;
+      }
+      .hero-ring { width: 200px; height: 200px; }
+      .hero-ring-2 { width: 270px; height: 270px; }
+      .hero-logo-float { width: 130px; }
+      .hero-glow { width: 240px; height: 240px; }
+      .hero-chip { font-size: 0.58rem; padding: 5px 10px; }
+      .hero-text .label { margin-bottom: 16px; }
+      .hero-text .h1 { font-size: clamp(2.4rem, 10vw, 3.4rem); margin-bottom: 14px; }
+      .hero-tagline { font-size: 0.9rem; margin-bottom: 18px; }
+      .hero-text .body-text { font-size: 0.88rem; margin-bottom: 28px; }
+      .hero-actions { gap: 12px; margin-bottom: 36px; }
+      .hero-actions .btn { padding: 13px 20px; font-size: 0.72rem; }
+      .hero-proof { gap: 20px; padding-top: 24px; }
+      .proof-num { font-size: 1.5rem; }
+      .proof-label { font-size: 0.62rem; }
+
+      /* Sections padding */
+      #what, #benefits, #products, #how, #science, #about, #testimonials, #contact {
+        padding: 60px 0;
+      }
+      .container { padding: 0 18px; }
+      .h2 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+      .section-header { margin-bottom: 40px; }
+
+      /* What */
+      .what-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      /* Benefits */
+      .benefits-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .benefit-card { padding: 20px 16px; }
+
+      /* Products */
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .product-info { padding: 14px 12px; }
+      .product-name { font-size: 0.85rem; }
+      .product-price { font-size: 1rem; }
+      .product-cta .btn { padding: 8px 12px; font-size: 0.68rem; }
+
+      /* How */
+      .how-steps { max-width: 100%; }
+      .how-step { gap: 16px; padding: 20px 0; }
+      .step-num { font-size: 2.2rem; min-width: 40px; }
+
+      /* Science */
+      .science-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-facts { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .fact-num { font-size: 2rem; }
+
+      /* Testimonials */
+      .testi-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contact-form { padding: 28px 18px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Footer */
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+      /* Scroll cue */
+      .scroll-cue { display: none; }
+    }
+
+    /* ─── AUTH MODAL ─── */
+    .auth-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(5,8,15,0.85);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .auth-overlay.open { opacity: 1; pointer-events: all; }
+    .auth-modal {
+      background: #0c1120;
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 40px 36px;
+      width: min(440px, 92vw);
+      position: relative;
+      transform: translateY(24px);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+    }
+    .auth-overlay.open .auth-modal { transform: translateY(0); }
+    .auth-close {
+      position: absolute; top: 16px; right: 18px;
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 1.1rem; line-height: 1;
+      transition: color 0.2s;
+    }
+    .auth-close:hover { color: var(--cream); }
+    .auth-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--border-gold);
+      margin-bottom: 28px;
+    }
+    .auth-tab {
+      background: none; border: none; cursor: pointer;
+      padding: 10px 20px;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .auth-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .auth-form { display: none; flex-direction: column; gap: 18px; }
+    .auth-form.active { display: flex; }
+    .auth-logo {
+      display: flex; justify-content: center; margin-bottom: 16px;
+    }
+    .auth-logo img { height: 72px; width: auto; }
+    .auth-sub {
+      text-align: center; font-size: 0.82rem;
+      color: var(--muted); margin: 0;
+    }
+    .auth-field { display: flex; flex-direction: column; gap: 7px; }
+    .auth-field-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .auth-field label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .auth-forgot-link {
+      font-size: 0.68rem; color: var(--gold);
+      text-decoration: none; opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .auth-forgot-link:hover { opacity: 1; text-decoration: underline; }
+    .auth-field input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-gold);
+      border-radius: 2px;
+      padding: 12px 14px;
+      color: var(--cream); font-size: 0.9rem;
+      font-family: 'Noto Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .auth-field input:focus { border-color: var(--gold); }
+    .auth-field input::placeholder { color: rgba(200,190,170,0.3); }
+    .auth-error {
+      font-size: 0.78rem; color: #e07070;
+      min-height: 18px; text-align: center;
+    }
+    .auth-submit { width: 100%; justify-content: center; margin-top: 4px; }
+    .auth-social { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+    .social-btn {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      width: 100%; padding: 12px 16px;
+      border-radius: 2px; border: 1px solid var(--border-gold);
+      background: rgba(255,255,255,0.04);
+      color: var(--cream); font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer;
+      font-family: 'Noto Sans', sans-serif;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .social-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(197,160,90,0.5); }
+    .social-facebook { color: #fff; }
+    .social-facebook svg { color: #1877F2; }
+    .auth-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 4px 0;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border-gold);
+    }
+    .auth-divider span {
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      white-space: nowrap;
+    }
+    .auth-switch {
+      text-align: center; font-size: 0.78rem;
+      color: var(--muted); margin: 0;
+    }
+    .auth-switch a { color: var(--gold); text-decoration: none; }
+    .auth-switch a:hover { text-decoration: underline; }
+
+    /* ─── Language toggle ─── */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--muted); padding: 4px 6px; border-radius: 2px;
+      transition: color 0.2s;
+    }
+    .lang-btn.active { color: var(--gold); }
+    .lang-btn:hover { color: var(--cream); }
+    .lang-sep { color: var(--border-gold); font-size: 0.7rem; }
+
+    /* Nav user state */
+    .nav-user {
+      display: none; align-items: center; gap: 10px;
+    }
+    .nav-user.visible { display: flex; }
+    .nav-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      color: #0a0d14; flex-shrink: 0;
+    }
+    .nav-username {
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--cream); letter-spacing: 0.04em;
+      max-width: 100px; overflow: hidden;
+      white-space: nowrap; text-overflow: ellipsis;
+    }
+    .nav-logout {
+      background: none; border: 1px solid var(--border-gold);
+      border-radius: 2px; padding: 6px 12px;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-logout:hover { color: var(--cream); border-color: var(--cream); }
+
+    /* Extra small phones */
+    @media (max-width: 400px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .hero-visual { height: 240px; }
+      .hero-logo-float { width: 110px; }
+    }
+
+    /* ─── MY ORDERS SECTION ─── */
+    #my-orders {
+      padding: 80px 0;
+      background: var(--bg-3);
+      display: none; /* shown via JS when user is logged in */
+    }
+    .my-orders-header { margin-bottom: 40px; }
+    .orders-grid { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
+    .order-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+    .order-card:hover { border-color: var(--border-gold-bright); }
+    .order-card-id  { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); }
+    .order-card-date{ font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+    .order-card-product { font-weight: 600; color: var(--cream); font-size: 0.88rem; }
+    .order-card-detail  { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+    .oc-status {
+      font-size: 0.68rem; font-weight: 700; padding: 4px 12px;
+      border-radius: 20px; white-space: nowrap;
+    }
+    .oc-status.new       { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .oc-status.called    { background: rgba(234,179,8,0.15);  color: #fbbf24; }
+    .oc-status.done      { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .oc-status.cancelled { background: rgba(239,68,68,0.12);  color: #f87171; }
+    .oc-cancel-btn {
+      font-size: 0.68rem; font-weight: 600; padding: 4px 11px;
+      border-radius: 20px; border: 1px solid rgba(239,68,68,0.4);
+      color: #f87171; background: transparent; cursor: pointer;
+      transition: background 0.2s, color 0.2s; white-space: nowrap;
+    }
+    .oc-cancel-btn:hover { background: rgba(239,68,68,0.15); }
+    .oc-cancel-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .orders-empty, .orders-loading {
+      text-align: center; padding: 50px 20px;
+      color: var(--muted); font-size: 0.9rem;
+    }
+    @media(max-width:540px) {
+      .order-card { grid-template-columns: 80px 1fr; }
+      .oc-status  { display: none; }
+    }
+  </style>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+           signOut, onAuthStateChanged, updateProfile,
+           FacebookAuthProvider, GoogleAuthProvider, signInWithPopup,
+           sendPasswordResetEmail }
+    from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+  import { getFirestore, collection, addDoc, serverTimestamp,
+           query, where, getDocs, updateDoc, doc }
+    from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+  // ─── REPLACE WITH YOUR FIREBASE CONFIG ───
+  // 1. Go to https://console.firebase.google.com
+  // 2. Create a project → Add web app → Copy the firebaseConfig object below
+  // 3. Enable Authentication (Email, Facebook, Google) under Build → Authentication
+  // 4. Enable Firestore Database under Build → Firestore Database
+  // 5. In Firestore Rules, allow writes to 'orders': allow write: if true;
+  //    (tighten rules after launch)
+  const firebaseConfig = {
+  apiKey: "AIzaSyAjxbqrD-x--smpIqaT69AdRMTh6s13J_w",
+  authDomain: "baragshun-website.firebaseapp.com",
+  projectId: "baragshun-website",
+  storageBucket: "baragshun-website.firebasestorage.app",
+  messagingSenderId: "92662300726",
+  appId: "1:92662300726:web:d083f94e7d0ba29b7a1897",
+  measurementId: "G-X4Z3PLGB6L"
+};
+  // ─────────────────────────────────────────
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+  const fbProvider  = new FacebookAuthProvider();
+  const gglProvider = new GoogleAuthProvider();
+
+  // ── My Orders loader ──
+  const PRODUCT_NAMES_ALL = {
+    mn: { p1:'Өтгөн барагшун 100мл', p2:'Өтгөн барагшун 50мл', p3:'Шингэн барагшун 60ш', p4:'Шингэн барагшун 30ш', p5:'Шингэн барагшун 15ш', p6:'Шингэн барагшун 10ш', p7:'Жасминтай цай 50ш', wholesale:'Бөөний захиалга', other:'Бусад' },
+    en: { p1:'Concentrated Baragshun 100ml', p2:'Concentrated Baragshun 50ml', p3:'Liquid Baragshun 60 pcs', p4:'Liquid Baragshun 30 pcs', p5:'Liquid Baragshun 15 pcs', p6:'Liquid Baragshun 10 pcs', p7:'Jasmine Tea 50 pcs', wholesale:'Wholesale Order', other:'Other' },
+    zh: { p1:'浓缩喜来芝 100ml', p2:'浓缩喜来芝 50ml', p3:'液态喜来芝 60袋', p4:'液态喜来芝 30袋', p5:'液态喜来芝 15袋', p6:'液态喜来芝 10袋', p7:'茉莉花茶 50袋', wholesale:'批量订购', other:'其他' },
+  };
+  const STATUS_LABELS_ALL = {
+    mn: { new:'Шинэ', called:'Холбогдсон', done:'Дууссан', cancelled:'Цуцлагдсан' },
+    en: { new:'New',  called:'Contacted',  done:'Completed', cancelled:'Cancelled' },
+    zh: { new:'新订单', called:'已联系',    done:'已完成',    cancelled:'已取消' },
+  };
+  const CANCEL_TEXT = { mn:'Цуцлах', en:'Cancel', zh:'取消' };
+  const CANCEL_CONFIRM = { mn:'Захиалгыг цуцлах уу?', en:'Cancel this order?', zh:'确认取消此订单？' };
+  const CANCEL_ERROR   = { mn:'Алдаа гарлаа. Дахин оролдоно уу.', en:'Something went wrong. Please try again.', zh:'发生错误，请重试。' };
+
+  async function loadMyOrders(uid) {
+    const section = document.getElementById('my-orders');
+    const list    = document.getElementById('myOrdersList');
+    const navLink = document.getElementById('navMyOrdersLink');
+    if (!section || !list) return;
+
+    section.style.display = 'block';
+    if (navLink) navLink.style.display = 'block';
+    list.innerHTML = '<div class="orders-loading">Ачаалж байна…</div>';
+
+    try {
+      const lang        = window.__currentLang || localStorage.getItem('lang') || 'mn';
+      const statusLabels = STATUS_LABELS_ALL[lang] || STATUS_LABELS_ALL.mn;
+      const cancelTxt   = CANCEL_TEXT[lang]   || CANCEL_TEXT.mn;
+      const confirmTxt  = CANCEL_CONFIRM[lang] || CANCEL_CONFIRM.mn;
+      const errorTxt    = CANCEL_ERROR[lang]   || CANCEL_ERROR.mn;
+
+      const q    = query(collection(db, 'orders'), where('uid','==', uid));
+      const snap = await getDocs(q);
+      snap.docs.sort((a, b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0));
+
+      if (snap.empty) {
+        list.innerHTML = '<div class="orders-empty" data-i18n="my_orders.empty">Захиалга байхгүй байна</div>';
+        return;
+      }
+
+      list.innerHTML = snap.docs.map(d2 => {
+        const d       = d2.data();
+        const shortId = d2.id.substring(0, 8).toUpperCase();
+        const date    = d.timestamp?.toDate
+          ? d.timestamp.toDate().toLocaleDateString(lang === 'zh' ? 'zh-CN' : lang === 'en' ? 'en-US' : 'mn-MN')
+          : '—';
+        const status    = d.status || 'new';
+        const pName     = (PRODUCT_NAMES_ALL[lang] || PRODUCT_NAMES_ALL.mn)[d.product] || d.product || '—';
+        const label     = statusLabels[status] || status;
+        const canCancel = status === 'new';
+        return `
+          <div class="order-card" data-id="${d2.id}">
+            <div>
+              <div class="order-card-id">#${shortId}</div>
+              <div class="order-card-date">${date}</div>
+            </div>
+            <div>
+              <div class="order-card-product">${pName}</div>
+              <div class="order-card-detail">${d.qty || 1} · ${d.phone || '—'}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+              <span class="oc-status ${status}">${label}</span>
+              ${canCancel ? `<button class="oc-cancel-btn" data-id="${d2.id}">${cancelTxt}</button>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+
+      // Cancel button handler
+      list.addEventListener('click', async e => {
+        const btn = e.target.closest('.oc-cancel-btn');
+        if (!btn) return;
+        if (!confirm(confirmTxt)) return;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+          await updateDoc(doc(db, 'orders', btn.dataset.id), { status: 'cancelled' });
+          loadMyOrders(uid);
+        } catch (err) {
+          console.error('Cancel error:', err);
+          btn.disabled = false;
+          btn.textContent = cancelTxt;
+          alert(errorTxt);
+        }
+      }, { once: true });
+    } catch (err) {
+      console.error('loadMyOrders:', err);
+      list.innerHTML = '<div class="orders-empty">Мэдээлэл ачаалахад алдаа гарлаа</div>';
+    }
+  }
+
+  // Expose Firestore helpers to the non-module script
+  window.__fb = { db, collection, addDoc, serverTimestamp, auth, loadMyOrders, updateDoc, doc };
+
+  /* ── UI refs ── */
+  const overlay      = document.getElementById('authOverlay');
+  const authClose    = document.getElementById('authClose');
+  const tabs         = document.querySelectorAll('.auth-tab');
+  const forms        = document.querySelectorAll('.auth-form');
+  const navLoginBtn    = document.getElementById('navLoginBtn');
+  const navUser        = document.getElementById('navUser');
+  const navAvatar      = document.getElementById('navAvatar');
+  const navUsername    = document.getElementById('navUsername');
+  const navLogout      = document.getElementById('navLogout');
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  const mobileUser     = document.getElementById('mobileUser');
+  const mobileAvatar   = document.getElementById('mobileAvatar');
+  const mobileUsername = document.getElementById('mobileUsername');
+  const mobileLogout   = document.getElementById('mobileLogout');
+  const loginForm      = document.getElementById('loginForm');
+  const registerForm   = document.getElementById('registerForm');
+  const loginError     = document.getElementById('loginError');
+  const registerError  = document.getElementById('registerError');
+  let pendingOrderLink = null;
+  let pendingProduct   = null;
+
+  if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', () => { openAuth('login'); document.getElementById('mobileMenu')?.classList.remove('open'); });
+  if (mobileLogout)   mobileLogout.addEventListener('click', () => { signOut(auth); });
+
+  /* ── Open / Close modal ── */
+  function openAuth(tab = 'login') {
+    overlay.classList.add('open');
+    switchTab(tab);
+  }
+  function closeAuth() { overlay.classList.remove('open'); }
+  window.__openAuth = openAuth; // expose to non-module script
+
+  authClose.addEventListener('click', closeAuth);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeAuth(); });
+
+  /* ── Tab switching ── */
+  function switchTab(name) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    forms.forEach(f => f.classList.toggle('active', f.id === name + 'Form'));
+    // hide social buttons and divider when on forgot panel
+    const socialBlock = document.querySelector('.auth-social');
+    const divider     = document.querySelector('.auth-divider');
+    const isForgot    = name === 'forgot';
+    if (socialBlock) socialBlock.style.display = isForgot ? 'none' : '';
+    if (divider)     divider.style.display     = isForgot ? 'none' : '';
+    loginError.textContent = '';
+    registerError.textContent = '';
+    document.getElementById('forgotMsg').textContent = '';
+  }
+  tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+  document.querySelectorAll('.auth-switch a').forEach(a =>
+    a.addEventListener('click', e => { e.preventDefault(); switchTab(a.dataset.tab); })
+  );
+
+  /* ── Nav login button ── */
+  navLoginBtn.addEventListener('click', () => openAuth('login'));
+
+  /* ── Forgot password ── */
+  document.getElementById('forgotLink').addEventListener('click', e => {
+    e.preventDefault();
+    switchTab('forgot');
+  });
+  document.getElementById('forgotSubmit').addEventListener('click', async () => {
+    const email  = document.getElementById('forgotEmail').value.trim();
+    const msgEl  = document.getElementById('forgotMsg');
+    msgEl.style.color = '#e07070';
+    msgEl.textContent = '';
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
+    if (!email) { msgEl.textContent = t['auth.err_enter_email']; return; }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      msgEl.style.color = '#6fcf97';
+      msgEl.textContent = t['auth.forgot_success'];
+    } catch(err) {
+      msgEl.textContent = friendlyError(err.code);
+    }
+  });
+
+  /* ── Social login helper ── */
+  async function socialLogin(provider) {
+    try {
+      await signInWithPopup(auth, provider);
+      closeAuth();
+      if (pendingOrderLink) {
+        goToContact(pendingProduct);
+        pendingOrderLink = null; pendingProduct = null;
+      }
+    } catch(err) {
+      // show error in whichever form tab is active
+      const activeErr = document.querySelector('.auth-form.active .auth-error');
+      if (activeErr) activeErr.textContent = friendlyError(err.code);
+    }
+  }
+
+  document.getElementById('btnFacebook').addEventListener('click', () => socialLogin(fbProvider));
+  document.getElementById('btnGoogle').addEventListener('click',   () => socialLogin(gglProvider));
+
+  /* ── Order buttons — require login, then pre-fill & scroll ── */
+  function goToContact(productVal) {
+    if (productVal) {
+      const sel = document.getElementById('orderProduct');
+      if (sel) sel.value = productVal;
+    }
+    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('.order-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const productVal = btn.dataset.product || '';
+      if (auth.currentUser) {
+        goToContact(productVal);
+      } else {
+        pendingOrderLink = '#contact';
+        pendingProduct   = productVal;
+        openAuth('login');
+      }
+    });
+  });
+
+  /* ── Register ── */
+  registerForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    registerError.textContent = '';
+    const name  = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass  = document.getElementById('regPassword').value;
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await updateProfile(cred.user, { displayName: name });
+      closeAuth();
+      if (pendingOrderLink) {
+        goToContact(pendingProduct);
+        pendingOrderLink = null; pendingProduct = null;
+      }
+    } catch(err) {
+      registerError.textContent = friendlyError(err.code);
+    }
+  });
+
+  /* ── Login ── */
+  loginForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    loginError.textContent = '';
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPassword').value;
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      closeAuth();
+      if (pendingOrderLink) {
+        goToContact(pendingProduct);
+        pendingOrderLink = null; pendingProduct = null;
+      }
+    } catch(err) {
+      loginError.textContent = friendlyError(err.code);
+    }
+  });
+
+  /* ── Logout ── */
+  navLogout.addEventListener('click', () => signOut(auth));
+
+  /* ── Auth state ── */
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      const name = user.displayName || user.email.split('@')[0];
+      const initial = name.charAt(0).toUpperCase();
+      // Desktop
+      navLoginBtn.style.display = 'none';
+      navUser.classList.add('visible');
+      navAvatar.textContent   = initial;
+      navUsername.textContent = name;
+      // Mobile
+      if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
+      if (mobileUser)     { mobileUser.style.display = 'flex'; }
+      if (mobileAvatar)   mobileAvatar.textContent   = initial;
+      if (mobileUsername) mobileUsername.textContent = name;
+      const mobileLink = document.getElementById('mobileMyOrdersLink');
+      if (mobileLink) mobileLink.style.display = '';
+      loadMyOrders(user.uid);
+    } else {
+      // Desktop
+      navLoginBtn.style.display = '';
+      navUser.classList.remove('visible');
+      // Mobile
+      if (mobileLoginBtn) mobileLoginBtn.style.display = '';
+      if (mobileUser)     mobileUser.style.display = 'none';
+      const mobileLink = document.getElementById('mobileMyOrdersLink');
+      if (mobileLink) mobileLink.style.display = 'none';
+      const section = document.getElementById('my-orders');
+      const navLink = document.getElementById('navMyOrdersLink');
+      if (section) section.style.display = 'none';
+      if (navLink) navLink.style.display  = 'none';
+    }
+  });
+
+  /* ── Error messages (language-aware) ── */
+  function friendlyError(code) {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
+    const map = {
+      'auth/email-already-in-use':  t['auth.err_in_use'],
+      'auth/invalid-email':         t['auth.err_invalid_email'],
+      'auth/weak-password':         t['auth.err_weak_pw'],
+      'auth/user-not-found':        t['auth.err_not_found'],
+      'auth/wrong-password':        t['auth.err_wrong_pw'],
+      'auth/invalid-credential':    t['auth.err_credential'],
+      'auth/too-many-requests':     t['auth.err_too_many'],
+      'auth/popup-closed-by-user':  t['auth.err_popup_closed'],
+      'auth/popup-blocked':         t['auth.err_popup_blocked'],
+      'auth/account-exists-with-different-credential': t['auth.err_diff_credential'],
+    };
+    return map[code] || t['auth.err_default'];
+  }
+</script>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // ── REPLACE THESE THREE VALUES after setting up EmailJS ──
+    var EMAILJS_PUBLIC_KEY  = 'VSu8rfclzpXEOOiA1';
+    var EMAILJS_SERVICE_ID  = 'service_z57hlxj';
+    var EMAILJS_TEMPLATE_ID = 'template_1fg6xt9';
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  </script>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
+      <div class="nav-logo-text">
+        <span class="top">Монгол Алтайн</span>
+        <span class="bottom">Барагшун</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#what" data-i18n="nav.what">Барагшун гэж юу</a></li>
+      <li><a href="#benefits" data-i18n="nav.benefits">Ач тус</a></li>
+      <li><a href="#products" data-i18n="nav.products">Бүтээгдэхүүн</a></li>
+      <li><a href="#about" data-i18n="nav.about">Компани</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Холбоо барих</a></li>
+      <li id="navMyOrdersLink" style="display:none"><a href="#my-orders" data-i18n="nav.my_orders">Миний захиалга</a></li>
+    </ul>
+    <!-- Language toggle -->
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" data-lang="mn">МН</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+    <!-- Logged-out state -->
+    <button id="navLoginBtn" class="btn btn-gold" style="padding:11px 24px;font-size:0.75rem;" data-i18n="nav.login">Нэвтрэх</button>
+    <!-- Logged-in state -->
+    <div class="nav-user" id="navUser">
+      <div class="nav-avatar" id="navAvatar">U</div>
+      <span class="nav-username" id="navUsername"></span>
+      <button class="nav-logout" id="navLogout">Гарах</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#what" class="ml" data-i18n="nav.what">Барагшун гэж юу</a></li>
+    <li><a href="#benefits" class="ml" data-i18n="nav.benefits">Ач тус</a></li>
+    <li><a href="#products" class="ml" data-i18n="nav.products">Бүтээгдэхүүн</a></li>
+    <li><a href="#about" class="ml" data-i18n="nav.about">Компани</a></li>
+    <li><a href="#contact" class="ml" data-i18n="nav.contact">Холбоо барих</a></li>
+    <li id="mobileMyOrdersLink" style="display:none"><a href="#my-orders" class="ml" data-i18n="nav.my_orders">Миний захиалга</a></li>
+  </ul>
+  <a href="#contact" class="btn btn-gold order-btn ml" data-href="#contact" data-i18n="nav.order">Захиалах</a>
+  <!-- Logged-out: login button -->
+  <button id="mobileLoginBtn" class="btn btn-gold ml" style="margin-top:10px;width:100%;justify-content:center;" data-i18n="nav.login">Нэвтрэх</button>
+  <!-- Logged-in: user info + logout -->
+  <div id="mobileUser" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-gold);align-items:center;justify-content:space-between;gap:10px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div id="mobileAvatar" class="nav-avatar"></div>
+      <span id="mobileUsername" style="font-size:0.85rem;color:var(--cream);"></span>
+    </div>
+    <button id="mobileLogout" style="font-size:0.75rem;color:var(--muted);background:none;border:none;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;" data-i18n="nav.logout">Гарах</button>
+  </div>
+</div>
+
+<!-- ═══ AUTH MODAL ═══ -->
+<div id="authOverlay" class="auth-overlay">
+  <div class="auth-modal">
+    <button class="auth-close" id="authClose" aria-label="Хаах">&#x2715;</button>
+
+    <div class="auth-logo">
+      <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login" data-i18n="auth.tab_login">Нэвтрэх</button>
+      <button class="auth-tab" data-tab="register" data-i18n="auth.tab_register">Бүртгүүлэх</button>
+    </div>
+
+    <!-- Social buttons (shared, always visible) -->
+    <div class="auth-social">
+      <button class="social-btn social-facebook" id="btnFacebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+        </svg>
+        <span data-i18n="auth.fb_btn">Facebook-ээр нэвтрэх</span>
+      </button>
+      <button class="social-btn social-google" id="btnGoogle">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+          <path fill="#34A853" d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-3.98v3.09C3.515 21.3 7.615 24 12.255 24z"/>
+          <path fill="#FBBC05" d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62h-3.98a11.86 11.86 0 000 10.76l3.98-3.09z"/>
+          <path fill="#EA4335" d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0c-4.64 0-8.74 2.7-10.71 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+        </svg>
+        <span data-i18n="auth.google_btn">Google-ээр нэвтрэх</span>
+      </button>
+    </div>
+
+    <div class="auth-divider"><span data-i18n="auth.divider">эсвэл имэйлээр</span></div>
+
+    <!-- Login form -->
+    <form class="auth-form active" id="loginForm">
+      <div class="auth-field">
+        <label data-i18n="auth.email_lbl">Имэйл</label>
+        <input type="email" id="loginEmail" placeholder="example@mail.com" data-i18n-placeholder="auth.email_ph" required />
+      </div>
+      <div class="auth-field">
+        <div class="auth-field-row">
+          <label data-i18n="auth.password_lbl">Нууц үг</label>
+          <a href="#" class="auth-forgot-link" id="forgotLink" data-i18n="auth.forgot_link">Нууц үг мартсан?</a>
+        </div>
+        <input type="password" id="loginPassword" placeholder="••••••••" required />
+      </div>
+      <div id="loginError" class="auth-error"></div>
+      <button type="submit" class="btn btn-gold auth-submit" data-i18n="auth.login_submit">Нэвтрэх</button>
+      <p class="auth-switch"><span data-i18n="auth.login_switch_text">Бүртгэл байхгүй юу?</span> <a href="#" data-tab="register" data-i18n="auth.tab_register">Бүртгүүлэх</a></p>
+    </form>
+
+    <!-- Forgot password panel -->
+    <div class="auth-form" id="forgotForm">
+      <p class="auth-sub" style="text-align:left;" data-i18n="auth.forgot_sub">Бүртгэлтэй имэйл хаягаа оруулна уу. Нууц үг сэргээх холбоос илгээнэ.</p>
+      <div class="auth-field">
+        <label data-i18n="auth.email_lbl">Имэйл</label>
+        <input type="email" id="forgotEmail" placeholder="example@mail.com" data-i18n-placeholder="auth.email_ph" required />
+      </div>
+      <div id="forgotMsg" class="auth-error"></div>
+      <button type="button" class="btn btn-gold auth-submit" id="forgotSubmit" data-i18n="auth.forgot_submit">Холбоос илгээх</button>
+      <p class="auth-switch"><a href="#" data-tab="login" data-i18n="auth.forgot_back">← Нэвтрэх хэсэгт буцах</a></p>
+    </div>
+
+    <!-- Register form -->
+    <form class="auth-form" id="registerForm">
+      <div class="auth-field">
+        <label data-i18n="auth.name_lbl">Нэр</label>
+        <input type="text" id="regName" placeholder="Таны нэр" data-i18n-placeholder="auth.reg_name_ph" required />
+      </div>
+      <div class="auth-field">
+        <label data-i18n="auth.email_lbl">Имэйл</label>
+        <input type="email" id="regEmail" placeholder="example@mail.com" data-i18n-placeholder="auth.email_ph" required />
+      </div>
+      <div class="auth-field">
+        <label data-i18n="auth.password_lbl">Нууц үг</label>
+        <input type="password" id="regPassword" placeholder="Хамгийн багадаа 6 тэмдэгт" data-i18n-placeholder="auth.reg_pw_ph" required />
+      </div>
+      <div id="registerError" class="auth-error"></div>
+      <button type="submit" class="btn btn-gold auth-submit" data-i18n="auth.register_submit">Бүртгүүлэх</button>
+      <p class="auth-switch"><span data-i18n="auth.register_switch_text">Бүртгэл байгаа юу?</span> <a href="#" data-tab="login" data-i18n="auth.tab_login">Нэвтрэх</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+
+  <!-- Ethereal shadow background -->
+  <svg style="position:absolute;width:0;height:0">
+    <defs>
+      <filter id="ethereal-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence id="etTurb" result="undulation" numOctaves="2"
+          baseFrequency="0.0005,0.002" seed="0" type="turbulence"/>
+        <feColorMatrix id="etHue" in="undulation" type="hueRotate" values="180" result="hueRotated"/>
+        <feColorMatrix in="hueRotated" result="circulation" type="matrix"
+          values="4 0 0 0 1  4 0 0 0 1  4 0 0 0 1  1 0 0 0 0"/>
+        <feDisplacementMap in="SourceGraphic" in2="circulation" scale="80" result="dist"/>
+        <feDisplacementMap in="dist" in2="undulation" scale="80" result="output"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div id="ethereal-bg" style="
+    position:absolute; inset:-80px; z-index:0; overflow:hidden;
+    filter:url(#ethereal-filter) blur(4px);
+  ">
+    <div style="
+      width:100%; height:100%;
+      background-color: rgba(197,160,90,0.28);
+      mask-image: url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png');
+      -webkit-mask-image: url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png');
+      mask-size: cover; -webkit-mask-size: cover;
+      mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+      mask-position: center; -webkit-mask-position: center;
+    "></div>
+  </div>
+
+  <!-- Noise overlay -->
+  <div style="
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image: url('https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png');
+    background-size: 240px; background-repeat: repeat;
+    opacity: 0.04;
+  "></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <!-- Left: text -->
+      <div class="hero-text">
+        <div class="label fade-up" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</div>
+        <h1 class="h1 fade-up fade-up-d1" data-i18n="hero.h1">
+          3000 жилийн<br>
+          <span class="accent">эрдэнэсийг</span><br>
+          нээж авах цаг
+        </h1>
+        <p class="hero-tagline fade-up fade-up-d2" data-i18n="hero.tagline">
+          "Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br>
+          <em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>
+        </p>
+        <p class="body-text fade-up fade-up-d2" data-i18n="hero.body">
+          Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
+        </p>
+        <div class="hero-actions fade-up fade-up-d3">
+          <a href="#products" class="btn btn-gold" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
+          <a href="#what" class="btn btn-outline-gold" data-i18n="hero.cta2">Дэлгэрэнгүй</a>
+        </div>
+        <div class="hero-proof fade-up fade-up-d4">
+          <div class="proof-item">
+            <div class="proof-num">3000<sup>+</sup></div>
+            <div class="proof-label" data-i18n="hero.proof1">Жилийн түүх</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-num">40<sup>+</sup></div>
+            <div class="proof-label" data-i18n="hero.proof2">Эрдэс бодис</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-num">100<sup>%</sup></div>
+            <div class="proof-label" data-i18n="hero.proof3">Байгалийн цэвэр</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-num">MNS</div>
+            <div class="proof-label" data-i18n="hero.proof4">Монгол стандарт</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: visual -->
+      <div class="hero-visual fade-up fade-up-d2">
+        <div class="hero-chip" data-i18n="hero.chip1">Фулвик хүчил</div>
+        <div class="hero-chip" data-i18n="hero.chip2">40+ эрдэс</div>
+        <div class="hero-chip" data-i18n="hero.chip3">Антиоксидант</div>
+        <div class="hero-chip" data-i18n="hero.chip4">Адаптоген</div>
+        <div class="hero-glow"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring-2"></div>
+        <img id="heroLogo" class="hero-logo-float" src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Curve transition -->
+  <div class="hero-curve">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;display:block;">
+      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--bg-2)" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Доош</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ═══ WHAT IS SHILAJIT ═══ -->
+<section id="what">
+  <div class="container">
+    <div class="what-grid">
+      <div class="what-text fade-up">
+        <div class="label" data-i18n="what.label">Барагшун гэж юу вэ?</div>
+        <h2 class="h2" data-i18n="what.h2">Хүн төрөлхтөн 3000 жил хэрэглэсэн байгалийн гайхамшиг</h2>
+        <p class="body-text" data-i18n="what.body1">
+          Барагшун нь Монгол Алтайн нурууны өндөрлөг хэсэгт, далайн түвшнээс 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч бодис юм.
+        </p>
+        <p class="body-text" data-i18n="what.body2">
+          Энэ эртний соёл Грек, Дорно дахины орнуудаас эхлэн Араб, Туркаас дамжин Төв, Хятад, Монголын эрдэмтдийн туурвилд тэмдэглэгдэн үлджээ. Дэлхий даяар <strong style="color:var(--cream)">500 гаруй томоохон бүтээлд</strong> эрдэм шинжилгээ–анагааны ухааны чиглэлээр бичигджээ.
+        </p>
+        <p class="body-text" data-i18n="what.body3">
+          Барагшуны найрлаганд <strong style="color:var(--cream)">60–70%</strong> шим гаралтай бодисууд, <strong style="color:var(--cream)">20–30%</strong>-ийг кальци, кали, цахиур, төмөр, магни мэт 10 гаруй макро эрдсүүд мөн титан, никель, зэс, хөнгөн цагаан, ванадий зэрэг 30 орчим микро эрдсүүд эзэлдэг аж.
+        </p>
+        <div class="avicenna-quote">
+          <p data-i18n="what.avicenna_q">"Барагшун нь оюун санааг хурцалж, ходоодны галыг бадраан, амьсгалыг уужим болгогооро нэн увдистай..."</p>
+          <cite data-i18n="what.avicenna_c">— Авиценна (Абу-Али ибн Сина), ок. 980–1037</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BENEFITS ═══ -->
+<section id="benefits">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="label" style="justify-content:center;" data-i18n="benefits.label">Эрүүл мэндийн ач тус</div>
+      <h2 class="h2" style="margin:16px 0 0;" data-i18n="benefits.h2">Барагшуны 8 гол ач тус</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card fade-up fade-up-d1">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b1_title">Зүрх судасны үрэвслийг намдаана</div>
+        <div class="benefit-desc" data-i18n="benefits.b1_desc">Зүрх судасны системийг хамгаалж, цусны даралтыг зохицуулах, судасны хатуурлыг бууруулахад тусалдаг.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d2">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b2_title">Дархлааг бөхжүүлж биеийг хамгаалдаг</div>
+        <div class="benefit-desc" data-i18n="benefits.b2_desc">Биеийн эсэргүүцлийг дэмжиж, вирус, бактерийн эсрэг байгалийн хамгаалалтыг сайжруулдаг.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d3">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b3_title">Ходоод гэдэсний үйл ажиллагааг сайжруулна</div>
+        <div class="benefit-desc" data-i18n="benefits.b3_desc">Хоол боловсруулалтыг дэмжиж, ходоодны шүүс ялгарлыг зохицуулж, гэдэсний микробиомыг тэнцвэржүүлдэг.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d4">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b4_title">Уушигны эрүүл мэндийг сайжруулна</div>
+        <div class="benefit-desc" data-i18n="benefits.b4_desc">Амьсгалын замыг цэвэрлэж, уушгийг хамгаалж, гуурсан хоолойн өвчнүүдийг намдаахад дэмждэг.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d1">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b5_title">Жадарлыг тайлж эрч хүч нэмэгдүүлнэ</div>
+        <div class="benefit-desc" data-i18n="benefits.b5_desc">ATP үйлдвэрлэлийг сайжруулж, бие махбодийн болон оюун санааны ядаргаа, жадралыг хурдан тайлдаг.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d2">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b6_title">Бодисын солилцоог идэвхжүүлнэ</div>
+        <div class="benefit-desc" data-i18n="benefits.b6_desc">Бодисын солилцоог идэвхжүүлж, эд эсийн шинэ төлжилтийг дэмжиж, хорыг гадагшлуулахад тусалдаг.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d3">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b7_title">Булчин мэжрийн системийг сэргээнэ</div>
+        <div class="benefit-desc" data-i18n="benefits.b7_desc">Яс, мөч хугарах, цээжний гэмтэл, үе булгах үед барагшуныг хэрэглэвэл үр дүнтэй болох нь олон улсын судлаачдаар нотлогдсон.</div>
+      </div>
+      <div class="benefit-card fade-up fade-up-d4">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <div class="benefit-title" data-i18n="benefits.b8_title">Яс мөчний өвдалтийг намдааж залуу насыг хадгална</div>
+        <div class="benefit-desc" data-i18n="benefits.b8_desc">Дорно дахины анагааx ухаанд тархины тэжээл, залуу нас хадгалагч хэмээн өдөр бүр уухыг зөвлөсөн байдаг.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section id="products">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="label" style="justify-content:center;" data-i18n="products.label">Манай бүтээгдэхүүн</div>
+      <h2 class="h2" style="margin:16px 0 12px;" data-i18n="products.h2">Монгол Алтайн Барагшун</h2>
+      <p class="body-text" style="margin:0 auto;text-align:center;" data-i18n="products.sub">
+        МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.
+      </p>
+    </div>
+    <div class="products-grid">
+
+      <!-- Product 1: Өтгөн барагшун 100мл -->
+      <div class="product-card fade-up fade-up-d1">
+        <div class="product-img">
+<div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div>
+          <img src="Products/100мл өтгөн барагшун.jpeg" alt="Өтгөн барагшун 100мл">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
+          <div class="product-sub" data-i18n="products.p1_sub">100мл · Дусаалгын сав</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p1_price">50,000 ₮ <span class="unit">/ ш</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p1" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2: Өтгөн барагшун 50мл -->
+      <div class="product-card fade-up fade-up-d2">
+        <div class="product-img">
+<img src="Products/50мл өтгөн барагшун.jpeg" alt="Өтгөн барагшун 50мл">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
+          <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p2" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3: Шингэн барагшун 60ш -->
+      <div class="product-card fade-up fade-up-d3">
+        <div class="product-img">
+<img src="Products/Шингэн барагшун 60ш.jpeg" alt="Шингэн барагшун 60ш">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p3_sub">60 ширхэг · Саше хайрцаг</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p3_price">70,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p3" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4: Шингэн барагшун 30ш -->
+      <div class="product-card fade-up fade-up-d1">
+        <div class="product-img">
+<img src="Products/Шингэн барагшун 30ш.png" alt="Шингэн барагшун 30ш">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Саше хайрцаг</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p4_price">40,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p4" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5: Шингэн барагшун 15ш -->
+      <div class="product-card fade-up fade-up-d2">
+        <div class="product-img">
+<img src="Products/Шингэн барагшун 15ш.jpeg" alt="Шингэн барагшун 15ш">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p5_sub">15 ширхэг · Саше хайрцаг</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p5_price">25,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p5" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6: Шингэн барагшун 10ш -->
+      <div class="product-card fade-up fade-up-d3">
+        <div class="product-img">
+<img src="Products/Шингэн барагшун 10ш.jpeg" alt="Шингэн барагшун 10ш">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p6_sub">10 ширхэг · Саше хайрцаг</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p6_price">16,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p6" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 7: Барагшунтай жасминтай цай 50ш -->
+      <div class="product-card fade-up fade-up-d1">
+        <div class="product-img">
+<div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div>
+          <img src="Products/Барагшунтай жасминтай цай 50ш.png" alt="Барагшунтай жасминтай цай 50ш">
+        </div>
+        <div class="product-info">
+          <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
+          <div class="product-sub" data-i18n="products.p7_sub">50 ширхэг · Саше хайрцаг</div>
+          <div class="product-cta">
+            <div class="product-price" data-i18n="products.p7_price">20,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <a href="#contact" class="btn btn-gold order-btn" data-product="p7" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;margin-top:32px;font-size:0.78rem;color:var(--muted);letter-spacing:0.06em;">
+      <span data-i18n="products.delivery_note">* Худалдан авагчийн хүсэлтээр хүргэлтийн үйлчилгээ болон борлуулалтын нийлүүлэлт хийгдэнэ.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ ABOUT COMPANY ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <div class="label" data-i18n="about.label">Компанийн тухай</div>
+        <h2 class="h2" data-i18n="about.h2">Монгол Алтайн Барагшун ХХК</h2>
+        <p class="body-text" data-i18n="about.body1">
+          Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.
+        </p>
+        <p class="body-text" data-i18n="about.body2">
+          Уламжлалт эм эмчилгээний 3000 жилийн түүхтэй үнэт түүхий эд барагшун нь Монгол орны Алтайн нурууны өндөрлөг хэсэгт далайн түвшнээс 3500-4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч юм.
+        </p>
+        <p class="body-text" data-i18n="about.body3">
+          Барагшун нь хүнд үйлдвэрт ажиллагсдын цацрагийн хордлого, хүнд металлийн хордлого тайлахад өндөр үр дүнтэй юм.
+        </p>
+        <div class="about-facts">
+          <div class="fact-box">
+            <div class="num">2016</div>
+            <div class="lbl" data-i18n="about.fact1_lbl">ХХА-ийн хүнсний салбарын шилдэг</div>
+          </div>
+          <div class="fact-box">
+            <div class="num">2017</div>
+            <div class="lbl" data-i18n="about.fact2_lbl">ЭМЯ-ны "Жилийн эзэн" хүртэгч</div>
+          </div>
+          <div class="fact-box">
+            <div class="num">ШУА</div>
+            <div class="lbl" data-i18n="about.fact3_lbl">Биологийн хүрээлэнтэй хамтран</div>
+          </div>
+          <div class="fact-box">
+            <div class="num">MNS</div>
+            <div class="lbl" data-i18n="about.fact4_lbl">6578-3-2016 стандарт</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="about-certs fade-up fade-up-d2">
+        <div class="label" style="margin-bottom:24px;" data-i18n="about.certs_label">Гэрчилгээ & Баталгаа</div>
+
+        <div class="cert-card">
+          <div class="cert-badge gold-badge">MNS</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert1_name">Монгол Улсын Стандарт</div>
+            <div class="cert-desc" data-i18n="about.cert1_desc">MNS:6578-3-2016 — Монгол улсын хүнсний бүтээгдэхүүний тухай эрүүл ахуйн болон бусад хуулийн шаардлагын дагуу баталгаажуулсан.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge teal-badge">MNAS</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert2_name">Магадлан итгэмжлэгдсэн лаборатори</div>
+            <div class="cert-desc" data-i18n="about.cert2_desc">Эко стандарт лаборатори (MNS ISO/IEC 17025) — E.coli, Salmonella илрэхгүй. Хар тугалга &lt;0.015 мг/кг, Кадьми &lt;0.001 мг/кг.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge navy-badge">USA</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert3_name">qcTestLab.com — Олон улсын шинжилгээ</div>
+            <div class="cert-desc" data-i18n="about.cert3_desc">Микробиологийн болон хүнд металлийн (Pb, Hg, As, Cd) шинжилгээгээр бүгд PASS. ICP-OES аргаар 30+ элемент тодорхойлогдсон.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge gold-badge" style="font-size:0.7rem;">ШУА</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert4_name">Монгол ШУА-ийн Биологийн хүрээлэн</div>
+            <div class="cert-desc" data-i18n="about.cert4_desc">БНСУлс болон Данийн тоног төхөөрөмжөөр хамтран ажиллаж, Монголд анх удаа байгалийн цэвэр барагшун үйлдвэрлэсэн.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW TO USE ═══ -->
+<section id="how">
+  <div class="container">
+    <div class="how-inner">
+      <div class="how-steps fade-up">
+        <div class="label" style="margin-bottom:20px;" data-i18n="how.label">Хэрэглэх заавар</div>
+        <h2 class="h2" style="margin-bottom:40px;" data-i18n="how.h2">Хэрхэн хэрэглэх вэ?</h2>
+
+        <div class="how-step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="how.step1_title">6 дусал хэмжээгээр авна</div>
+            <div class="step-desc" data-i18n="how.step1_desc">Өдөрт 2–3 удаа 6–8 дусаль авна. Нас болон биеийн байдлаасаа хамааруулан тунг эмчтэйгээ зөвлөлдөн тохируулаарай.</div>
+          </div>
+        </div>
+
+        <div class="how-step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="how.step2_title">Халуун бүлэн усанд найруулж уух</div>
+            <div class="step-desc" data-i18n="how.step2_desc">Халуун бүлэн усанд найрулж уух — хүйтэн усанд уусгахыг зөвлөдөггүй. Оройн хоолноос 30 минутын өмнө уух нь хамгийн тохиромжтой.</div>
+          </div>
+        </div>
+
+        <div class="how-step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="how.step3_title">Уусны дараа амарна</div>
+            <div class="step-desc" data-i18n="how.step3_desc">Уусны дараа 30–40 минут орондоо хэвтэх нь илүү зохимжтой. Хэрвээ барагшуны тосон түрхлэг эсвэл уусмал байдлаар бэлтгэж бигнүүр хэлбэрээр тавих бол орой унтахын өмнө хийвэл сайн.</div>
+          </div>
+        </div>
+
+        <div class="how-step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="how.step4_title">Тогтмол хэрэглэнэ</div>
+            <div class="step-desc" data-i18n="how.step4_desc">30–90 хоногийн курсээр хэрэглэхийг зөвлөдөг. Курс дуусан 2–4 долоо хоног завсарлаж, дахин эхлүүлж болно. Тогтмол хэрэглэлт урт хугацааны үр дүнг өгдөг.</div>
+          </div>
+        </div>
+
+        <div class="how-note">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p data-i18n="how.note"><strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмслэн болон хөхүүлж байх хоногт хэрэглэлгүй байхаар зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCIENCE ═══ -->
+<section id="science">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="label" style="justify-content:center;" data-i18n="science.label">Эрдэм шинжилгээний судалгаа</div>
+      <h2 class="h2" style="margin:16px 0 12px;" data-i18n="science.h2">Эрдэмтэд юу хэлэв?</h2>
+      <p class="body-text" style="margin:0 auto;text-align:center;max-width:540px;" data-i18n="science.body">
+        Барагшуны судлалын талаар одоогоор нийт 500 гаруй томоохон бүтээлүүд байгаагийн дийлэнх хэсэг нь эрдэм шинжилгээ–анагаах ухааны чиглэлээр бичигджээ.
+      </p>
+    </div>
+    <div class="science-grid">
+      <div class="sci-card fade-up fade-up-d1">
+        <div class="sci-num">500<sup>+</sup></div>
+        <div class="sci-label" data-i18n="science.c1_label">Эрдэм шинжилгээний бүтээл</div>
+        <div class="sci-desc" data-i18n="science.c1_desc">Дэлхий дахинд барагшуны талаарх судалгааны ажлуудын тоо байнга нэмэгдэж байна.</div>
+      </div>
+      <div class="sci-card fade-up fade-up-d2">
+        <div class="sci-num">40<sup>+</sup></div>
+        <div class="sci-label" data-i18n="science.c2_label">Эрдэс бодис агуулдаг</div>
+        <div class="sci-desc" data-i18n="science.c2_desc">Амин хүчил, фульвийн хүчил зэрэг биологийн идэвхт бодисууд нэг бүтээгдэхүүнд агуулагддаг.</div>
+      </div>
+      <div class="sci-card fade-up fade-up-d3">
+        <div class="sci-num">QRMA</div>
+        <div class="sci-label" data-i18n="science.c3_label">Оношилгооны судалгаа 2017</div>
+        <div class="sci-desc" data-i18n="science.c3_desc">Монгол Алтайн барагшуныг хэрэглэгчдэд QRMA-ын оношилгоогоор хийсэн шинжилгээний дүнгийн судалгаа 10 өвчтөнд явуулсан.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header center fade-up">
+      <div class="label" style="justify-content:center;" data-i18n="testi.label">Хэрэглэгчдийн туршлага</div>
+      <h2 class="h2" style="margin:16px 0 0;" data-i18n="testi.h2">Тэд юу мэдэрсэн бэ?</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-up fade-up-d1">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="testi-quote-mark">"</span>
+        <p class="testi-text" data-i18n="testi.t1_text">3 сар барагшун хэрэглэсний дараа миний ходоодны шархлаа эрс сайжирсан. Эмчид явах шаардлагагүй болж, өдөр бүрийн ажил амьдралаа хэвийн явуулж байна. Маш их баярлалаа!</p>
+        <div class="testi-divider"></div>
+        <div class="testi-author">
+          <div class="testi-av">Б.Д</div>
+          <div>
+            <div class="testi-name">Б. Долгорсүрэн</div>
+            <div class="testi-role" data-i18n="testi.t1_role">Улаанбаатар хот, 52 нас</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-up fade-up-d2">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="testi-quote-mark">"</span>
+        <p class="testi-text" data-i18n="testi.t2_text">Надад уушигны өвчин байсан бөгөөд барагшун хэрэглэж эхэлсний дараа амьсгал хийхэд хөнгөрсөн. Байгалийн бүтээгдэхүүн хэрэглэх нь хамгийн зөв шийдэл байсан.</p>
+        <div class="testi-divider"></div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,#005a6b,var(--teal));color:var(--white)">Н.Б</div>
+          <div>
+            <div class="testi-name">Н. Батбаяр</div>
+            <div class="testi-role" data-i18n="testi.t2_role">Дархан хот, 45 нас</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-up fade-up-d3">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="testi-quote-mark">"</span>
+        <p class="testi-text" data-i18n="testi.t3_text">Зүрхний даралт ихсэх өвчтэй байсан ч барагшун хэрэглэж эхэлсний дараа даралт тогтворжсон. Эмийн хамт хэрэглэвэл илүү үр дүнтэй гэдгийг хэлж болно.</p>
+        <div class="testi-divider"></div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,var(--gold-dk),var(--brown,#a97c49))">О.М</div>
+          <div>
+            <div class="testi-name">О. Мөнхжаргал</div>
+            <div class="testi-role" data-i18n="testi.t3_role">Эрдэнэт хот, 61 нас</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-text fade-up">
+        <div class="label" data-i18n="contact.label">Холбоо барих</div>
+        <h2 class="h2" data-i18n="contact.h2">Захиалга өгөх, лавлагаа авах</h2>
+        <p class="body-text" data-i18n="contact.body">
+          Манай хаяг энд байна! Бидэнтэй холбогдоорой. Захиалга болон бөөний нийлүүлэлтийн асуудлаар ажлын 24 цагийн дотор хариу өгнө.
+        </p>
+        <div class="contact-info">
+          <div class="ci-item">
+            <div class="ci-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="ci-lbl" data-i18n="contact.ci_phone">Утас</div>
+              <div class="ci-val">9901-3323 / 9501-3323</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="ci-lbl" data-i18n="contact.ci_email_lbl">И-мэйл</div>
+              <div class="ci-val">mongolaltainbaragshun@gmail.com</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="ci-lbl" data-i18n="contact.ci_addr">Хаяг</div>
+              <div class="ci-val" data-i18n="contact.ci_addr_val">Баянгол дүүрэг, 20-р хороо<br>Сонсголонгийн гудамж, 22-р байр<br>Улаанбаатар хот, Монгол улс</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="ci-lbl" data-i18n="contact.ci_web">Цахим хуудас</div>
+              <div class="ci-val">www.baragshun.mn</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div>
+              <div class="ci-lbl" data-i18n="contact.ci_social">Facebook & Instagram</div>
+              <div class="ci-val">@mongolaltainbaragshun</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form fade-up fade-up-d2">
+        <div class="form-title" data-i18n="contact.form_title">Захиалгын маягт</div>
+        <form id="orderForm">
+          <div class="form-row">
+            <div class="fg">
+              <label data-i18n="contact.f_name">Таны нэр</label>
+              <input id="orderName" type="text" placeholder="Овог нэр" data-i18n-placeholder="contact.f_name_ph" required />
+            </div>
+            <div class="fg">
+              <label data-i18n="contact.f_phone">Утасны дугаар</label>
+              <input id="orderPhone" type="tel" placeholder="9901-XXXX" required />
+            </div>
+          </div>
+          <div class="fg">
+            <label data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</label>
+            <select id="orderProduct">
+              <option value="" data-i18n="contact.f_select">Сонгох...</option>
+              <option value="p1" data-i18n="contact.f_opt1">Өтгөн барагшун — 100мл</option>
+              <option value="p2" data-i18n="contact.f_opt2">Өтгөн барагшун — 50мл</option>
+              <option value="p3" data-i18n="contact.f_opt3">Шингэн барагшун — 60ш / хайрцаг</option>
+              <option value="p4" data-i18n="contact.f_opt4">Шингэн барагшун — 30ш / хайрцаг</option>
+              <option value="p5" data-i18n="contact.f_opt5">Шингэн барагшун — 15ш / хайрцаг</option>
+              <option value="p6" data-i18n="contact.f_opt6">Шингэн барагшун — 10ш / хайрцаг</option>
+              <option value="p7" data-i18n="contact.f_opt7">Жасминтай цай — 50ш / хайрцаг</option>
+              <option value="wholesale" data-i18n="contact.f_opt8">Бөөний захиалга</option>
+              <option value="other" data-i18n="contact.f_opt9">Бусад / Лавлагаа</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label data-i18n="contact.f_qty">Тоо хэмжээ</label>
+              <input id="orderQty" type="number" placeholder="1" min="1" value="1" />
+            </div>
+            <div class="fg">
+              <label data-i18n="contact.f_email">И-мэйл (заавал биш)</label>
+              <input id="orderEmail" type="email" placeholder="email@example.com" />
+            </div>
+          </div>
+          <div class="fg">
+            <label data-i18n="contact.f_note">Нэмэлт тайлбар</label>
+            <textarea id="orderNote" placeholder="Хүргэлтийн хаяг, асуулт болон бусад..." data-i18n-placeholder="contact.f_note_ph"></textarea>
+          </div>
+          <div class="form-error-msg" id="formError"></div>
+          <div class="form-submit-row">
+            <button type="submit" class="btn btn-gold form-submit" id="orderSubmitBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span data-i18n="contact.f_submit">Захиалга илгээх</span>
+            </button>
+          </div>
+          <div class="form-success-msg" id="formSuccess">
+            <div class="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" width="26" height="26"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="success-title" data-i18n="contact.form_success_title">Захиалга амжилттай!</div>
+            <div class="success-body" data-i18n="contact.form_success_body">Бид тантай 24 цагийн дотор холбогдох болно.</div>
+            <div class="order-id" id="formOrderId"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MY ORDERS ═══ -->
+<section id="my-orders">
+  <div class="container">
+    <div class="my-orders-header">
+      <div class="label" data-i18n="my_orders.label">Миний захиалгууд</div>
+      <h2 class="h2" style="margin-top:12px" data-i18n="my_orders.h2">Захиалгын түүх</h2>
+    </div>
+    <div class="orders-grid" id="myOrdersList">
+      <div class="orders-loading">Ачаалж байна…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
+        <p data-i18n="footer.brand_desc">Монгол Алтайн нурууны 3500–4000 м өндрөөс цуглуулсан байгалийн цэвэр барагшун — эрдэм шинжилгээгээр баталгаажсан биоидэвхт бүтээгдэхүүн.</p>
+        <div class="footer-tagline" data-i18n="footer.tagline">"Байгалийн цэвэр эрч хүч — Монгол Алтайн ААТ"</div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/altainbaragshun" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/mongol_altain_baragshun/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.col1">Бүтээгдэхүүн</h4>
+        <ul>
+          <li><a href="#products" data-i18n="footer.fp1">Өтгөн барагшун 100мл</a></li>
+          <li><a href="#products" data-i18n="footer.fp2">Өтгөн барагшун 50мл</a></li>
+          <li><a href="#products" data-i18n="footer.fp3">Шингэн барагшун 60ш</a></li>
+          <li><a href="#products" data-i18n="footer.fp4">Жасминтай цай 50ш</a></li>
+          <li><a href="#contact" data-i18n="footer.fp5">Хүргэлтийн үйлчилгээ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.col2">Хэрэгцээт холбоос</h4>
+        <ul>
+          <li><a href="#what" data-i18n="footer.fl1">Барагшун гэж юу?</a></li>
+          <li><a href="#benefits" data-i18n="footer.fl2">Ач тус</a></li>
+          <li><a href="#how" data-i18n="footer.fl3">Хэрэглэх заавар</a></li>
+          <li><a href="#science" data-i18n="footer.fl4">Судалгаа</a></li>
+          <li><a href="#about" data-i18n="footer.fl5">Компанийн тухай</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer.copy">© 2026 Монгол Алтайн Барагшун ХХК. Бүх эрх хуулиар хамгаалагдсан.</p>
+      <div class="footer-bottom-links">
+        <a href="#" data-i18n="footer.privacy">Нууцлалын бодлого</a>
+        <a href="#" data-i18n="footer.terms">Үйлчилгээний нөхцөл</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Ethereal shadow animation — hue rotate loop
+  const etHue = document.getElementById('etHue');
+  if (etHue) {
+    let hue = 0;
+    const duration = 6000; // ms per full 360°
+    let start = null;
+    function animateEthereal(ts) {
+      if (!start) start = ts;
+      hue = ((ts - start) / duration * 360) % 360;
+      etHue.setAttribute('values', String(hue));
+      requestAnimationFrame(animateEthereal);
+    }
+    requestAnimationFrame(animateEthereal);
+  }
+
+  // ─── i18n ───
+  const TRANSLATIONS = {
+    mn: {
+      'nav.what':'Барагшун гэж юу','nav.benefits':'Ач тус','nav.products':'Бүтээгдэхүүн',
+      'nav.about':'Компани','nav.contact':'Холбоо барих','nav.login':'Нэвтрэх','nav.logout':'Гарах','nav.order':'Захиалах',
+      'hero.label':'Байгалийн цэвэр эрч хүч · Монгол Алтай',
+      'hero.h1':'Монгол Алтайн<br><span class="accent">3000 жилийн</span><br>эрдэнэс — таны гарт',
+      'hero.tagline':'"Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br><em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>',
+      'hero.body':'<strong style="color:var(--cream)">Барагшун</strong> — зөвхөн Монгол Алтайн 3500–4000 м өндрөөс гардаг, 40 гаруй биоидэвхт бодис агуулсан байгалийн эрдэс. Эрдэм шинжилгээгээр батлагдсан. Монголд ганцхан эх үүсвэртэй.',
+      'hero.cta1':'Бүтээгдэхүүн үзэх','hero.cta2':'Илүүг мэдэх',
+      'hero.proof1':'Жилийн түүх','hero.proof2':'Эрдэс бодис','hero.proof3':'Байгалийн цэвэр','hero.proof4':'Монгол стандарт',
+      'hero.chip1':'Фулвик хүчил','hero.chip2':'40+ эрдэс','hero.chip3':'Антиоксидант','hero.chip4':'Адаптоген',
+      'what.label':'Барагшун гэж юу вэ?',
+      'what.h2':'Хүн төрөлхтөн 3000 жил хэрэглэсэн байгалийн гайхамшиг',
+      'benefits.label':'Эрүүл мэндийн ач тус','benefits.h2':'Барагшуны 8 гол ач тус',
+      'products.label':'Манай бүтээгдэхүүн','products.h2':'Монгол Алтайн Барагшун',
+      'products.sub':'МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.',
+      'products.badge_bestseller':'Хамгийн их борлуулалт','products.badge_new':'Шинэ бүтээгдэхүүн',
+      'about.label':'Компанийн тухай','about.h2':'Монгол Алтайн Барагшун ХХК',
+      'how.label':'Хэрэглэх заавар','how.h2':'Хэрхэн хэрэглэх вэ?',
+      'science.label':'Эрдэм шинжилгээний судалгаа','science.h2':'Эрдэмтэд юу хэлэв?',
+      'testi.label':'Хэрэглэгчдийн туршлага','testi.h2':'Тэд юу мэдэрсэн бэ?',
+      'contact.label':'Холбоо барих','contact.h2':'Захиалга өгөх, лавлагаа авах',
+      'contact.form_title':'Захиалгын маягт',
+      'contact.f_name':'Таны нэр','contact.f_name_ph':'Овог нэр',
+      'contact.f_phone':'Утасны дугаар','contact.f_product':'Бүтээгдэхүүн сонгох',
+      'contact.f_select':'Сонгох...',
+      'contact.f_opt1':'Өтгөн барагшун — 100мл','contact.f_opt2':'Өтгөн барагшун — 50мл',
+      'contact.f_opt3':'Шингэн барагшун — 60ш / хайрцаг','contact.f_opt4':'Шингэн барагшун — 30ш / хайрцаг',
+      'contact.f_opt5':'Шингэн барагшун — 15ш / хайрцаг','contact.f_opt6':'Шингэн барагшун — 10ш / хайрцаг',
+      'contact.f_opt7':'Жасминтай цай — 50ш / хайрцаг',
+      'contact.f_opt8':'Бөөний захиалга','contact.f_opt9':'Бусад / Лавлагаа',
+      'contact.f_qty':'Тоо хэмжээ','contact.f_email':'И-мэйл (заавал биш)',
+      'contact.f_note':'Нэмэлт тайлбар','contact.f_note_ph':'Хүргэлтийн хаяг, асуулт болон бусад...',
+      'contact.f_submit':'Захиалга илгээх',
+      'contact.form_required':'Нэр болон утасны дугаараа оруулна уу.',
+      'contact.form_loading':'Илгээж байна...',
+      'contact.form_error':'Алдаа гарлаа. Дахин оролдоно уу.',
+      'contact.form_success_title':'Захиалга амжилттай!',
+      'contact.form_success_body':'Бид тантай 24 цагийн дотор холбогдох болно.',
+      'contact.form_order_id':'Захиалгын дугаар:',
+      'nav.my_orders':'Миний захиалга',
+      'my_orders.label':'Захиалгын түүх','my_orders.h2':'Миний захиалгууд',
+      'my_orders.empty':'Захиалга байхгүй байна',
+      'footer.col1':'Бүтээгдэхүүн','footer.col2':'Хэрэгцээт холбоос',
+      'footer.copy':'© 2026 Монгол Алтайн Барагшун ХХК. Бүх эрх хуулиар хамгаалагдсан.',
+      'footer.privacy':'Нууцлалын бодлого','footer.terms':'Үйлчилгээний нөхцөл',
+      'footer.brand_desc':'Монгол Алтайн нурууны 3500–4000 м өндрөөс цуглуулсан байгалийн цэвэр барагшун — эрдэм шинжилгээгээр баталгаажсан биоидэвхт бүтээгдэхүүн.',
+      'footer.tagline':'"Байгалийн цэвэр эрч хүч — Монгол Алтайн ААТ"',
+      'footer.fp1':'Өтгөн барагшун 100мл','footer.fp2':'Өтгөн барагшун 50мл',
+      'footer.fp3':'Шингэн барагшун 60ш','footer.fp4':'Жасминтай цай 50ш','footer.fp5':'Хүргэлтийн үйлчилгээ',
+      'footer.fl1':'Барагшун гэж юу?','footer.fl2':'Ач тус','footer.fl3':'Хэрэглэх заавар',
+      'footer.fl4':'Судалгаа','footer.fl5':'Компанийн тухай',
+      'what.body1':'Барагшун нь Монгол Алтайн нурууны өндөрлөг хэсэгт, далайн түвшнээс 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биоидэвхжүүлэгч бодис юм.',
+      'what.body2':'Энэ эртний соёл Грек, Дорно дахины орнуудаас эхлэн Араб, Туркаас дамжин Төв, Хятад, Монголын эрдэмтдийн туурвилд тэмдэглэгдэн үлджээ. Дэлхий даяар <strong style="color:var(--cream)">500 гаруй томоохон бүтээлд</strong> эрдэм шинжилгээ–анагааны ухааны чиглэлээр бичигджээ.',
+      'what.body3':'Барагшуны найрлаганд <strong style="color:var(--cream)">60–70%</strong> шим гаралтай бодисууд, <strong style="color:var(--cream)">20–30%</strong>-ийг кальци, кали, цахиур, төмөр, магни мэт 10 гаруй макро эрдсүүд мөн титан, никель, зэс, хөнгөн цагаан, ванадий зэрэг 30 орчим микро эрдсүүд эзэлдэг аж.',
+      'what.avicenna_q':'"Барагшун нь оюун санааг хурцалж, ходоодны галыг бадраан, амьсгалыг уужим болгогооро нэн увдистай..."',
+      'what.avicenna_c':'— Авиценна (Абу-Али ибн Сина), ок. 980–1037',
+      'benefits.b1_title':'Зүрх судасны үрэвслийг намдаана','benefits.b1_desc':'Фульвик болон гуминик хүчил нь судасны хатуурлыг бууруулж, цусны эргэлтийг сайжруулж, зүрхний ачааллыг хөнгөлдөг.',
+      'benefits.b2_title':'Дархлааг бөхжүүлж биеийг хамгаалдаг','benefits.b2_desc':'Биеийн эсэргүүцлийг дэмжиж, вирус, бактерийн эсрэг байгалийн хамгаалалтыг сайжруулдаг.',
+      'benefits.b3_title':'Ходоод гэдэсний үйл ажиллагааг сайжруулна','benefits.b3_desc':'Хоол боловсруулалтыг дэмжиж, ходоодны шүүс ялгарлыг зохицуулж, гэдэсний микробиомыг тэнцвэржүүлдэг.',
+      'benefits.b4_title':'Уушигны эрүүл мэндийг сайжруулна','benefits.b4_desc':'Амьсгалын замыг цэвэрлэж, уушгийг хамгаалж, гуурсан хоолойн өвчнүүдийг намдаахад дэмждэг.',
+      'benefits.b5_title':'Жадарлыг тайлж эрч хүч нэмэгдүүлнэ','benefits.b5_desc':'Митохондрийн ATP үйлдвэрлэлийг идэвхжүүлж, физик болон оюун санааны ядаргааг 3–5 хоногт мэдэгдэхүйц бууруулдаг.',
+      'benefits.b6_title':'Бодисын солилцоог идэвхжүүлнэ','benefits.b6_desc':'Бодисын солилцоог идэвхжүүлж, эд эсийн шинэ төлжилтийг дэмжиж, хорыг гадагшлуулахад тусалдаг.',
+      'benefits.b7_title':'Булчин мэжрийн системийг сэргээнэ','benefits.b7_desc':'Яс, мөч хугарах, цээжний гэмтэл, үе булгах үед барагшуныг хэрэглэвэл үр дүнтэй болох нь олон улсын судлаачдаар нотлогдсон.',
+      'benefits.b8_title':'Яс мөчний өвдалтийг намдааж залуу насыг хадгална','benefits.b8_desc':'Фульвик хүчил нь үений шингэнд шингэж, мөгөөрсний элэгдлийг удаашруулж, өвдөлтгүй хөдөлгөөнийг дэмждэг.',
+      'products.p1_name':'Өтгөн барагшун','products.p1_sub':'100мл · Дусаалгын сав · Хамгийн хүчтэй найрлага',
+      'products.p2_name':'Өтгөн барагшун','products.p2_sub':'50мл · Дусаалгын сав · Туршилтын хэмжээ',
+      'products.p3_name':'Шингэн барагшун','products.p3_sub':'60 ширхэг · Саше хайрцаг · 2 сарын тун',
+      'products.p4_name':'Шингэн барагшун','products.p4_sub':'30 ширхэг · Саше хайрцаг · 1 сарын тун',
+      'products.p5_name':'Шингэн барагшун','products.p5_sub':'15 ширхэг · Саше хайрцаг · Туршилтын багц',
+      'products.p6_name':'Шингэн барагшун','products.p6_sub':'10 ширхэг · Саше хайрцаг · Эхлэгчдэд',
+      'products.p7_name':'Барагшунтай жасминтай цай','products.p7_sub':'50 ширхэг · Саше хайрцаг · Өдөр тутмын тайвшруулах цай',
+      'products.p1_price':'50,000 ₮ <span class="unit">/ ш</span>',
+      'products.p2_price':'30,000 ₮ <span class="unit">/ ш</span>',
+      'products.p3_price':'70,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p4_price':'40,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p5_price':'25,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p6_price':'16,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p7_price':'20,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.delivery_note':'* Худалдан авагчийн хүсэлтээр хүргэлтийн үйлчилгээ болон борлуулалтын нийлүүлэлт хийгдэнэ.',
+      'about.body1':'Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.',
+      'about.body2':'Бид Монголын Шинжлэх Ухааны Академийн Биологийн хүрээлэнтэй хамтран, БНСУ болон Данийн өндөр технологийн тоног төхөөрөмжийг ашиглан барагшуныг <strong style="color:var(--cream)">байгалийн цэвэр байдлаар</strong> боловсруулдаг. Найрлагад нэмэлт бодис, хадгалалтын бодис огт ордоггүй.',
+      'about.body3':'Барагшун нь хүнд металл болон химийн хордлого тайлах, дархлааг нэмэгдүүлэх, настай хүмүүст эрч хүч нөхөхөд өндөр үр дүн үзүүлдэг бөгөөд олон насны хүмүүс ашиглах боломжтой.',
+      'about.fact1_lbl':'ХХА-ийн хүнсний салбарын шилдэг','about.fact2_lbl':'ЭМЯ-ны "Жилийн эзэн" хүртэгч',
+      'about.fact3_lbl':'Биологийн хүрээлэнтэй хамтран','about.fact4_lbl':'6578-3-2016 стандарт',
+      'about.certs_label':'Гэрчилгээ & Баталгаа',
+      'about.cert1_name':'Монгол Улсын Стандарт','about.cert1_desc':'MNS:6578-3-2016 — Монгол улсын хүнсний бүтээгдэхүүний тухай эрүүл ахуйн болон бусад хуулийн шаардлагын дагуу баталгаажуулсан.',
+      'about.cert2_name':'Магадлан итгэмжлэгдсэн лаборатори','about.cert2_desc':'Эко стандарт лаборатори (MNS ISO/IEC 17025) — E.coli, Salmonella илрэхгүй. Хар тугалга &lt;0.015 мг/кг, Кадьми &lt;0.001 мг/кг.',
+      'about.cert3_name':'qcTestLab.com — Олон улсын шинжилгээ','about.cert3_desc':'Микробиологийн болон хүнд металлийн (Pb, Hg, As, Cd) шинжилгээгээр бүгд PASS. ICP-OES аргаар 30+ элемент тодорхойлогдсон.',
+      'about.cert4_name':'Монгол ШУА-ийн Биологийн хүрээлэн','about.cert4_desc':'БНСУлс болон Данийн тоног төхөөрөмжөөр хамтран ажиллаж, Монголд анх удаа байгалийн цэвэр барагшун үйлдвэрлэсэн.',
+      'how.step1_title':'6–8 дусал хэмжээгээр авна','how.step1_desc':'Өдөрт 2–3 удаа 6–8 дусаль авна. Нас болон биеийн байдлаасаа хамааруулан тунг эмчтэйгээ зөвлөлдөн тохируулаарай.',
+      'how.step2_title':'Халуун бүлэн усанд найруулж уух','how.step2_desc':'Халуун бүлэн усанд найрулж уух — хүйтэн усанд уусгахыг зөвлөдөггүй. Оройн хоолноос 30 минутын өмнө уух нь хамгийн тохиромжтой.',
+      'how.step3_title':'Уусны дараа амарна','how.step3_desc':'Уусны дараа 30–40 минут орондоо хэвтэх нь илүү зохимжтой. Хэрвээ барагшуны тосон түрхлэг эсвэл уусмал байдлаар бэлтгэж бигнүүр хэлбэрээр тавих бол орой унтахын өмнө хийвэл сайн.',
+      'how.step4_title':'Тогтмол хэрэглэнэ','how.step4_desc':'30–90 хоногийн курсээр хэрэглэхийг зөвлөдөг. Курс дуусан 2–4 долоо хоног завсарлаж, дахин эхлүүлж болно. Тогтмол хэрэглэлт урт хугацааны үр дүнг өгдөг.',
+      'how.note':'<strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмслэн болон хөхүүлж байх хоногт хэрэглэлгүй байхаар зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.',
+      'science.body':'Барагшуны судлалын талаар одоогоор нийт 500 гаруй томоохон бүтээлүүд байгаагийн дийлэнх хэсэг нь эрдэм шинжилгээ–анагаах ухааны чиглэлээр бичигджээ.',
+      'science.c1_label':'Эрдэм шинжилгээний бүтээл','science.c1_desc':'Дэлхий дахинд барагшуны талаарх судалгааны ажлуудын тоо байнга нэмэгдэж байна.',
+      'science.c2_label':'Эрдэс бодис агуулдаг','science.c2_desc':'Амин хүчил, фульвийн хүчил зэрэг биологийн идэвхт бодисууд нэг бүтээгдэхүүнд агуулагддаг.',
+      'science.c3_label':'Оношилгооны судалгаа 2017','science.c3_desc':'Монгол Алтайн барагшуныг хэрэглэгчдэд QRMA-ын оношилгоогоор хийсэн шинжилгээний дүнгийн судалгаа 10 өвчтөнд явуулсан.',
+      'testi.t1_text':'3 сар барагшун хэрэглэсний дараа миний ходоодны шархлаа эрс сайжирсан. Эмчид явах шаардлагагүй болж, өдөр бүрийн ажил амьдралаа хэвийн явуулж байна. Маш их баярлалаа!',
+      'testi.t1_role':'Улаанбаатар хот, 52 нас',
+      'testi.t2_text':'Надад уушигны өвчин байсан бөгөөд барагшун хэрэглэж эхэлсний дараа амьсгал хийхэд хөнгөрсөн. Байгалийн бүтээгдэхүүн хэрэглэх нь хамгийн зөв шийдэл байсан.',
+      'testi.t2_role':'Дархан хот, 45 нас',
+      'testi.t3_text':'Зүрхний даралт ихсэх өвчтэй байсан ч барагшун хэрэглэж эхэлсний дараа даралт тогтворжсон. Эмийн хамт хэрэглэвэл илүү үр дүнтэй гэдгийг хэлж болно.',
+      'testi.t3_role':'Эрдэнэт хот, 61 нас',
+      'contact.body':'Манай хаяг энд байна! Бидэнтэй холбогдоорой. Захиалга болон бөөний нийлүүлэлтийн асуудлаар ажлын 24 цагийн дотор хариу өгнө.',
+      'contact.ci_phone':'Утас','contact.ci_email_lbl':'И-мэйл','contact.ci_addr':'Хаяг',
+      'contact.ci_web':'Цахим хуудас','contact.ci_social':'Facebook & Instagram',
+      'contact.ci_addr_val':'Баянгол дүүрэг, 20-р хороо<br>Сонсголонгийн гудамж, 22-р байр<br>Улаанбаатар хот, Монгол улс',
+      'auth.tab_login':'Нэвтрэх','auth.tab_register':'Бүртгүүлэх',
+      'auth.fb_btn':'Facebook-ээр нэвтрэх','auth.google_btn':'Google-ээр нэвтрэх',
+      'auth.divider':'эсвэл имэйлээр',
+      'auth.email_lbl':'Имэйл','auth.password_lbl':'Нууц үг','auth.name_lbl':'Нэр',
+      'auth.email_ph':'example@mail.com','auth.reg_name_ph':'Таны нэр','auth.reg_pw_ph':'Хамгийн багадаа 6 тэмдэгт',
+      'auth.forgot_link':'Нууц үг мартсан?',
+      'auth.login_submit':'Нэвтрэх','auth.login_switch_text':'Бүртгэл байхгүй юу?',
+      'auth.forgot_sub':'Бүртгэлтэй имэйл хаягаа оруулна уу. Нууц үг сэргээх холбоос илгээнэ.',
+      'auth.forgot_submit':'Холбоос илгээх','auth.forgot_back':'← Нэвтрэх хэсэгт буцах',
+      'auth.register_submit':'Бүртгүүлэх','auth.register_switch_text':'Бүртгэл байгаа юу?',
+      'auth.err_in_use':'Энэ имэйл бүртгэлтэй байна.','auth.err_invalid_email':'Имэйл буруу байна.',
+      'auth.err_weak_pw':'Нууц үг хэтэрхий богино байна (6+ тэмдэгт).','auth.err_not_found':'Бүртгэл олдсонгүй.',
+      'auth.err_wrong_pw':'Нууц үг буруу байна.','auth.err_credential':'Имэйл эсвэл нууц үг буруу байна.',
+      'auth.err_too_many':'Хэт олон оролдлого. Түр хүлээнэ үү.',
+      'auth.err_popup_closed':'Нэвтрэх цонх хаагдлаа. Дахин оролдоно уу.',
+      'auth.err_popup_blocked':'Попап блоклогдлоо. Браузерийн тохиргооноос зөвшөөрнө үү.',
+      'auth.err_diff_credential':'Энэ имэйл өөр аргаар бүртгэлтэй байна.',
+      'auth.err_default':'Алдаа гарлаа. Дахин оролдоно уу.',
+      'auth.err_enter_email':'Имэйл хаягаа оруулна уу.',
+      'auth.forgot_success':'✓ Имэйл илгээгдлээ. Ирсэн мэйлийг шалгана уу.',
+    },
+    en: {
+      'nav.what':'What is Baragshun','nav.benefits':'Benefits','nav.products':'Products',
+      'nav.about':'Company','nav.contact':'Contact','nav.login':'Sign In','nav.logout':'Sign Out','nav.order':'Order',
+      'hero.label':'Pure Natural Energy · Mongolian Altai',
+      'hero.h1':'Mongolian Altai\'s<br><span class="accent">3000-Year</span><br>Treasure — in Your Hands',
+      'hero.tagline':'"The mineral resin is the highest of all things..."<br><em style="font-size:0.85em;opacity:0.7">— Lunregdandar, XVIII century</em>',
+      'hero.body':'<strong style="color:var(--cream)">Baragshun</strong> — a rare mineral found only at 3,500–4,000 m in the Mongolian Altai, containing over 40 bioactive compounds. Scientifically validated. Sourced exclusively in Mongolia.',
+      'hero.cta1':'View Products','hero.cta2':'Learn More',
+      'hero.proof1':'Years of History','hero.proof2':'Minerals','hero.proof3':'100% Natural','hero.proof4':'MNS Standard',
+      'hero.chip1':'Fulvic Acid','hero.chip2':'40+ Minerals','hero.chip3':'Antioxidant','hero.chip4':'Adaptogen',
+      'what.label':'What is Baragshun?',
+      'what.h2':'A Natural Wonder Used by Humanity for 3,000 Years',
+      'benefits.label':'Health Benefits','benefits.h2':'8 Key Benefits of Baragshun',
+      'products.label':'Our Products','products.h2':'Mongolian Altai Baragshun',
+      'products.sub':'Manufactured to MNS:6578-3-2016 standard with triple-layer UV-protected packaging.',
+      'products.badge_bestseller':'Best Seller','products.badge_new':'New Product',
+      'about.label':'About the Company','about.h2':'Mongol Altain Baragshun LLC',
+      'how.label':'Usage Guide','how.h2':'How to Use',
+      'science.label':'Scientific Research','science.h2':'What Do Scientists Say?',
+      'testi.label':'Customer Experiences','testi.h2':'What Did They Feel?',
+      'contact.label':'Contact Us','contact.h2':'Place an Order or Inquiry',
+      'contact.form_title':'Order Form',
+      'contact.f_name':'Your Name','contact.f_name_ph':'Full Name',
+      'contact.f_phone':'Phone Number','contact.f_product':'Select Product',
+      'contact.f_select':'Choose...',
+      'contact.f_opt1':'Concentrated Shilajit — 100ml','contact.f_opt2':'Concentrated Shilajit — 50ml',
+      'contact.f_opt3':'Liquid Shilajit — 60 sachets / box','contact.f_opt4':'Liquid Shilajit — 30 sachets / box',
+      'contact.f_opt5':'Liquid Shilajit — 15 sachets / box','contact.f_opt6':'Liquid Shilajit — 10 sachets / box',
+      'contact.f_opt7':'Jasmine Tea with Shilajit — 50 sachets',
+      'contact.f_opt8':'Wholesale Order','contact.f_opt9':'Other / Inquiry',
+      'contact.f_qty':'Quantity','contact.f_email':'Email (optional)',
+      'contact.f_note':'Additional Notes','contact.f_note_ph':'Delivery address, questions, etc.',
+      'contact.f_submit':'Send Order',
+      'contact.form_required':'Please enter your name and phone number.',
+      'contact.form_loading':'Sending...',
+      'contact.form_error':'Something went wrong. Please try again.',
+      'contact.form_success_title':'Order Submitted!',
+      'contact.form_success_body':'We will contact you within 24 hours.',
+      'contact.form_order_id':'Order #:',
+      'nav.my_orders':'My Orders',
+      'my_orders.label':'Order History','my_orders.h2':'My Orders',
+      'my_orders.empty':'No orders yet',
+      'footer.col1':'Products','footer.col2':'Useful Links',
+      'footer.copy':'© 2026 Mongol Altain Baragshun LLC. All rights reserved.',
+      'footer.privacy':'Privacy Policy','footer.terms':'Terms of Service',
+      'footer.brand_desc':'Pure natural Baragshun collected from 3,500–4,000 m elevation in the Mongolian Altai Mountains — a scientifically validated bioactive product.',
+      'footer.tagline':'"Pure Natural Energy — Mongolian Altai"',
+      'footer.fp1':'Concentrated Baragshun 100ml','footer.fp2':'Concentrated Baragshun 50ml',
+      'footer.fp3':'Liquid Baragshun 60 pcs','footer.fp4':'Jasmine Tea 50 pcs','footer.fp5':'Delivery Service',
+      'footer.fl1':'What is Baragshun?','footer.fl2':'Benefits','footer.fl3':'How to Use',
+      'footer.fl4':'Research','footer.fl5':'About the Company',
+      'what.body1':'Baragshun is a natural bioactive substance formed at 3,500–4,000 m elevation in the Mongolian Altai Mountains, shielded from intense sunlight and blizzards.',
+      'what.body2':'This ancient tradition has been recorded in the writings of Greek, Eastern, Arab, Turkish, Central Asian, Chinese, and Mongolian scholars. It has been documented in <strong style="color:var(--cream)">over 500 major scientific and medical publications</strong> worldwide.',
+      'what.body3':'Baragshun\'s composition includes <strong style="color:var(--cream)">60–70%</strong> organic matter, with <strong style="color:var(--cream)">20–30%</strong> comprising macro minerals such as calcium, potassium, silicon, iron, and magnesium, as well as around 30 micro minerals including titanium, nickel, copper, aluminum, and vanadium.',
+      'what.avicenna_q':'"Baragshun sharpens the mind, kindles the digestive fire, and opens the breath with great potency..."',
+      'what.avicenna_c':'— Avicenna (Abu Ali ibn Sina), c. 980–1037',
+      'benefits.b1_title':'Reduces Cardiovascular Inflammation','benefits.b1_desc':'Fulvic and humic acids reduce arterial stiffness, improve blood circulation, and ease the load on the heart.',
+      'benefits.b2_title':'Strengthens Immunity','benefits.b2_desc':'Supports the body\'s resistance and improves natural defenses against viruses and bacteria.',
+      'benefits.b3_title':'Improves Digestive Function','benefits.b3_desc':'Supports digestion, regulates gastric secretion, and helps balance the intestinal microbiome.',
+      'benefits.b4_title':'Supports Lung Health','benefits.b4_desc':'Cleanses the respiratory tract, protects the lungs, and helps relieve bronchial conditions.',
+      'benefits.b5_title':'Relieves Fatigue & Boosts Energy','benefits.b5_desc':'Activates mitochondrial ATP production, noticeably reducing physical and mental fatigue within 3–5 days.',
+      'benefits.b6_title':'Activates Metabolism','benefits.b6_desc':'Activates metabolism, supports cellular renewal, and helps the body eliminate toxins.',
+      'benefits.b7_title':'Restores the Musculoskeletal System','benefits.b7_desc':'International researchers have confirmed Baragshun\'s effectiveness for bone fractures, chest injuries, and joint sprains.',
+      'benefits.b8_title':'Relieves Joint & Bone Pain, Preserves Youth','benefits.b8_desc':'Fulvic acid penetrates synovial fluid, slows cartilage degradation, and supports pain-free movement.',
+      'products.p1_name':'Concentrated Baragshun','products.p1_sub':'100ml · Dropper Bottle · Maximum Strength',
+      'products.p2_name':'Concentrated Baragshun','products.p2_sub':'50ml · Dropper Bottle · Trial Size',
+      'products.p3_name':'Liquid Baragshun','products.p3_sub':'60 pcs · Sachet Box · 2-Month Supply',
+      'products.p4_name':'Liquid Baragshun','products.p4_sub':'30 pcs · Sachet Box · 1-Month Supply',
+      'products.p5_name':'Liquid Baragshun','products.p5_sub':'15 pcs · Sachet Box · Starter Pack',
+      'products.p6_name':'Liquid Baragshun','products.p6_sub':'10 pcs · Sachet Box · For Beginners',
+      'products.p7_name':'Baragshun Jasmine Tea','products.p7_sub':'50 pcs · Sachet Box · Daily Calming Tea',
+      'products.p1_price':'$21 <span class="unit">/ bottle</span>',
+      'products.p2_price':'$14 <span class="unit">/ bottle</span>',
+      'products.p3_price':'$26 <span class="unit">/ box</span>',
+      'products.p4_price':'$17 <span class="unit">/ box</span>',
+      'products.p5_price':'$12 <span class="unit">/ box</span>',
+      'products.p6_price':'$7 <span class="unit">/ box</span>',
+      'products.p7_price':'$12 <span class="unit">/ box</span>',
+      'products.delivery_note':'* Delivery service and wholesale supply available upon customer request.',
+      'about.body1':'Our company, in collaboration with the Institute of Biology of the Mongolian Academy of Sciences using equipment from South Korea and Denmark, is a national manufacturer that — <strong style="color:var(--cream)">for the first time in Mongolia</strong> — produces pure natural Baragshun combined with honey as a bioactive product for the people.',
+      'about.body2':'Working alongside the Institute of Biology of the Mongolian Academy of Sciences, we process Baragshun using advanced equipment from South Korea and Denmark — keeping it <strong style="color:var(--cream)">completely pure</strong>, with no additives or preservatives.',
+      'about.body3':'Baragshun has shown strong results in neutralizing heavy metal and chemical toxicity, boosting immunity, and restoring vitality in older adults — suitable for people of all ages.',
+      'about.fact1_lbl':'MFA Food Sector Award','about.fact2_lbl':'MOH "Winner of the Year" Recipient',
+      'about.fact3_lbl':'Partner of Institute of Biology','about.fact4_lbl':'MNS 6578-3-2016 Standard',
+      'about.certs_label':'Certificates & Guarantees',
+      'about.cert1_name':'Mongolian National Standard','about.cert1_desc':'MNS:6578-3-2016 — Certified in accordance with Mongolian food product sanitary and legal requirements.',
+      'about.cert2_name':'Accredited Laboratory','about.cert2_desc':'Eco Standard Laboratory (MNS ISO/IEC 17025) — No E.coli or Salmonella detected. Lead &lt;0.015 mg/kg, Cadmium &lt;0.001 mg/kg.',
+      'about.cert3_name':'qcTestLab.com — International Testing','about.cert3_desc':'All microbiological and heavy metal (Pb, Hg, As, Cd) tests passed. 30+ elements identified by ICP-OES method.',
+      'about.cert4_name':'Mongolian Academy of Sciences — Biology Institute','about.cert4_desc':'Collaborated using equipment from South Korea and Denmark to produce pure natural Baragshun for the first time in Mongolia.',
+      'how.step1_title':'Take 6–8 Drops','how.step1_desc':'Take 6–8 drops 2–3 times per day. Adjust the dosage based on your age and health condition in consultation with your doctor.',
+      'how.step2_title':'Dissolve in Warm Water','how.step2_desc':'Dissolve in warm water — not recommended in cold water. Best taken 30 minutes before dinner.',
+      'how.step3_title':'Rest After Taking','how.step3_desc':'It is recommended to lie down for 30–40 minutes after taking it. If using as an oil compress or solution for compresses, it is best applied before bedtime.',
+      'how.step4_title':'Use Consistently','how.step4_desc':'A course of 30–90 days is recommended. After completing a course, take a 2–4 week break before starting again. Consistent use delivers long-term results.',
+      'how.note':'<strong style="color:var(--cream);">Warning:</strong> Not recommended during pregnancy or breastfeeding. Keep out of reach of children.',
+      'science.body':'There are currently over 500 major publications on Baragshun research, the majority of which are in the fields of science and medicine.',
+      'science.c1_label':'Scientific Publications','science.c1_desc':'The number of research studies on Baragshun worldwide continues to grow.',
+      'science.c2_label':'Minerals Contained','science.c2_desc':'Bioactive compounds including amino acids and fulvic acid are all contained within a single product.',
+      'science.c3_label':'Diagnostic Study 2017','science.c3_desc':'A QRMA diagnostic study was conducted on 10 patients who used Mongolian Altai Baragshun.',
+      'testi.t1_text':'After 3 months of using Baragshun, my stomach ulcer improved significantly. I no longer need to visit the doctor and can carry on my daily life normally. Thank you so much!',
+      'testi.t1_role':'Ulaanbaatar, age 52',
+      'testi.t2_text':'I had a lung condition, and after starting Baragshun, my breathing became much easier. Using natural products was truly the right decision.',
+      'testi.t2_role':'Darkhan, age 45',
+      'testi.t3_text':'I suffered from high blood pressure, but after starting Baragshun my blood pressure stabilized. I can say it is even more effective when taken alongside medication.',
+      'testi.t3_role':'Erdenet, age 61',
+      'contact.body':'Here is our address! Get in touch with us. We respond to order and wholesale supply inquiries within 24 business hours.',
+      'contact.ci_phone':'Phone','contact.ci_email_lbl':'Email','contact.ci_addr':'Address',
+      'contact.ci_web':'Website','contact.ci_social':'Facebook & Instagram',
+      'contact.ci_addr_val':'Bayangol District, 20th Khoroo<br>Sonsgolongiin Street, Building 22<br>Ulaanbaatar, Mongolia',
+      'auth.tab_login':'Sign In','auth.tab_register':'Register',
+      'auth.fb_btn':'Continue with Facebook','auth.google_btn':'Continue with Google',
+      'auth.divider':'or sign in with email',
+      'auth.email_lbl':'Email','auth.password_lbl':'Password','auth.name_lbl':'Name',
+      'auth.email_ph':'example@mail.com','auth.reg_name_ph':'Your Name','auth.reg_pw_ph':'At least 6 characters',
+      'auth.forgot_link':'Forgot password?',
+      'auth.login_submit':'Sign In','auth.login_switch_text':'Don\'t have an account?',
+      'auth.forgot_sub':'Enter your registered email. We\'ll send a password reset link.',
+      'auth.forgot_submit':'Send Reset Link','auth.forgot_back':'← Back to Sign In',
+      'auth.register_submit':'Register','auth.register_switch_text':'Already have an account?',
+      'auth.err_in_use':'This email is already registered.','auth.err_invalid_email':'Invalid email address.',
+      'auth.err_weak_pw':'Password is too short (6+ characters).','auth.err_not_found':'Account not found.',
+      'auth.err_wrong_pw':'Incorrect password.','auth.err_credential':'Incorrect email or password.',
+      'auth.err_too_many':'Too many attempts. Please wait.',
+      'auth.err_popup_closed':'Sign-in window closed. Please try again.',
+      'auth.err_popup_blocked':'Pop-up blocked. Please allow it in your browser settings.',
+      'auth.err_diff_credential':'This email is registered with a different sign-in method.',
+      'auth.err_default':'An error occurred. Please try again.',
+      'auth.err_enter_email':'Please enter your email address.',
+      'auth.forgot_success':'✓ Email sent. Please check your inbox.',
+    },
+    zh: {
+      'nav.what':'喜来芝简介','nav.benefits':'功效','nav.products':'产品',
+      'nav.about':'公司介绍','nav.contact':'联系我们','nav.login':'登录','nav.logout':'退出','nav.order':'立即购买',
+      'hero.label':'纯天然能量 · 蒙古阿尔泰',
+      'hero.h1':'蒙古阿尔泰<br><span class="accent">3000年</span><br>珍宝 — 就在您手中',
+      'hero.tagline':'"矿物树脂乃万物之最上者..."<br><em style="font-size:0.85em;opacity:0.7">— 伦热格丹达尔，十八世纪</em>',
+      'hero.body':'<strong style="color:var(--cream)">喜来芝</strong> — 产自蒙古阿尔泰山脉海拔3500–4000米，含有40余种生物活性物质的天然矿物精华。经科学验证，蒙古国独家产地。',
+      'hero.cta1':'查看产品','hero.cta2':'了解更多',
+      'hero.proof1':'年历史','hero.proof2':'种矿物质','hero.proof3':'100% 纯天然','hero.proof4':'蒙古国标准',
+      'hero.chip1':'富里酸','hero.chip2':'40+ 矿物质','hero.chip3':'抗氧化剂','hero.chip4':'适应原',
+      'what.label':'什么是喜来芝？',
+      'what.h2':'人类使用了3000年的天然奇迹',
+      'benefits.label':'健康功效','benefits.h2':'喜来芝的8大核心功效',
+      'products.label':'我们的产品','products.h2':'蒙古阿尔泰喜来芝',
+      'products.sub':'按MNS:6578-3-2016标准生产，采用最新三层防紫外线包装。',
+      'products.badge_bestseller':'热销产品','products.badge_new':'新品',
+      'about.label':'公司介绍','about.h2':'蒙古阿尔泰喜来芝有限公司',
+      'how.label':'使用指南','how.h2':'如何使用',
+      'science.label':'科学研究','science.h2':'科学家怎么说？',
+      'testi.label':'用户体验','testi.h2':'他们的感受',
+      'contact.label':'联系我们','contact.h2':'下单或咨询',
+      'contact.form_title':'订购表格',
+      'contact.f_name':'您的姓名','contact.f_name_ph':'姓名',
+      'contact.f_phone':'联系电话','contact.f_product':'选择产品',
+      'contact.f_select':'请选择...',
+      'contact.f_opt1':'浓缩喜来芝 — 100ml','contact.f_opt2':'浓缩喜来芝 — 50ml',
+      'contact.f_opt3':'液态喜来芝 — 60袋/盒','contact.f_opt4':'液态喜来芝 — 30袋/盒',
+      'contact.f_opt5':'液态喜来芝 — 15袋/盒','contact.f_opt6':'液态喜来芝 — 10袋/盒',
+      'contact.f_opt7':'喜来芝茉莉花茶 — 50袋/盒',
+      'contact.f_opt8':'批发订购','contact.f_opt9':'其他 / 咨询',
+      'contact.f_qty':'数量','contact.f_email':'电子邮件（选填）',
+      'contact.f_note':'备注','contact.f_note_ph':'收货地址、问题及其他...',
+      'contact.f_submit':'提交订单',
+      'contact.form_required':'请输入您的姓名和联系电话。',
+      'contact.form_loading':'提交中...',
+      'contact.form_error':'提交失败，请重试。',
+      'contact.form_success_title':'订单提交成功！',
+      'contact.form_success_body':'我们将在24小时内与您联系。',
+      'contact.form_order_id':'订单号：',
+      'nav.my_orders':'我的订单',
+      'my_orders.label':'订单历史','my_orders.h2':'我的订单',
+      'my_orders.empty':'暂无订单',
+      'footer.col1':'产品','footer.col2':'实用链接',
+      'footer.copy':'© 2026 蒙古阿尔泰喜来芝有限公司. 版权所有。',
+      'footer.privacy':'隐私政策','footer.terms':'服务条款',
+      'footer.brand_desc':'采集自蒙古阿尔泰山脉3500–4000米高原的纯天然喜来芝 — 经科学验证的生物活性产品。',
+      'footer.tagline':'"大自然的纯粹能量 — 蒙古阿尔泰之金"',
+      'footer.fp1':'浓缩喜来芝 100ml','footer.fp2':'浓缩喜来芝 50ml',
+      'footer.fp3':'液态喜来芝 60袋','footer.fp4':'茉莉花茶 50袋','footer.fp5':'配送服务',
+      'footer.fl1':'什么是喜来芝？','footer.fl2':'功效','footer.fl3':'使用指南',
+      'footer.fl4':'科学研究','footer.fl5':'公司介绍',
+      'what.body1':'喜来芝是产自蒙古阿尔泰山脉海拔3500–4000米的天然生物活性物质，在强烈阳光与暴风雪的遮蔽下自然形成。',
+      'what.body2':'这一古老传统被记载于希腊、东方、阿拉伯、土耳其、中亚、中国和蒙古学者的著作中。在全球<strong style="color:var(--cream)">500多部重要科学和医学文献</strong>中均有记录。',
+      'what.body3':'喜来芝的成分包含<strong style="color:var(--cream)">60–70%</strong>有机物，<strong style="color:var(--cream)">20–30%</strong>为钙、钾、硅、铁、镁等10余种宏量矿物质，以及钛、镍、铜、铝、钒等约30种微量矿物质。',
+      'what.avicenna_q':'"喜来芝能锐化心智，点燃消化之火，以强大功效开畅呼吸..."',
+      'what.avicenna_c':'— 阿维森纳（伊本·西那），约980–1037年',
+      'benefits.b1_title':'减轻心血管炎症','benefits.b1_desc':'富里酸和胡敏酸可减轻动脉硬化，改善血液循环，减轻心脏负担。',
+      'benefits.b2_title':'增强免疫力，保护身体','benefits.b2_desc':'增强机体抵抗力，提升对病毒和细菌的天然防御能力。',
+      'benefits.b3_title':'改善消化系统功能','benefits.b3_desc':'促进消化，调节胃液分泌，帮助平衡肠道微生物群。',
+      'benefits.b4_title':'改善呼吸系统健康','benefits.b4_desc':'清洁呼吸道，保护肺部，有助于缓解支气管疾病。',
+      'benefits.b5_title':'消除疲劳，恢复活力','benefits.b5_desc':'激活线粒体ATP生成，在3–5天内明显减轻体力和脑力疲劳。',
+      'benefits.b6_title':'加速新陈代谢','benefits.b6_desc':'激活新陈代谢，促进细胞再生，帮助身体排出毒素。',
+      'benefits.b7_title':'支持肌肉和神经系统','benefits.b7_desc':'国际研究人员证实，喜来芝对骨折、胸部损伤和关节扭伤有显著效果。',
+      'benefits.b8_title':'减轻关节疼痛，延缓衰老','benefits.b8_desc':'富里酸渗透关节液，减缓软骨磨损，支持无痛运动。',
+      'products.p1_name':'浓缩喜来芝','products.p1_sub':'100ml · 滴管瓶 · 最强配方',
+      'products.p2_name':'浓缩喜来芝','products.p2_sub':'50ml · 滴管瓶 · 试用装',
+      'products.p3_name':'液态喜来芝','products.p3_sub':'60袋 · 袋装盒 · 2个月用量',
+      'products.p4_name':'液态喜来芝','products.p4_sub':'30袋 · 袋装盒 · 1个月用量',
+      'products.p5_name':'液态喜来芝','products.p5_sub':'15袋 · 袋装盒 · 入门套装',
+      'products.p6_name':'液态喜来芝','products.p6_sub':'10袋 · 袋装盒 · 初次尝试',
+      'products.p7_name':'喜来芝茉莉花茶','products.p7_sub':'50袋 · 袋装盒 · 日常舒缓茶',
+      'products.p1_price':'¥149 <span class="unit">/ 瓶</span>',
+      'products.p2_price':'¥99 <span class="unit">/ 瓶</span>',
+      'products.p3_price':'¥189 <span class="unit">/ 盒</span>',
+      'products.p4_price':'¥119 <span class="unit">/ 盒</span>',
+      'products.p5_price':'¥89 <span class="unit">/ 盒</span>',
+      'products.p6_price':'¥49 <span class="unit">/ 盒</span>',
+      'products.p7_price':'¥89 <span class="unit">/ 盒</span>',
+      'products.delivery_note':'* 可按客户要求提供配送服务及批量供货。',
+      'about.body1':'我们公司与蒙古科学院生物研究所合作，采用韩国和丹麦的先进设备，在蒙古国<strong style="color:var(--cream)">首次生产</strong>纯天然喜来芝与蜂蜜结合的生物活性产品，献给广大消费者。',
+      'about.body2':'我们与蒙古科学院生物研究所合作，利用韩国和丹麦的高科技设备加工喜来芝，保持其<strong style="color:var(--cream)">完全纯净</strong>，不含任何添加剂或防腐剂。',
+      'about.body3':'喜来芝在排除重金属和化学毒素、增强免疫力、为老年人补充活力方面效果显著，适合各年龄段人群使用。',
+      'about.fact1_lbl':'食品农业部食品行业奖','about.fact2_lbl':'卫生部"年度之星"获得者',
+      'about.fact3_lbl':'生物研究所合作伙伴','about.fact4_lbl':'MNS 6578-3-2016 标准',
+      'about.certs_label':'证书与认证',
+      'about.cert1_name':'蒙古国家标准','about.cert1_desc':'MNS:6578-3-2016 — 符合蒙古食品卫生和法律要求的认证产品。',
+      'about.cert2_name':'认证实验室','about.cert2_desc':'生态标准实验室（MNS ISO/IEC 17025）— 未检出大肠杆菌或沙门氏菌。铅 &lt;0.015 mg/kg，镉 &lt;0.001 mg/kg。',
+      'about.cert3_name':'qcTestLab.com — 国际检测','about.cert3_desc':'所有微生物学和重金属（Pb、Hg、As、Cd）检测均通过。ICP-OES方法检测出30+种元素。',
+      'about.cert4_name':'蒙古科学院生物研究所','about.cert4_desc':'利用韩国和丹麦设备合作，首次在蒙古国生产纯天然喜来芝。',
+      'how.step1_title':'每次6–8滴','how.step1_desc':'每天早晨空腹将6滴溶于温水中服用。晚餐前30分钟再次服用。请根据年龄和健康状况，咨询医生调整剂量。',
+      'how.step2_title':'溶于温水服用','how.step2_desc':'溶于温水服用 — 不建议用冷水溶解。最佳服用时间为晚餐前30分钟。',
+      'how.step3_title':'服用后休息','how.step3_desc':'建议服用后躺下休息30–40分钟。若用作油性湿敷或溶液湿敷，最好在睡前使用。',
+      'how.step4_title':'坚持使用','how.step4_desc':'建议服用30–90天为一个疗程。疗程结束后，休息2–4周后可重新开始。坚持使用可获得长期效果。',
+      'how.note':'<strong style="color:var(--cream);">注意事项：</strong> 不建议孕妇或哺乳期妇女使用。请放在儿童不易触及处。请存放在阴凉干燥处，避免阳光直射。',
+      'science.body':'目前关于喜来芝研究的重要文献已超过500篇，其中大多数属于科学和医学领域。',
+      'science.c1_label':'科学研究文献','science.c1_desc':'全球喜来芝相关研究数量持续增长。',
+      'science.c2_label':'含有矿物质种类','science.c2_desc':'氨基酸、富里酸等生物活性化合物均包含在单一产品中。',
+      'science.c3_label':'2017年诊断研究','science.c3_desc':'对10名使用蒙古阿尔泰喜来芝的患者进行了QRMA诊断研究。',
+      'testi.t1_text':'使用喜来芝3个月后，我的胃溃疡明显好转。无需再去看医生，日常生活恢复正常。非常感谢！',
+      'testi.t1_role':'乌兰巴托，52岁',
+      'testi.t2_text':'我有肺部疾病，开始使用喜来芝后呼吸变得轻松多了。选择天然产品真的是正确的决定。',
+      'testi.t2_role':'达尔汗，45岁',
+      'testi.t3_text':'我曾患有高血压，但开始使用喜来芝后血压趋于稳定。可以说与药物同时使用效果更佳。',
+      'testi.t3_role':'额尔登特，61岁',
+      'contact.body':'欢迎与我们联系！我们将在24小时内回复您的订单和批发咨询。',
+      'contact.ci_phone':'电话','contact.ci_email_lbl':'电子邮件','contact.ci_addr':'地址',
+      'contact.ci_web':'网站','contact.ci_social':'Facebook & Instagram',
+      'contact.ci_addr_val':'拜杨戈勒区，第20哈拉<br>松斯戈隆街，22号楼<br>乌兰巴托，蒙古国',
+      'auth.tab_login':'登录','auth.tab_register':'注册',
+      'auth.fb_btn':'Facebook 登录','auth.google_btn':'Google 登录',
+      'auth.divider':'或使用电子邮件',
+      'auth.email_lbl':'电子邮件','auth.password_lbl':'密码','auth.name_lbl':'姓名',
+      'auth.email_ph':'example@mail.com','auth.reg_name_ph':'您的姓名','auth.reg_pw_ph':'至少6个字符',
+      'auth.forgot_link':'忘记密码？',
+      'auth.login_submit':'登录','auth.login_switch_text':'还没有账户？',
+      'auth.forgot_sub':'请输入您的注册邮箱，我们将发送密码重置链接。',
+      'auth.forgot_submit':'发送重置链接','auth.forgot_back':'← 返回登录',
+      'auth.register_submit':'注册','auth.register_switch_text':'已有账户？',
+      'auth.err_in_use':'该邮箱已被注册。','auth.err_invalid_email':'邮箱地址无效。',
+      'auth.err_weak_pw':'密码太短（需6位以上）。','auth.err_not_found':'未找到账户。',
+      'auth.err_wrong_pw':'密码错误。','auth.err_credential':'邮箱或密码错误。',
+      'auth.err_too_many':'尝试次数过多，请稍后再试。',
+      'auth.err_popup_closed':'登录窗口已关闭，请重试。',
+      'auth.err_popup_blocked':'弹窗被阻止，请在浏览器设置中允许。',
+      'auth.err_diff_credential':'此邮箱已使用其他方式注册。',
+      'auth.err_default':'发生错误，请重试。',
+      'auth.err_enter_email':'请输入您的电子邮件地址。',
+      'auth.forgot_success':'✓ 邮件已发送，请查收您的邮箱。',
+    }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'mn';
+  window.__currentLang = currentLang;
+
+  function applyLang(lang) {
+    const t = TRANSLATIONS[lang];
+    if (!t) return;
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+
+    // Update toggle buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    // Update text content
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.dataset.i18nPlaceholder;
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'mn' ? 'mn' : lang === 'zh' ? 'zh' : 'en';
+
+    // Sync lang for the module script and re-render orders if loaded
+    window.__currentLang = lang;
+    const fb = window.__fb;
+    if (fb?.auth?.currentUser && fb?.loadMyOrders) {
+      fb.loadMyOrders(fb.auth.currentUser.uid);
+    }
+  }
+
+  // Wire up toggle buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  });
+
+  // Apply saved language on load
+  applyLang(currentLang);
+
+  // Hamburger
+  const ham = document.getElementById('hamburger');
+  const mMenu = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => mMenu.classList.toggle('open'));
+  document.querySelectorAll('.ml').forEach(a => {
+    a.addEventListener('click', () => mMenu.classList.remove('open'));
+  });
+
+  // Scroll fade-in with per-card stagger
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  // Assign stagger delays to product cards as a group
+  document.querySelectorAll('.products-grid .product-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.08) + 's';
+  });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── Order form submission ──
+  const orderForm = document.getElementById('orderForm');
+  if (orderForm) {
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fb = window.__fb;
+
+      // Block submission if not logged in
+      if (!fb?.auth?.currentUser) {
+        if (window.__openAuth) window.__openAuth('login');
+        return;
+      }
+
+      const t          = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
+      const btn        = document.getElementById('orderSubmitBtn');
+      const btnSpan    = btn.querySelector('span[data-i18n]');
+      const errorEl    = document.getElementById('formError');
+      const successEl  = document.getElementById('formSuccess');
+      const orderIdEl  = document.getElementById('formOrderId');
+
+      const name    = document.getElementById('orderName').value.trim();
+      const phone   = document.getElementById('orderPhone').value.trim();
+      const product = document.getElementById('orderProduct').value;
+      const qty     = parseInt(document.getElementById('orderQty').value, 10) || 1;
+      const email   = document.getElementById('orderEmail').value.trim();
+      const note    = document.getElementById('orderNote').value.trim();
+
+      errorEl.textContent = '';
+      if (!name || !phone) {
+        errorEl.textContent = t['contact.form_required'];
+        return;
+      }
+
+      btn.disabled = true;
+      btnSpan.textContent = t['contact.form_loading'];
+
+      if (!fb) {
+        errorEl.textContent = t['contact.form_error'];
+        btn.disabled = false;
+        btnSpan.textContent = t['contact.f_submit'];
+        return;
+      }
+
+      try {
+        const docRef = await fb.addDoc(fb.collection(fb.db, 'orders'), {
+          name, phone, product, qty, email, note,
+          lang:      currentLang,
+          timestamp: fb.serverTimestamp(),
+          uid:       fb.auth.currentUser?.uid   || null,
+          userEmail: fb.auth.currentUser?.email || null,
+        });
+
+        // Show success panel
+        const shortId = docRef.id.substring(0, 8).toUpperCase();
+        orderIdEl.textContent = (t['contact.form_order_id'] || 'Order #:') + ' ' + shortId;
+        orderForm.querySelectorAll('input,select,textarea').forEach(el => el.disabled = true);
+        btn.style.display = 'none';
+        successEl.style.display = 'flex';
+
+        // Send admin notification email (silently — don't block on failure)
+        try {
+          if (typeof emailjs !== 'undefined' &&
+              EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+              order_id:       shortId,
+              customer_name:  name,
+              customer_phone: phone,
+              customer_email: email || '—',
+              product:        product,
+              qty:            qty,
+              note:           note || '—',
+            });
+          }
+        } catch (_) { /* email failure must never break the order flow */ }
+
+      } catch (err) {
+        console.error('Order submit error:', err);
+        errorEl.textContent = t['contact.form_error'];
+        btn.disabled = false;
+        btnSpan.textContent = t['contact.f_submit'];
+      }
+    });
+  }
+</script>
+</body>
+</html>
