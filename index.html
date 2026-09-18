@@ -1268,6 +1268,97 @@
       .order-card { grid-template-columns: 80px 1fr; }
       .oc-status  { display: none; }
     }
+
+    /* ─── SEASONAL: ELDERS' DAY / АХМАДЫН БАЯР ─────────────────── */
+    /* Warm candlelight over the house navy — gold stays the brand,
+       burgundy only warms the shadows. */
+    #hero {
+      background:
+        radial-gradient(ellipse 65% 55% at 14% 42%, rgba(134,56,62,0.40), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 82% 78%, rgba(201,169,110,0.10), transparent 72%),
+        linear-gradient(180deg, #130e15 0%, var(--bg-3) 55%, var(--bg) 100%);
+    }
+    #hero > .container { width: 100%; }
+    .hero-text { min-width: 0; }
+    #hero .hero-text .label { color: var(--gold-lt); }
+    #hero .hero-text .label::before { background: var(--gold-lt); }
+    #hero .hero-tagline { color: #e6cfbe; }
+
+    /* Campaign banner above the product grid */
+    .celebration-banner {
+      display: flex; align-items: center; gap: 26px;
+      padding: 26px 32px; margin: 0 0 36px;
+      border: 1px solid var(--border-gold-bright); border-radius: 3px;
+      background:
+        radial-gradient(ellipse 85% 150% at 100% 50%, rgba(134,56,62,0.50), transparent 72%),
+        linear-gradient(90deg, rgba(201,169,110,0.07), rgba(201,169,110,0.02));
+      box-shadow:
+        inset 0 1px 0 rgba(226,201,138,0.12),
+        0 14px 36px rgba(0,0,0,0.34);
+    }
+    .celebration-seal {
+      flex-shrink: 0;
+      width: 78px; height: 78px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border-gold-bright);
+      background: radial-gradient(circle at 32% 26%, rgba(226,201,138,0.18), rgba(201,169,110,0.03));
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.95rem; font-weight: 700; line-height: 1;
+      letter-spacing: -0.02em; color: var(--gold-lt);
+    }
+    .celebration-seal span { font-size: 0.95rem; font-weight: 600; margin-left: 2px; }
+    .celebration-copy h3 {
+      font-family: 'Cormorant Infant', serif;
+      font-size: clamp(1.3rem, 2.4vw, 1.75rem); font-weight: 600;
+      letter-spacing: -0.01em; color: var(--cream);
+    }
+    .celebration-copy p {
+      margin-top: 6px; font-size: 0.82rem; line-height: 1.6;
+      letter-spacing: 0.04em; color: var(--muted);
+    }
+    .celebration-ornament {
+      margin-left: auto; flex-shrink: 0;
+      width: 84px; height: 40px; color: var(--gold); opacity: 0.55;
+    }
+
+    /* Discounted cards — the base card paints its border with a clipped
+       conic gradient, so border-color can't tint it. Light the card from
+       below instead. */
+    .celebration-product .product-img {
+      background: linear-gradient(145deg, #1a1018, #0b0a13);
+    }
+    .celebration-product .product-img::after {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 72% 58% at 50% 100%, rgba(134,56,62,0.42), transparent 72%);
+    }
+    .celebration-product .product-info {
+      background: linear-gradient(180deg, rgba(134,56,62,0.16), transparent 62%);
+    }
+    .celebration-product .product-price { color: var(--gold-lt); }
+    .sale-badge-card {
+      top: 14px; left: 14px;
+      background: linear-gradient(135deg, #8d3f47, #672e37);
+      color: #f6e3bd; border: 1px solid rgba(226,201,138,0.45);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      padding: 5px 11px; border-radius: 2px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.38);
+    }
+    .price-original { opacity: 0.75; letter-spacing: 0.02em; margin-bottom: 1px; }
+
+    #products { scroll-margin-top: 88px; }
+
+    @media (max-width: 600px) {
+      .hero-actions { flex-wrap: wrap; }
+      #hero .hero-text .label { font-size: 0.62rem; letter-spacing: 0.14em; }
+      #hero .h1 { font-size: clamp(2rem, 8.8vw, 3rem); overflow-wrap: anywhere; }
+      .celebration-banner { gap: 16px; padding: 18px; margin-bottom: 24px; }
+      .celebration-seal { width: 58px; height: 58px; font-size: 1.45rem; }
+      .celebration-seal span { font-size: 0.78rem; }
+      .celebration-copy p { font-size: 0.75rem; }
+      .celebration-ornament { display: none; }
+      .celebration-product .product-cta { flex-wrap: wrap; gap: 10px; }
+      .sale-badge-card { top: 10px; left: 10px; font-size: 0.55rem; padding: 4px 8px; }
+    }
   </style>
 <!-- Firebase SDK -->
 <script type="module">
@@ -1927,21 +2018,12 @@
     <div class="hero-content">
       <!-- Left: text -->
       <div class="hero-text">
-        <div class="label fade-up" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</div>
-        <h1 class="h1 fade-up fade-up-d1" data-i18n="hero.h1">
-          3000 жилийн<br>
-          <span class="accent">түүхт эрдэнэсийг</span><br>
-          нээх цаг
-        </h1>
-        <p class="hero-tagline fade-up fade-up-d2" data-i18n="hero.tagline">
-          "Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br>
-          <em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>
-        </p>
-        <p class="body-text fade-up fade-up-d2" data-i18n="hero.body">
-          Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
-        </p>
+        <div class="label fade-up" data-i18n="hero.label">Ахмадын баярын тусгай урамшуулал</div>
+        <h1 class="h1 fade-up fade-up-d1" data-i18n="hero.h1">Ачтан буурлуудаа<br><span class="accent">хайрлан хүндэлье</span></h1>
+        <p class="hero-tagline fade-up fade-up-d2" data-i18n="hero.tagline">Хайр, хүндэтгэлээ сэтгэл шингэсэн бэлгээр илэрхийлээрэй.</p>
+        <p class="body-text fade-up fade-up-d2" data-i18n="hero.body">Шингэн барагшуны 10, 15, 30 ширхэгтэй хайрцаг Ахмадын баярыг тохиолдуулан 20% хямдарлаа.</p>
         <div class="hero-actions fade-up fade-up-d3">
-          <a href="#products" class="btn btn-gold" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
+          <a href="#products" class="btn btn-gold" data-i18n="hero.cta1">Хямдралтай бүтээгдэхүүн үзэх</a>
           <a href="#what" class="btn btn-outline-gold" data-i18n="hero.cta2">Дэлгэрэнгүй</a>
         </div>
         <div class="hero-proof fade-up fade-up-d4">
@@ -2095,6 +2177,20 @@
         МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.
       </p>
     </div>
+    <div class="celebration-banner fade-up">
+      <div class="celebration-seal" aria-hidden="true">−20<span>%</span></div>
+      <div class="celebration-copy">
+        <h3 data-i18n="celebration.title">Ахмадын баяр · 20% хямдрал</h3>
+        <p data-i18n="celebration.detail">10, 15, 30 ширхэгтэй шингэн барагшун</p>
+      </div>
+      <svg class="celebration-ornament" viewBox="0 0 84 40" fill="none" aria-hidden="true">
+        <path d="M0 20h24M60 20h24" stroke="currentColor" stroke-width="1"/>
+        <path d="M42 8l12 12-12 12-12-12z" stroke="currentColor" stroke-width="1"/>
+        <path d="M42 15l5 5-5 5-5-5z" fill="currentColor" opacity=".55"/>
+        <circle cx="30" cy="20" r="1.6" fill="currentColor"/>
+        <circle cx="54" cy="20" r="1.6" fill="currentColor"/>
+      </svg>
+    </div>
     <div class="products-grid">
 
       <!-- Product 1: Өтгөн барагшун 100мл -->
@@ -2144,45 +2240,48 @@
       </div>
 
       <!-- Product 4: Шингэн барагшун 30ш -->
-      <div class="product-card fade-up fade-up-d1">
+      <div class="product-card celebration-product fade-up fade-up-d1">
         <div class="product-img">
-<img src="Products/product-4.jpg" alt="Шингэн барагшун 30ш">
+<span class="sale-badge-card" data-i18n="celebration.badge">20% хямдрал</span>
+          <img src="Products/product-4.jpg" alt="Шингэн барагшун 30ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
           <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p4_price">40,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p4_price"><del class="price-original">40,000 ₮</del>32,000 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p4" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
       </div>
 
       <!-- Product 5: Шингэн барагшун 15ш -->
-      <div class="product-card fade-up fade-up-d2">
+      <div class="product-card celebration-product fade-up fade-up-d2">
         <div class="product-img">
-<img src="Products/product-5.jpg" alt="Шингэн барагшун 15ш">
+<span class="sale-badge-card" data-i18n="celebration.badge">20% хямдрал</span>
+          <img src="Products/product-5.jpg" alt="Шингэн барагшун 15ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
           <div class="product-sub" data-i18n="products.p5_sub">15 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p5_price">25,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p5_price"><del class="price-original">25,000 ₮</del>20,000 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p5" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
       </div>
 
       <!-- Product 6: Шингэн барагшун 10ш -->
-      <div class="product-card fade-up fade-up-d3">
+      <div class="product-card celebration-product fade-up fade-up-d3">
         <div class="product-img">
-<img src="Products/product-6.jpg" alt="Шингэн барагшун 10ш">
+<span class="sale-badge-card" data-i18n="celebration.badge">20% хямдрал</span>
+          <img src="Products/product-6.jpg" alt="Шингэн барагшун 10ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
           <div class="product-sub" data-i18n="products.p6_sub">10 ширхэг · Хайрцаг</div>
           <div class="product-cta">
-            <div class="product-price" data-i18n="products.p6_price">16,000 ₮ <span class="unit">/ хайрцаг</span></div>
+            <div class="product-price" data-i18n="products.p6_price"><del class="price-original">16,000 ₮</del>12,800 ₮ <span class="unit">/ хайрцаг</span></div>
             <a href="#contact" class="btn btn-gold order-btn" data-product="p6" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
           </div>
         </div>
@@ -2728,9 +2827,9 @@
       'products.p1_price':'50,000 ₮ <span class="unit">/ ш</span>',
       'products.p2_price':'30,000 ₮ <span class="unit">/ ш</span>',
       'products.p3_price':'70,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p4_price':'40,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p5_price':'25,000 ₮ <span class="unit">/ хайрцаг</span>',
-      'products.p6_price':'16,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p4_price':'<del class="price-original">40,000 ₮</del>32,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p5_price':'<del class="price-original">25,000 ₮</del>20,000 ₮ <span class="unit">/ хайрцаг</span>',
+      'products.p6_price':'<del class="price-original">16,000 ₮</del>12,800 ₮ <span class="unit">/ хайрцаг</span>',
       'products.p7_price':'20,000 ₮ <span class="unit">/ хайрцаг</span>',
       'products.delivery_note':'* Худалдан авагчийн хүсэлтээр хүргэлтийн үйлчилгээ болон борлуулалтын нийлүүлэлт хийгдэнэ.',
       'about.body1':'Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.',
@@ -2869,9 +2968,9 @@
       'products.p1_price':'$21 <span class="unit">/ bottle</span>',
       'products.p2_price':'$14 <span class="unit">/ bottle</span>',
       'products.p3_price':'$26 <span class="unit">/ box</span>',
-      'products.p4_price':'$17 <span class="unit">/ box</span>',
-      'products.p5_price':'$12 <span class="unit">/ box</span>',
-      'products.p6_price':'$7 <span class="unit">/ box</span>',
+      'products.p4_price':'<del class="price-original">$17</del>$13.60 <span class="unit">/ box</span>',
+      'products.p5_price':'<del class="price-original">$12</del>$9.60 <span class="unit">/ box</span>',
+      'products.p6_price':'<del class="price-original">$7</del>$5.60 <span class="unit">/ box</span>',
       'products.p7_price':'$12 <span class="unit">/ box</span>',
       'products.delivery_note':'* Delivery service and wholesale supply available upon customer request.',
       'about.body1':'Our company, in collaboration with the Institute of Biology of the Mongolian Academy of Sciences using equipment from South Korea and Denmark, is a national manufacturer that — <strong style="color:var(--cream)">for the first time in Mongolia</strong> — produces pure natural Baragshun combined with honey as a bioactive product for the people.',
@@ -3010,9 +3109,9 @@
       'products.p1_price':'¥149 <span class="unit">/ 瓶</span>',
       'products.p2_price':'¥99 <span class="unit">/ 瓶</span>',
       'products.p3_price':'¥189 <span class="unit">/ 盒</span>',
-      'products.p4_price':'¥119 <span class="unit">/ 盒</span>',
-      'products.p5_price':'¥89 <span class="unit">/ 盒</span>',
-      'products.p6_price':'¥49 <span class="unit">/ 盒</span>',
+      'products.p4_price':'<del class="price-original">¥119</del>¥95.20 <span class="unit">/ 盒</span>',
+      'products.p5_price':'<del class="price-original">¥89</del>¥71.20 <span class="unit">/ 盒</span>',
+      'products.p6_price':'<del class="price-original">¥49</del>¥39.20 <span class="unit">/ 盒</span>',
       'products.p7_price':'¥89 <span class="unit">/ 盒</span>',
       'products.delivery_note':'* 可按客户要求提供配送服务及批量供货。',
       'about.body1':'我们公司与蒙古科学院生物研究所合作，采用韩国和丹麦的先进设备，在蒙古国<strong style="color:var(--cream)">首次生产</strong>纯天然喜来芝与蜂蜜结合的生物活性产品，献给广大消费者。',
@@ -3077,6 +3176,11 @@
       'auth.phone_wrong_otp':'验证码错误，请重试。',
     }
   };
+
+  // Seasonal campaign copy follows the selected storefront language.
+  Object.assign(TRANSLATIONS.mn, {"hero.label": "Ахмадын баярын тусгай урамшуулал", "hero.h1": "Ачтан буурлуудаа<br><span class=\"accent\">хайрлан хүндэлье</span>", "hero.tagline": "Хайр, хүндэтгэлээ сэтгэл шингэсэн бэлгээр илэрхийлээрэй.", "hero.body": "Шингэн барагшуны 10, 15, 30 ширхэгтэй хайрцаг Ахмадын баярыг тохиолдуулан 20% хямдарлаа.", "hero.cta1": "Хямдралтай бүтээгдэхүүн үзэх", "celebration.title": "Ахмадын баяр · 20% хямдрал", "celebration.detail": "10, 15, 30 ширхэгтэй шингэн барагшун", "celebration.badge": "20% хямдрал"});
+  Object.assign(TRANSLATIONS.en, {"hero.label": "A special offer for Elders’ Day", "hero.h1": "Celebrate our elders<br><span class=\"accent\">with love & gratitude</span>", "hero.tagline": "A thoughtful gift for those who have given us so much.", "hero.body": "Celebrate Elders’ Day with 20% off the 10-, 15-, and 30-piece boxes of liquid Baragshun.", "hero.cta1": "Shop the celebration", "celebration.title": "Elders’ Day · 20% off", "celebration.detail": "Liquid Baragshun · 10, 15 & 30 pieces", "celebration.badge": "20% off"});
+  Object.assign(TRANSLATIONS.zh, {"hero.label": "敬老节特别优惠", "hero.h1": "关爱长辈<br><span class=\"accent\">感恩相伴</span>", "hero.tagline": "用一份用心的礼物，表达您的爱与敬意。", "hero.body": "庆祝敬老节，10袋、15袋及30袋装液态喜来芝享八折优惠。", "hero.cta1": "选购优惠产品", "celebration.title": "敬老节 · 八折优惠", "celebration.detail": "液态喜来芝 · 10袋、15袋及30袋装", "celebration.badge": "八折优惠"});
 
   let currentLang = localStorage.getItem('lang') || 'mn';
   window.__currentLang = currentLang;
