@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function staff() {
+      return request.auth != null && request.auth.token.email_verified == true
+        && request.auth.token.email.lower() in ['belguutei66@gmail.com','7enkhbold@gmail.com','bayanaa1250@gmail.com','bbolor0411@gmail.com'];
+    }
+    match /stock-photos/{uid}/{kind}/{recordId}/{fileId} {
+      allow read: if staff();
+      allow create: if staff() && request.auth.uid == uid
+        && kind in ['closing','receipt','room']
+        && (kind != 'closing' || request.auth.token.email.lower() in ['belguutei66@gmail.com','bayanaa1250@gmail.com','bbolor0411@gmail.com'])
+        && request.resource.size > 0 && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType in ['image/jpeg','image/png','image/webp'];
+      allow update: if false;
+      allow delete: if staff() && request.auth.uid == uid
+        && ((kind == 'closing' && !firestore.exists(/databases/(default)/documents/stockCounts/$(recordId)))
+          || (kind in ['receipt','room'] && !firestore.exists(/databases/(default)/documents/stockWithdrawals/$(recordId))));
+    }
+  }
+}

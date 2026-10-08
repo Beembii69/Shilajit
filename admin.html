@@ -208,6 +208,310 @@
       .admin-header-title { display: none; }
       thead th.hide-sm, td.hide-sm { display: none; }
     }
+    .order-entry { background: var(--bg-2); border: 1px solid var(--border); padding: 24px; border-radius: 6px; margin-bottom: 24px; }
+    .order-entry summary { cursor: pointer; color: var(--gold-lt); font-weight: 600; }
+    .entry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin: 20px 0; }
+    .entry-grid label { display: grid; gap: 8px; font-size: .8rem; color: var(--muted); }
+    .entry-grid input, .entry-grid select, .entry-grid textarea { width: 100%; padding: 11px; background: var(--bg-3); color: var(--cream); border: 1px solid var(--border); border-radius: 4px; font: inherit; }
+    button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    button:active { opacity: .8; }
+    .order-entry .login-btn { width: auto; }
+    .status-badge.approved, .status-badge.paid, .status-badge.ready { color: var(--gold-lt); border: 1px solid var(--border-bright); }
+    .staff-detail { display: block; margin-top: 5px; color: var(--muted); font-size: .7rem; }
+    #actionError { color: var(--red); margin-bottom: 12px; }
+    :root {
+      --bg: #f7f8fa; --bg-2: #ffffff; --bg-3: #f4f5f7;
+      --cream: #202a35; --muted: #657181; --muted-2: #86909d;
+      --gold: #71552e; --gold-lt: #71552e; --gold-dk: #594223;
+      --border: #e1e5eb; --border-bright: #b9c2cc;
+      --teal: #266c70; --blue: #356585; --yellow: #876626;
+      --green: #32704b; --red: #ae4545;
+    }
+    .admin-header { background: #fff; backdrop-filter: none; height: auto; min-height: 68px; gap: 16px; padding: 16px 28px; }
+    .admin-header-title { font-size: .95rem; letter-spacing: 0; text-transform: none; color: var(--cream); }
+    .live-dot { display: none; }
+    .admin-main { max-width: 1440px; }
+    .page-heading { font-size: 1.5rem; margin-bottom: 6px; }
+    .page-description { color: var(--muted); font-size: .85rem; margin-bottom: 24px; }
+    .order-entry { padding: 0; overflow: hidden; }
+    .order-entry summary { padding: 18px 22px; font-size: .95rem; }
+    .order-entry[open] summary { border-bottom: 1px solid var(--border); }
+    #staffOrderForm { padding: 0 22px 22px; }
+    .entry-grid { gap: 20px; }
+    .entry-grid input, .entry-grid select, .entry-grid textarea { background: #fff; min-height: 44px; }
+    .login-btn { background: #71552e; color: #fff; letter-spacing: 0; text-transform: none; min-height: 44px; }
+    .stats-row { gap: 12px; margin-bottom: 24px; }
+    .stat-card { padding: 16px; }
+    .stat-num { font-size: 1.6rem; }
+    .stat-label { text-transform: none; letter-spacing: 0; }
+    .toolbar { justify-content: flex-start; }
+    .search-box { flex: 1; min-width: 180px; min-height: 44px; background: #fff; }
+    .status-filter { display: flex; align-items: center; gap: 10px; font-size: .8rem; color: var(--muted); }
+    .status-filter select { min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: var(--cream); font: inherit; }
+    .table-wrap { background: #fff; }
+    thead th { letter-spacing: 0; text-transform: none; font-size: .75rem; padding: 14px; }
+    tbody td { padding: 16px 14px; }
+    tbody tr:hover { background: #fafbfc; }
+    .status-badge { border-radius: 4px; font-size: .72rem; letter-spacing: 0; }
+    .status-badge::before { display: none; }
+    .status-badge.cancelled, .stat-num.red { color: var(--red); }
+    .act-btn { min-height: 40px; padding: 8px 12px; letter-spacing: 0; font-size: .75rem; }
+    .act-btn.set-called { background: #71552e; color: #fff; border-color: #71552e; }
+    .act-btn.set-called:hover:not(:disabled) { background: #594223; }
+    .act-btn.set-cancelled { border-color: var(--border); color: var(--muted); }
+    .login-box { background: #fff; }
+    #entryMessage:not(:empty) { margin-bottom: 14px; font-size: .85rem; }
+    @media (max-width: 640px) {
+      .admin-header { flex-wrap: wrap; padding: 14px 16px; }
+      .admin-header-title, .admin-user-email { display: inline; }
+      .admin-user-email { font-size: .7rem; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .stats-row .stat-card:first-child { grid-column: 1 / -1; }
+      .entry-grid { grid-template-columns: 1fr; }
+      .toolbar { align-items: stretch; flex-direction: column; }
+      .search-box, .status-filter select { width: 100%; }
+      .order-entry .login-btn { width: 100%; }
+    }
+    .order-details td { background: var(--bg-3); padding: 20px; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 20px; }
+    .detail-grid dt { font-size: .75rem; color: var(--muted); margin-bottom: 6px; }
+    .detail-grid dd { font-size: .85rem; white-space: pre-line; overflow-wrap: anywhere; }
+    .order-summary { table-layout: fixed; }
+    .order-summary td, .order-summary th { overflow-wrap: anywhere; white-space: normal; }
+    .order-summary th:first-child { width: 40%; }
+    .order-summary .logout-btn { min-height: 40px; padding: 8px 12px; }
+    @media (max-width: 640px) {
+      .order-summary td, .order-summary th { padding: 12px 8px; }
+      .order-summary th:first-child { width: 34%; }
+      .order-summary .logout-btn { padding: 8px 6px; font-size: .68rem; }
+    }
+    html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .admin-header { border-top: 4px solid #052746; position: relative; }
+    .admin-header-title { color: #052746; font-weight: 700; }
+    .admin-header-left, .admin-user { min-width: 0; }
+    .admin-user-email { display: inline; overflow-wrap: anywhere; }
+    .admin-main { padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+    .page-heading { color: #052746; font-weight: 700; }
+    .page-description { line-height: 1.7; }
+    .order-entry, .table-wrap, .stat-card { border-radius: 8px; }
+    .order-entry summary { color: #052746; }
+    .login-btn, .act-btn.set-called { background: #052746; border-color: #052746; }
+    .login-btn:hover, .act-btn.set-called:hover:not(:disabled) { background: #123c60; }
+    .logout-btn, .act-btn, .order-summary .logout-btn { min-height: 44px; }
+    button, summary { touch-action: manipulation; }
+    input, select, textarea { font-size: 16px !important; }
+    .entry-grid > *, .detail-grid > * { min-width: 0; }
+    .status-badge { line-height: 1.5; white-space: normal; }
+    .detail-grid dd { line-height: 1.7; }
+    .action-btns { gap: 10px; }
+    .search-box { width: auto; min-width: 0; }
+    .login-box { margin: 20px; padding: 28px; }
+    @media (max-width: 700px) {
+      .admin-header { padding: 14px 16px; flex-direction: column; align-items: stretch; gap: 12px; }
+      .admin-user { justify-content: space-between; }
+      .admin-main { padding: 24px 16px; }
+      .table-wrap { border: 0; background: transparent; overflow: visible; }
+      .order-summary, .order-summary tbody { display: block; width: 100%; }
+      .order-summary thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+      .order-summary tbody > tr:not(.order-details):not(.empty-row):not(.loading-row) {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+        padding: 18px; background: #fff; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px;
+      }
+      .order-summary tbody td { display: block; padding: 0; }
+      .order-summary tbody td[data-label]::before { content: attr(data-label); display: block; color: var(--muted); font-size: .72rem; margin-bottom: 6px; }
+      .order-summary .logout-btn { width: 100%; font-size: .8rem; }
+      .order-summary .order-details:not([hidden]) { display: block; background: #fff; border: 1px solid var(--border); border-radius: 8px; margin: -4px 0 16px; padding: 18px; }
+      .order-details td { background: transparent; }
+      .order-details[hidden] { display: none; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .action-btns .act-btn { flex: 1; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .status-filter select { flex: 1; min-width: 0; }
+      #staffOrderForm { padding: 0 16px 20px; }
+      .entry-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    .staff-report { margin: 0 0 24px; padding: 20px; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+    .report-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .report-toolbar h2 { font-size: 1rem; color: #052746; }
+    .report-toolbar select { padding: 10px; border: 1px solid var(--border); border-radius: 4px; }
+    .report-table-wrap { overflow-x: auto; }
+    .report-table { min-width: 680px; }
+    .report-table button { min-height: 44px; padding: 8px 12px; cursor: pointer; color: #052746; background: #f4f6f8; border: 1px solid var(--border); border-radius: 4px; font: inherit; }
+    .report-note { font-size: .8rem; color: var(--muted); line-height: 1.7; margin-top: 12px; }
+    #reportSelection { margin-bottom: 16px; }
+    :root {
+      --bg: #080c14; --bg-2: #101827; --bg-3: #0c1320;
+      --cream: #edf1f7; --muted: #a3afc0; --muted-2: #8290a5;
+      --gold: #c9a96e; --gold-lt: #e2c98a; --gold-dk: #a07840;
+      --border: #26344a; --border-bright: #53647c;
+      --teal: #78cbd1; --blue: #8cb8e0; --yellow: #dec17d;
+      --green: #89cba4; --red: #ef9898;
+    }
+    html { color-scheme: dark; }
+    .admin-header { background: var(--bg-2); border-top-color: var(--gold); }
+    .admin-header-title, .page-heading, .order-entry summary, .report-toolbar h2 { color: var(--cream); }
+    .order-entry, .stat-card, .table-wrap, .login-box, .staff-report { background: var(--bg-2); }
+    .entry-grid input, .entry-grid select, .entry-grid textarea, .search-box,
+    .status-filter select, .report-toolbar select { background: var(--bg-3); color: var(--cream); border-color: var(--border); }
+    .login-btn, .act-btn.set-called { background: var(--gold); border-color: var(--gold); color: #080c14; }
+    .login-btn:hover, .act-btn.set-called:hover:not(:disabled) { background: var(--gold-lt); }
+    .report-table button { background: var(--bg-3); color: var(--gold-lt); border-color: var(--border); }
+    tbody tr:hover { background: #162236; }
+    .logout-btn { color: var(--cream); }
+    .act-btn.set-cancelled { color: var(--red); }
+    .status-badge.approved, .status-badge.paid, .status-badge.ready { background: rgba(201,169,110,.08); }
+    @media (max-width: 700px) {
+      .table-wrap { background: transparent; }
+      .order-summary tbody > tr:not(.order-details):not(.empty-row):not(.loading-row),
+      .order-summary .order-details:not([hidden]) { background: var(--bg-2); }
+    }
+    :root {
+      --bg:#121212; --bg-2:#212121; --bg-3:#292929; --cream:#e8eaed;
+      --muted:#a4aab4; --muted-2:#9299a5; --border:#34363a; --border-bright:#626873;
+      --gold:#8ab4f8; --gold-lt:#aecbfa; --gold-dk:#669df6;
+    }
+    .console-sidebar { position:fixed; inset:0 auto 0 0; width:244px; background:#212121; border-right:1px solid var(--border); padding:24px 12px; z-index:110; display:flex; flex-direction:column; }
+    .console-brand { display:flex; align-items:center; gap:12px; padding:0 12px 24px; font-size:1.25rem; font-weight:600; }
+    .console-brand img { width:32px; height:40px; object-fit:contain; }
+    .console-sidebar small { display:block; padding:20px 12px 10px; color:var(--muted); font-size:.72rem; border-top:1px solid var(--border); }
+    .console-nav { display:flex; flex-direction:column; gap:6px; }
+    .console-nav button { display:flex; gap:12px; align-items:center; text-align:left; min-height:44px; padding:10px 14px; color:var(--muted); background:transparent; border:0; border-radius:24px; font:inherit; font-size:.85rem; cursor:pointer; }
+    .console-nav button:hover { background:#2b2b2b; color:var(--cream); }
+    .console-nav button[aria-current="page"] { background:#303134; color:#aecbfa; font-weight:600; }
+    .nav-icon { width:20px; text-align:center; font-size:1rem; }
+    .sidebar-footer { margin-top:auto; padding:16px 12px; color:var(--muted); font-size:.75rem; border-top:1px solid var(--border); }
+    .admin-header { margin-left:244px; background:var(--bg); border-top:0; min-height:64px; padding:12px 28px; }
+    .admin-header-left img { display:none; }
+    .admin-header-title { font-size:.82rem; color:var(--muted); }
+    .admin-main { margin-left:244px; max-width:none; padding:12px 28px 40px; }
+    .page-heading { color:var(--cream); font-size:1.85rem; font-weight:500; margin:12px 0; }
+    .page-description { margin-bottom:16px; }
+    .console-tabs { display:flex; gap:28px; border-bottom:1px solid var(--border); margin-bottom:32px; overflow-x:auto; }
+    .console-tabs button { flex-shrink:0; background:transparent; border:0; border-bottom:3px solid transparent; padding:12px 0; color:var(--muted); font:inherit; font-size:.85rem; cursor:pointer; min-height:44px; }
+    .console-tabs button[aria-current="page"] { color:var(--gold); border-bottom-color:var(--gold); }
+    .console-tabs button:hover { color:var(--cream); }
+    [data-console-section] { max-width:1180px; margin-left:auto; margin-right:auto; }
+    #dashboard[data-view="orders"] [data-console-section]:not([data-console-section="orders"]),
+    #dashboard[data-view="deliveries"] [data-console-section]:not([data-console-section="orders"]),
+    #dashboard[data-view="approvals"] [data-console-section]:not([data-console-section="orders"]),
+    #dashboard[data-view="stock"] [data-console-section]:not([data-console-section="stock"]),
+    #dashboard[data-view="reports"] [data-console-section]:not([data-console-section="reports"]),
+    #dashboard[data-view="settings"] [data-console-section]:not([data-console-section="settings"]) { display:none; }
+    .stats-row { gap:0; border:1px solid var(--border); border-radius:8px; background:var(--bg-2); overflow:hidden; }
+    .stat-card { border:0; border-radius:0; padding:16px 20px; }
+    .stat-card + .stat-card { border-left:1px solid var(--border); }
+    .stat-num { font-size:1.35rem; }
+    .toolbar { background:var(--bg-2); padding:16px; border:1px solid var(--border); border-radius:8px; }
+    .search-box { background:#303134; border-color:transparent; border-radius:8px; }
+    .order-entry summary { color:var(--cream); }
+    thead th { background:var(--bg-2); padding:12px 20px; font-weight:500; }
+    tbody td { padding:14px 20px; }
+    tbody tr { border-bottom:1px solid var(--border); }
+    tbody tr:hover { background:#292a2d; }
+    .order-details td { background:#191919; }
+    .logout-btn { border-color:var(--border-bright); border-radius:6px; }
+    .login-btn, .act-btn.set-called { background:var(--gold); color:#16243a; border-color:var(--gold); }
+    .login-btn:hover, .act-btn.set-called:hover:not(:disabled) { background:var(--gold-lt); }
+    #dashboard[data-view="deliveries"] #orderEntry,
+    #dashboard[data-view="approvals"] #orderEntry,
+    #dashboard[data-view="approvals"] .stats-row,
+    #dashboard[data-view="deliveries"] .stats-row { display:none; }
+    [hidden] { display:none !important; }
+    .menu-toggle { display:none; }
+    @media (max-width:1000px) {
+      .console-sidebar { width:210px; }
+      .admin-header, .admin-main { margin-left:210px; }
+      .admin-main { padding-left:20px; padding-right:20px; }
+    }
+    @media (max-width:700px) {
+      .console-sidebar { width:244px; transform:translateX(-100%); transition:transform .2s ease; }
+      #dashboard.menu-open .console-sidebar { transform:translateX(0); }
+      .admin-header, .admin-main { margin-left:0; }
+      .admin-header { flex-direction:row; flex-wrap:wrap; padding:12px 16px; }
+      .admin-header-left { flex:1; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; min-width:44px; }
+      .admin-main { padding:12px 16px 32px; }
+      .console-tabs { gap:24px; margin-bottom:24px; }
+      .console-sidebar .menu-toggle { align-self:flex-end; }
+      .stats-row .stat-card { border:0; }
+      .order-summary tbody > tr:not(.order-details):not(.empty-row):not(.loading-row), .order-summary .order-details:not([hidden]) { background:var(--bg-2); }
+    }
+    input[type="file"] { display:block; width:100%; margin:10px 0; color:var(--muted); }
+    #photoDialog { margin:auto; padding:20px; width:min(94vw,1000px); max-height:94vh; overflow:auto; background:var(--bg-2); color:var(--cream); border:1px solid var(--border); border-radius:8px; }
+    #photoDialog::backdrop { background:rgba(0,0,0,.8); }
+    #evidenceImage { display:block; max-width:100%; max-height:78vh; margin:12px auto; object-fit:contain; }
+    /* Warm metal details on the charcoal office console. */
+    :root { --gold:#cfb47c; --gold-lt:#ead7ae; --gold-dk:#aa874b; --border:#383735; }
+    .ui-icon { width:20px; height:20px; flex-shrink:0; vertical-align:middle; }
+    .console-sidebar { background:linear-gradient(160deg,#242321,#1b1c1e 70%); }
+    .console-brand { letter-spacing:.025em; }
+    .console-brand-name { font-size:.95rem; line-height:1.5; min-width:0; }
+    .console-brand img { width:40px; height:48px; filter:drop-shadow(0 3px 8px rgba(207,180,124,.18)); }
+    .console-sidebar small { color:var(--gold); letter-spacing:.1em; }
+    .console-nav button { border-radius:10px; transition:background .18s,color .18s; }
+    .console-nav button[aria-current="page"] { background:linear-gradient(100deg,rgba(207,180,124,.16),rgba(207,180,124,.04)); color:var(--gold-lt); box-shadow:inset 3px 0 var(--gold); }
+    .console-nav .nav-icon { display:inline-flex; align-items:center; justify-content:center; }
+    .admin-header { border-bottom:1px solid rgba(207,180,124,.16); }
+    .admin-header-title { display:inline-flex; align-items:center; gap:10px; }
+    .admin-header-title .ui-icon { color:var(--gold); }
+    .page-heading { font-weight:600; letter-spacing:-.025em; }
+    .console-tabs button { display:inline-flex; align-items:center; gap:8px; }
+    .console-tabs .ui-icon { width:17px; height:17px; }
+    .stats-row { gap:12px; border:0; border-radius:0; background:transparent; overflow:visible; }
+    .stat-card { position:relative; border:1px solid var(--border); border-radius:12px; padding:22px 20px; background:linear-gradient(140deg,#262522,#202123); box-shadow:0 6px 18px rgba(0,0,0,.12); }
+    .stat-card + .stat-card { border-left:1px solid var(--border); }
+    .stat-card > .ui-icon { position:absolute; right:16px; top:18px; color:var(--gold); opacity:.75; width:23px; height:23px; }
+    .stat-num { font-size:1.65rem; font-variant-numeric:tabular-nums; padding-right:24px; }
+    .stat-label { letter-spacing:0; margin-top:8px; }
+    .toolbar, .order-entry, .staff-report, .order-summary { border-radius:12px; }
+    .order-entry summary { display:flex; align-items:center; gap:10px; }
+    .order-entry summary .ui-icon { color:var(--gold); }
+    .order-entry[open] summary { border-bottom:1px solid var(--border); }
+    .login-box { border-radius:18px; border-top:2px solid var(--gold); box-shadow:0 24px 70px rgba(0,0,0,.35); }
+    .login-btn { background:linear-gradient(120deg,#b99352,#e0c58e); color:#211c13; border-radius:8px; }
+    button:focus-visible, summary:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-offset:4px; }
+    @media(max-width:700px) {
+      .stats-row { gap:8px; }
+      .stats-row .stat-card { border:1px solid var(--border); padding:16px 12px; }
+      .stat-card > .ui-icon { width:18px; height:18px; top:14px; right:10px; }
+      .console-tabs { gap:20px; }
+    }
+    @media(prefers-reduced-motion:reduce) { .console-nav button { transition:none; } }
+    #orderGuide { grid-column:1/-1; width:100%; margin:12px 0; padding:18px; background:#29261f; color:var(--cream); border:1px solid var(--gold-dk); border-radius:12px; }
+    .guide-target { outline:2px solid var(--gold); outline-offset:5px; border-radius:4px; scroll-margin-top:100px; }
+    #orderGuide::backdrop { background:#000b; backdrop-filter:blur(4px); }
+    .guide-top, .guide-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .guide-top { margin-bottom:22px; }
+    #guideProgress { color:var(--gold); font-size:.8rem; }
+    #guideTitle { font-size:1.05rem; margin:10px 0; }
+    #guideText { line-height:1.8; color:var(--cream); }
+    #guideExample { display:none; }
+    .guide-actions button { min-height:44px; }
+    #guideNext { background:var(--gold); color:#211c13; font-weight:600; }
+    .guide-help { display:inline-flex; align-items:center; gap:6px; }
+    @media(max-width:700px) { #orderGuide { padding:20px; } .admin-user { flex-wrap:wrap; } }
+    .photo-preview { margin:12px 0 20px; padding:14px; border:1px solid var(--border); border-radius:10px; background:var(--bg-3); }
+    .photo-preview img { display:block; width:auto; max-width:100%; max-height:280px; object-fit:contain; border-radius:6px; margin-bottom:12px; }
+    .photo-preview p { color:var(--muted); font-size:.8rem; overflow-wrap:anywhere; margin-bottom:12px; }
+    .photo-preview-error { color:var(--red); font-size:.85rem; margin:8px 0; }
+    #dashboard[data-view="overview"] [data-console-section]:not([data-console-section="overview"]),
+    #dashboard:not([data-view="overview"]) [data-console-section="overview"] { display:none; }
+    .overview-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:20px 0; }
+    .overview-card { text-align:left; padding:22px; background:linear-gradient(140deg,#282620,#202123); border:1px solid var(--border); border-radius:12px; color:var(--cream); font:inherit; cursor:pointer; min-height:170px; }
+    .overview-card:hover { border-color:var(--gold); }
+    .overview-card .ui-icon { color:var(--gold); margin-bottom:14px; }
+    .overview-card strong { display:block; font-size:1.8rem; margin:6px 0; font-variant-numeric:tabular-nums; }
+    .overview-card small { display:block; color:var(--muted); line-height:1.6; }
+    .overview-card.overdue strong { color:var(--red); }
+    .overview-note { border:1px solid var(--border); background:var(--bg-2); padding:20px; border-radius:12px; line-height:1.8; }
+    .overview-note h2 { font-size:1rem; color:var(--gold-lt); margin-bottom:8px; }
+    #overviewSelection { margin:12px auto; max-width:1180px; color:var(--gold-lt); }
+    @media(max-width:1000px) { .overview-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:500px) { .overview-grid { grid-template-columns:1fr; gap:12px; } .overview-card { min-height:140px; } }
   </style>
 </head>
 <body>
@@ -221,11 +525,11 @@
     </div>
     <div class="login-title">Нэвтрэх</div>
     <div class="login-field">
-      <label>И-мэйл</label>
+      <label for="adminEmail">И-мэйл</label>
       <input type="email" id="adminEmail" placeholder="email@example.com" autocomplete="username" />
     </div>
     <div class="login-field">
-      <label>Нууц үг</label>
+      <label for="adminPass">Нууц үг</label>
       <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password" />
     </div>
     <div class="login-error" id="loginError"></div>
@@ -234,23 +538,102 @@
 </div>
 
 <!-- ═══ DASHBOARD ═══ -->
-<div id="dashboard">
+<div id="dashboard" data-view="overview">
+  <aside class="console-sidebar" id="consoleSidebar" aria-label="Үндсэн цэс">
+    <button type="button" class="logout-btn menu-toggle" id="closeSidebar" aria-label="Цэс хаах">✕</button>
+    <div class="console-brand"><img src="brand_assets/Transparent Baragshun logo copy.png" alt="" /><span class="console-brand-name">Монгол Алтайн барагшун ХХК</span></div>
+    <small>Компанийн систем</small>
+    <nav class="console-nav"><button type="button" data-view="orders" aria-current="page"><span class="nav-icon" aria-hidden="true">▤</span>Захиалга</button><button type="button" data-view="stock"><span class="nav-icon" aria-hidden="true">▦</span>Барааны үлдэгдэл</button><button type="button" data-view="reports" hidden><span class="nav-icon" aria-hidden="true">▥</span>Ажилтны тайлан</button><button type="button" data-view="settings" hidden><span class="nav-icon" aria-hidden="true">⚙</span>ADMIN тохиргоо</button></nav>
+    <div class="sidebar-footer">Монгол Алтайн Барагшун<br>Дотоод удирдлагын систем</div>
+  </aside>
   <header class="admin-header">
     <div class="admin-header-left">
+      <button type="button" class="logout-btn menu-toggle" id="openSidebar" aria-label="Цэс нээх" aria-controls="consoleSidebar" aria-expanded="false">☰</button>
       <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" onerror="this.style.display='none'" />
       <span class="admin-header-title">Захиалгын самбар</span>
     </div>
     <div class="admin-user">
       <span class="live-dot">Шууд</span>
       <span class="admin-user-email" id="adminUserEmail"></span>
+      <button class="logout-btn guide-help" id="openOrderGuide" type="button">Заавар</button>
       <button class="logout-btn" id="logoutBtn">Гарах</button>
     </div>
   </header>
 
   <main class="admin-main">
+    <h1 class="page-heading" id="consoleHeading">Захиалга</h1>
+    <p class="page-description" id="consoleDescription">Захиалга бүртгэх, батлах, гүйцэтгэлийг хянах.</p>
+    <section id="overviewPanel" data-console-section="overview" aria-label="Өнөөдрийн тойм">
+      <p class="report-note" id="overviewDate"></p>
+      <div class="overview-grid" id="overviewCards"></div>
+      <div class="overview-note"><h2>Өнөөдөр хийх зүйл</h2><div id="overviewReminders" role="status"></div></div>
+    </section>
+    <div id="overviewSelection" data-console-section="orders" hidden><span id="overviewSelectionLabel"></span> <button class="logout-btn" id="clearOverviewSelection" type="button">Бүх захиалга харах</button></div>
+    <nav class="console-tabs" aria-label="Системийн хэсгүүд"><button type="button" data-view="orders" aria-current="page">Захиалга</button><button type="button" data-view="stock">Үлдэгдэл / Тооллого</button><button type="button" data-view="reports" hidden>Тайлан</button><button type="button" data-view="settings" hidden>Тохиргоо</button></nav>
+    <section id="employeePreview" class="staff-report" data-console-section="settings" hidden>
+      <label class="status-filter">Ажилтны харагдац <select id="previewRole"><option value="">ADMIN — өөрийн харагдац</option><option value="founder">У. Энхболд · Founder</option><option value="accountant">О. Баянжаргал · Нягтлан</option><option value="production">А. Болормаа · Үйлдвэрийн дарга</option><option value="delivery">У. Тогтуунбаатар · Хүргэлтийн ажилтан</option></select></label>
+      <p class="report-note" id="previewNotice">Зөвхөн харагдац шалгана. Та ADMIN эрхээр нэвтэрсэн хэвээр байна.</p>
+    </section>
+    <details class="order-entry" id="orderEntry" data-console-section="orders">
+      <summary>Шинэ захиалга бүртгэх</summary>
+      <form id="staffOrderForm">
+        <div class="entry-grid">
+          <label>Захиалагчийн нэр<input name="name" required maxlength="120" /></label>
+          <label>Утас<input name="phone" type="tel" required pattern="[0-9]{8}" placeholder="8 оронтой утас" /></label>
+          <label>Захиалгын эх үүсвэр<select name="source" required><option value="">Сонгох...</option><option value="phone">Утас</option><option value="market">Дэлгүүр / зах</option><option value="website">Вэбсайт</option><option value="facebook">Facebook / Messenger</option><option value="other">Бусад</option></select></label>
+          <label>Дэлгүүрийн нэр / эх үүсвэрийн дэлгэрэнгүй<input name="sourceDetail" maxlength="200" /></label>
+          <label>И-мэйл (заавал биш)<input name="email" type="email" maxlength="200" /></label>
+          <label>Хүргэлтийн хаяг<input name="address" required maxlength="500" /></label>
+          <label>Амласан хүргэлтийн өдөр<input name="promisedDate" type="date" required /></label>
+          <label>Хүргэлт хариуцах ажилтан<select name="deliveryAssignee" id="deliveryAssignee" required></select></label>
+          <label>Тайлбар (заавал биш)<textarea name="note" maxlength="2000"></textarea></label>
+        </div>
+        <fieldset style="border:0;margin-bottom:20px">
+          <legend style="margin-bottom:12px">Бүтээгдэхүүн ба тоо ширхэг</legend>
+          <div id="productRows"></div>
+          <button class="logout-btn" id="addProduct" type="button">+ Бүтээгдэхүүн нэмэх</button>
+        </fieldset>
+        <div class="entry-grid"><label>Хямдрал (₮)<input name="discount" id="orderDiscount" type="number" min="0" step="1" value="0" required /></label></div>
+        <p class="report-note" id="orderTotal" aria-live="polite"></p>
+        <div id="entryMessage" role="status"></div>
+        <button class="login-btn" type="submit">Захиалга бүртгэх</button>
+      </form>
+    </details>
+    <div id="actionError" role="alert"></div>
 
+    <details class="order-entry" id="stockPanel" data-console-section="stock" open>
+      <summary>Барааны үлдэгдэл / Өдрийн хаалтын тооллого</summary>
+      <div style="padding:20px">
+        <p class="report-note" id="stockReminder" role="status"></p>
+        <div class="report-table-wrap"><table class="report-table"><thead><tr><th>Бүтээгдэхүүн</th><th>Бүртгэлийн үлдэгдэл</th><th>Нөөцөлсөн</th><th>Боломжтой</th></tr></thead><tbody id="stockBody"></tbody></table></div>
+        <div id="stockEditor" hidden>
+          <form id="restockForm" class="entry-grid"><label>Бараа нэмэх<select name="product" id="restockProduct" required></select></label><label>Нэмэх тоо<input name="quantity" type="number" min="1" max="1000000" step="1" required /></label><label>Тайлбар<input name="note" maxlength="500" required /></label><button class="logout-btn" type="submit">Бараа нэмэх</button></form>
+          <form id="saturdayForm" class="entry-grid"><label>Ажиллах Бямба гараг<input name="date" type="date" required /></label><button class="logout-btn" type="submit">Ажлын өдөр болгох</button></form>
+          <h2 style="font-size:1rem;margin-top:20px">Өдрийн хаалтын тооллого</h2>
+          <p class="report-note">Өнөөдрийн бодит үлдэгдлийг тоолж оруулна. Хадгалахад системийн үлдэгдлийг тоолсон хэмжээнд шинэчилнэ. Зөрүү гарвал тайлбар шаардлагатай. Хаалтын тооллогыг өдөрт нэг удаа хадгална.</p>
+          <form id="closingForm"><div class="entry-grid" id="closingInputs"></div><label>Үлдэгдэл бүтээгдэхүүний зураг<input name="closingPhoto" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" required /></label><label>Зөрүүний тайлбар / тэмдэглэл<input name="note" class="search-box" style="width:100%;margin:12px 0" maxlength="1000" /></label><button class="logout-btn" type="submit">Өдрийн тооллого хадгалах</button></form>
+        </div>
+        <p id="stockMessage" role="status" class="report-note"></p>
+        <p class="report-note">Эхлэхдээ одоогийн бодит үлдэгдлийг нэмэх эсвэл хаалтын тооллогоор бүртгэнэ. Өмнө батлагдсан захиалгыг автоматаар нөөцөлж тооцоогүй; хүргэх үед барааны үлдэгдлийг шалгаж хасна.</p>
+        <h2 style="font-size:1rem;margin-top:20px">Сүүлийн 30 өдрийн тооллого</h2>
+        <div id="closingHistory" class="report-note"></div>
+      </div>
+    </details>
+    <section class="staff-report" data-console-section="stock">
+      <h2 style="font-size:1rem">Агуулахаас бүтээгдэхүүн авах</h2>
+      <p class="report-note">Бүх ажилтан бүртгэж болно. Нөөцөлсөн барааг хөндөхгүйгээр боломжтой үлдэгдлээс хасна. Захиалгын хүргэлтийг энд давхар бүртгэхгүй — захиалгын “Хүргэсэн ✓” товчоор бүртгэнэ.</p>
+      <form id="withdrawalForm"><div class="entry-grid" id="withdrawalInputs"></div><div class="entry-grid"><label>Авах шалтгаан / хүлээн авагч<input name="note" maxlength="1000" required /></label><label>ПАДААН / баримтын зураг<input name="receiptPhoto" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" required /></label><label>Агуулахын зураг<input name="roomPhoto" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" required /></label></div><button class="logout-btn" type="submit">Агуулахаас авсан бараа бүртгэх</button></form>
+      <p class="report-note" id="withdrawalMessage" role="status"></p>
+      <h2 style="font-size:1rem;margin-top:20px">Агуулахаас авсан барааны түүх</h2><div id="withdrawalHistory" class="report-note"></div>
+    </section>
+    <section class="staff-report" id="staffReport" data-console-section="reports" hidden>
+      <div class="report-toolbar"><h2>Ажилтны тайлан</h2><label>Хугацаа <select id="reportMonth"><option value="current">Энэ сар</option><option value="previous">Өнгөрсөн сар</option></select></label></div>
+      <div class="report-table-wrap"><table class="report-table"><thead><tr><th>Ажилтан</th><th>Бүртгэсэн захиалга</th><th>Хүргэсэн</th><th>Хоцорч хүргэсэн</th><th>Хугацаа хэтэрсэн</th></tr></thead><tbody id="staffReportBody"></tbody></table></div>
+      <p class="report-note">Хүргэлтийг хариуцсан ажилтнаар тооцно. Хугацаа хэтэрсэн захиалгыг амласан өдрийн сараар, хүргэсэн захиалгыг хүргэсэн сараар тооцно. Огноо бүртгээгүй хуучин захиалгыг хоцролтод тооцохгүй.</p>
+    </section>
+    <div id="reportSelection" data-console-section="orders" hidden><span id="reportSelectionLabel"></span> <button class="logout-btn" id="clearReportSelection" type="button">Бүх захиалга харах</button></div>
     <!-- Stats -->
-    <div class="stats-row">
+    <div class="stats-row" data-console-section="orders">
       <div class="stat-card">
         <div class="stat-num all" id="statTotal">—</div>
         <div class="stat-label">Нийт захиалга</div>
@@ -261,7 +644,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-num yellow" id="statCalled">—</div>
-        <div class="stat-label">Холбогдсон</div>
+        <div class="stat-label">Гүйцэтгэж байгаа</div>
       </div>
       <div class="stat-card">
         <div class="stat-num green" id="statDone">—</div>
@@ -274,35 +657,24 @@
     </div>
 
     <!-- Toolbar -->
-    <div class="toolbar">
-      <div class="filter-row">
-        <button class="filter-tab active" data-filter="all">Бүгд</button>
-        <button class="filter-tab" data-filter="new">Шинэ</button>
-        <button class="filter-tab" data-filter="called">Холбогдсон</button>
-        <button class="filter-tab" data-filter="done">Дууссан</button>
-        <button class="filter-tab" data-filter="cancelled">Цуцлагдсан</button>
-      </div>
-      <input type="search" class="search-box" id="searchBox" placeholder="Нэр, утас хайх..." />
+    <div class="toolbar" data-console-section="orders">
+      <input type="search" class="search-box" id="searchBox" aria-label="Захиалга хайх" placeholder="Нэр, утас, ажилтан эсвэл дэлгүүр хайх..." />
+      <label class="status-filter">Төлөв<select id="statusFilter"><option value="all">Бүгд</option><option value="new">Шинэ</option><option value="called">Холбогдсон</option><option value="approved">Баталсан</option><option value="ready">Хүргэлтэд бэлэн</option><option value="done">Хүргэсэн</option><option value="cancelled">Цуцлагдсан</option></select></label>
     </div>
 
     <!-- Orders table -->
-    <div class="table-wrap">
-      <table>
+    <div class="table-wrap" data-console-section="orders">
+      <table class="order-summary">
         <thead>
           <tr>
-            <th>Огноо</th>
-            <th>Нэр</th>
-            <th>Утас</th>
-            <th>Бүтээгдэхүүн</th>
-            <th>Тоо</th>
-            <th class="hide-sm">И-мэйл</th>
-            <th class="hide-sm">Тайлбар</th>
+            <th>Бүртгэсэн ажилтан</th>
+            <th>Нийт тоо</th>
             <th>Төлөв</th>
-            <th>Үйлдэл</th>
+            <th>Дэлгэрэнгүй</th>
           </tr>
         </thead>
         <tbody id="ordersBody">
-          <tr class="loading-row"><td colspan="9">Ачаалж байна...</td></tr>
+          <tr class="loading-row"><td colspan="4">Ачаалж байна...</td></tr>
         </tbody>
       </table>
     </div>
@@ -310,17 +682,280 @@
   </main>
 </div>
 
+<dialog id="photoDialog" aria-label="Баримтын зураг"><form method="dialog"><button class="logout-btn">Хаах</button></form><img id="evidenceImage" alt="Барааны үлдэгдэл, агуулах эсвэл ПАДААН баримтын зураг" /></dialog>
+<section id="orderGuide" hidden aria-label="Захиалга бүртгэх заавар">
+  <div class="guide-top"><span id="guideProgress" aria-live="polite"></span><button class="logout-btn" id="guideClose" type="button" aria-label="Заавар хаах">Хаах</button></div>
+  <h2 id="guideTitle" tabindex="-1"></h2><p id="guideText"></p><p id="guideExample"></p>
+  <div class="guide-actions"><button class="logout-btn" id="guideBack" type="button">Өмнөх</button><button class="logout-btn" id="guideNext" type="button">Дараах</button></div>
+</section>
 <script type="module">
+  import { PRODUCT_KEYS, quantities, stockChange, countDifference, weekday, isWorkday } from './inventory.mjs';
   import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification }
     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-  import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy }
+  import { getFirestore, collection, onSnapshot, doc, writeBatch, getDocs, serverTimestamp, deleteField, runTransaction, query, orderBy }
     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+  import { getStorage, ref, uploadBytes, getBlob, deleteObject } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
 
   // ─── CONFIG — same values as index.html ────────────────────────
-  const ADMIN_EMAILS = [
-    'belguutei66@gmail.com',   // ← replace with the owner's email
+  const STAFF = {
+    'belguutei66@gmail.com': { name: 'ADMIN', role: 'admin' },
+    '7enkhbold@gmail.com': { name: 'У. Энхболд', role: 'founder' },
+    'bayanaa1250@gmail.com': { name: 'О. Баянжаргал', role: 'accountant' },
+    'bbolor0411@gmail.com': { name: 'А. Болормаа', role: 'production' }
+  };
+  const ROLE_NAMES = { admin: 'ADMIN', founder: 'Founder', accountant: 'Нягтлан', production: 'Үйлдвэрийн дарга', delivery: 'Хүргэлтийн ажилтан' };
+  const SOURCES = { phone: 'Утас', market: 'Дэлгүүр / зах', website: 'Вэбсайт', facebook: 'Facebook / Messenger', other: 'Бусад' };
+  let currentStaff = null;
+  const previewRole = document.getElementById('previewRole');
+  function effectiveRole() {
+    return currentStaff?.role === 'admin' && previewRole.value ? previewRole.value : currentStaff?.role;
+  }
+  const consoleViews = {
+    overview: ['Хяналтын самбар', 'Өнөөдрийн захиалга, хүргэлт болон тооллогын тойм.'],
+    orders: ['Захиалга', 'Захиалга бүртгэх, батлах, гүйцэтгэлийг хянах.'],
+    approvals: ['Батлах захиалгууд', 'Шинэ болон сэргээсэн захиалгын дэлгэрэнгүйг шалгаж батална.'],
+    deliveries: ['Миний хүргэлт', 'Танд хуваарилсан дуусаагүй хүргэлтүүд. Хугацаа хэтэрсэн захиалга эхэнд харагдана.'],
+    stock: ['Барааны үлдэгдэл', 'Үлдэгдэл, нөөц болон өдрийн хаалтын тооллого.'],
+    reports: ['Ажилтны тайлан', 'Захиалга, хүргэлт болон хугацааны гүйцэтгэл.'],
+    settings: ['ADMIN тохиргоо', 'Ажилтны харагдацаар системийн үйлдлүүдийг шалгах.']
+  };
+  document.querySelectorAll('.console-nav, .console-tabs').forEach(navigation => {
+    const button = document.createElement('button');
+    button.type = 'button'; button.dataset.view = 'deliveries'; button.textContent = 'Миний хүргэлт';
+    navigation.insertBefore(button, navigation.children[1]);
+    const approvalButton = document.createElement('button');
+    approvalButton.type = 'button'; approvalButton.dataset.view = 'approvals'; approvalButton.textContent = 'Батлах захиалгууд'; approvalButton.hidden = true;
+    navigation.insertBefore(approvalButton, button);
+    const overviewButton = document.createElement('button');
+    overviewButton.type = 'button'; overviewButton.dataset.view = 'overview'; overviewButton.textContent = 'Хяналтын самбар';
+    navigation.prepend(overviewButton);
+  });
+  // Inline vector icons keep the interface crisp without an external icon service.
+  const iconPaths = {
+    overview: '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
+    orders: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 9h6M9 13h6M9 17h4"/>',
+    approvals: '<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6z"/><path d="m8 12 3 3 5-6"/>',
+    deliveries: '<path d="M3 6h11v11H3zM14 10h4l3 4v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+    stock: '<path d="m12 3 9 5v9l-9 5-9-5V8zM3 8l9 5 9-5M12 13v9M7.5 5.5l9 5"/>',
+    reports: '<path d="M4 3v18h17M8 16v-5M13 16V7M18 16v-8"/>',
+    settings: '<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/>',
+    plus: '<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+    close: '<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/>'
+  };
+  function officeIcon(name) {
+    return `<svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${iconPaths[name] || iconPaths.orders}</svg>`;
+  }
+  document.querySelectorAll('.console-nav button, .console-tabs button').forEach(button => {
+    button.querySelector('.nav-icon')?.remove();
+    button.insertAdjacentHTML('afterbegin',officeIcon(button.dataset.view));
+  });
+  document.querySelectorAll('.stat-card').forEach((card,index) => card.insertAdjacentHTML('afterbegin',officeIcon(['orders','plus','clock','check','close'][index])));
+  document.querySelector('.admin-header-title').insertAdjacentHTML('afterbegin',officeIcon('approvals'));
+  document.querySelector('#orderEntry summary').insertAdjacentHTML('afterbegin',officeIcon('plus'));
+  const orderGuide = document.getElementById('orderGuide');
+  const guideSteps = [
+    ['[name="name"]','Энд захиалагчийн нэрийг бичнэ үү.','Нэрээ бичээд «Дараах» дарна.'],
+    ['[name="phone"]','Одоо утасны дугаарыг бичнэ үү.','8 оронтой дугаар оруулна.'],
+    ['[name="source"]','Захиалга хаанаас ирснийг сонгоно уу.','Энэ сонголтыг дарж Утас, Дэлгүүр / зах эсвэл бусад эх үүсвэрийг сонгоно.'],
+    ['[name="sourceDetail"]','Эх үүсвэрийн дэлгэрэнгүйг бичнэ үү.','Дэлгүүр / зах эсвэл Бусад сонгосон бол нэрийг нь бичнэ. Бусад үед алгасаж болно.'],
+    ['[name="email"]','И-мэйл байвал бичнэ үү.','Байхгүй бол хоосон үлдээгээд «Дараах» дарна.'],
+    ['[name="address"]','Хүргэх хаягийг бичнэ үү.','Дүүрэг, хороо, байр, орц, тоотыг оруулна.'],
+    ['[name="promisedDate"]','Хүргэх өдрийг сонгоно уу.','Огнооны талбарыг дарж захиалагчид амласан өдрөө сонгоно.'],
+    ['[name="deliveryAssignee"]','Хэн хүргэхийг сонгоно уу.','Энэ сонголтыг дарж хүргэлт хариуцах ажилтнаа сонгоно.'],
+    ['[name="note"]','Нэмэлт тайлбар байвал бичнэ үү.','Жишээ нь: ирэхээсээ өмнө залгах. Байхгүй бол алгасаж болно.'],
+    ['[data-product]','Бүтээгдэхүүнээ сонгоно уу.','Энэ сонголтыг дарж захиалсан бүтээгдэхүүнийг сонгоно.'],
+    ['[data-quantity]','Хэдэн ширхэг авахыг бичнэ үү.','Тоо ширхэгийг оруулна. Жишээ: 2.'],
+    ['#addProduct','Өөр бүтээгдэхүүн нэмэх үү?','Нэмэх бол энэ товчийг дараад шинэ мөрөнд бүтээгдэхүүн, тоог оруулна. Нэмэхгүй бол «Дараах» дарна.'],
+    ['[name="discount"]','Хямдрал байвал дүнг бичнэ үү.','Төгрөгөөр оруулна. Хямдралгүй бол 0 хэвээр үлдээнэ.'],
+    ['button[type="submit"]','Шалгаад энэ товчийг дарна уу.','Мэдээлэл болон нийт дүн зөв бол «Захиалга бүртгэх» дарна. Ингэснээр бодит захиалга хадгалагдана.']
   ];
+  let guideStep = 0;
+  function closeGuide() {
+    orderGuide.hidden = true;
+    document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
+  }
+  function renderGuideStep() {
+    document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
+    const [selector,title,text] = guideSteps[guideStep];
+    const target = document.querySelector('#staffOrderForm').querySelector(selector);
+    if (!target) { closeGuide(); return; }
+    const anchor = target.closest('label') || target;
+    anchor.before(orderGuide);
+    orderGuide.hidden = false;
+    target.classList.add('guide-target');
+    document.getElementById('guideProgress').textContent = `Захиалга бүртгэх · Алхам ${guideStep + 1} / ${guideSteps.length}`;
+    document.getElementById('guideTitle').textContent = title;
+    document.getElementById('guideText').textContent = text;
+    document.getElementById('guideBack').disabled = guideStep === 0;
+    document.getElementById('guideNext').textContent = guideStep === guideSteps.length - 1 ? 'Заавар дуусгах' : 'Дараах';
+    orderGuide.scrollIntoView({block:'start',behavior:'instant'});
+    target.focus({preventScroll:true});
+  }
+  function openGuide() { showConsoleView('orders'); document.getElementById('orderEntry').open = true; guideStep = 0; renderGuideStep(); }
+  document.getElementById('openOrderGuide').addEventListener('click',openGuide);
+  document.getElementById('guideClose').addEventListener('click',closeGuide);
+  document.getElementById('guideBack').addEventListener('click',() => { if (guideStep > 0) guideStep--; renderGuideStep(); });
+  document.getElementById('guideNext').addEventListener('click',() => {
+    if (guideStep < guideSteps.length - 1) { guideStep++; renderGuideStep(); return; }
+    closeGuide();
+  });
+  document.getElementById('staffOrderForm').addEventListener('submit',closeGuide);
+  document.getElementById('productRows').addEventListener('click',event => { if(event.target.closest('[data-remove]')) closeGuide(); });
+  function deliveryIdentity() {
+    return currentStaff?.role === 'admin' && previewRole.value
+      ? Object.entries(DELIVERY_STAFF).find(([,person]) => person.role === effectiveRole())?.[0]
+      : auth.currentUser?.email?.toLowerCase();
+  }
+  function closeSidebar() {
+    document.getElementById('dashboard').classList.remove('menu-open');
+    document.getElementById('openSidebar').setAttribute('aria-expanded', 'false');
+  }
+  function showConsoleView(view) {
+    if (!consoleViews[view]) return;
+    if (['reports','approvals'].includes(view) && !['admin','founder'].includes(effectiveRole())) return;
+    if (view === 'deliveries' && effectiveRole() === 'founder') return;
+    if (view === 'settings' && currentStaff?.role !== 'admin') return;
+    closeGuide();
+    overviewFilter = null;
+    document.getElementById('overviewSelection').hidden = true;
+    document.getElementById('dashboard').dataset.view = view;
+    document.getElementById('consoleHeading').textContent = consoleViews[view][0];
+    document.getElementById('consoleDescription').textContent = consoleViews[view][1];
+    document.querySelectorAll('button[data-view]').forEach(button => {
+      if (button.dataset.view === view) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
+    });
+    closeSidebar();
+    if (['deliveries','approvals'].includes(view)) { currentFilter = 'all'; statusFilter.value = 'all'; searchBox.value = ''; reportFilter = null; document.getElementById('reportSelection').hidden = true; }
+    renderOrders();
+    renderOverview();
+  }
+  document.querySelectorAll('button[data-view]').forEach(button => button.addEventListener('click', () => showConsoleView(button.dataset.view)));
+  document.getElementById('openSidebar').addEventListener('click', () => {
+    const open = document.getElementById('dashboard').classList.toggle('menu-open');
+    document.getElementById('openSidebar').setAttribute('aria-expanded',String(open));
+  });
+  document.getElementById('closeSidebar').addEventListener('click', closeSidebar);
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeSidebar(); });
+  previewRole.addEventListener('change', () => {
+    if (currentStaff?.role !== 'admin') { previewRole.value = ''; return; }
+    document.getElementById('previewNotice').textContent = previewRole.value
+      ? `${ROLE_NAMES[previewRole.value]} харагдац · Өөрчлөлт, захиалга ADMIN нэрээр бүртгэгдэнэ. Үйлдэл нь бодит захиалгад нөлөөлнө.`
+      : 'Зөвхөн харагдац шалгана. Та ADMIN эрхээр нэвтэрсэн хэвээр байна.';
+    clearReportFilter();
+    renderStaffReport();
+    renderStock();
+  });
+  const DELIVERY_STAFF = {
+    ...STAFF,
+    'delivery-pending': { name: 'У. Тогтуунбаатар', role: 'delivery' }
+  };
+  const deliveryAssignee = document.getElementById('deliveryAssignee');
+  deliveryAssignee.innerHTML = '<option value="">Сонгох...</option>' + Object.entries(DELIVERY_STAFF)
+    .filter(([, person]) => person.role !== 'founder')
+    .map(([key, person]) => `<option value="${escHtml(key)}">${escHtml(person.name)} · ${escHtml(ROLE_NAMES[person.role])}</option>`).join('');
+  let reportFilter = null;
+  let overviewFilter = null;
+  let ordersLoaded = false;
+  const overviewLabels = { pending:'Батлах захиалгууд', today:'Өнөөдрийн хүргэлт', overdue:'Хугацаа хэтэрсэн', prepared:'Хүргэлтэд бэлэн', created:'Өнөөдөр бүртгэсэн' };
+  function overviewOrders() {
+    return ['admin','founder'].includes(effectiveRole()) ? allOrders : allOrders.filter(order => order.deliveryAssignee === deliveryIdentity());
+  }
+  function overviewMatches(order, metric) {
+    const today = companyDate();
+    const unfinished = !['done','cancelled'].includes(order.status || 'new');
+    if (metric === 'pending') return ['new','called'].includes(order.status || 'new');
+    if (metric === 'created') return order.timestamp?.toDate && companyDate(order.timestamp.toDate()) === today;
+    if (metric === 'today') return unfinished && order.promisedDate === today;
+    if (metric === 'overdue') return unfinished && /^\d{4}-\d{2}-\d{2}$/.test(order.promisedDate || '') && order.promisedDate < today;
+    return metric === 'prepared' && order.status === 'ready';
+  }
+  function renderOverview() {
+    if (!currentStaff) return;
+    const manager = ['admin','founder'].includes(effectiveRole());
+    const today = companyDate();
+    const scoped = overviewOrders();
+    const metrics = manager ? ['pending','today','overdue','prepared','created'] : ['today','overdue','prepared'];
+    document.getElementById('overviewDate').textContent = `${today} · Улаанбаатар · ${manager ? 'Компанийн нийт захиалга' : 'Танд хуваарилсан хүргэлтүүд'}`;
+    const icons = {pending:'approvals',today:'deliveries',overdue:'clock',prepared:'check',created:'plus'};
+    document.getElementById('overviewCards').innerHTML = metrics.map(metric => `<button type="button" class="overview-card ${metric}" data-overview="${metric}">${officeIcon(icons[metric])}<span>${overviewLabels[metric]}</span><strong>${ordersLoaded ? scoped.filter(order => overviewMatches(order,metric)).length : '—'}</strong><small>${metric === 'created' ? 'Өнөөдөр шинээр бүртгэсэн бүх төлөв' : 'Захиалгуудыг харах →'}</small></button>`).join('') + `<button type="button" class="overview-card" data-overview="stock">${officeIcon('stock')}<span>Өдрийн хаалтын тооллого</span><strong style="font-size:1.1rem">${!countsLoaded || !workdaysLoaded ? 'Ачаалж байна' : closingCounts[today] ? 'Бүртгэгдсэн' : isWorkday(today,Boolean(saturdayWorkdays[today])) ? 'Хүлээгдэж байна' : 'Амралтын өдөр'}</strong><small>${canEditStock() ? 'Үлдэгдэл / тооллого нээх →' : 'Тооллогын мэдээлэл харах →'}</small></button>`;
+    const reminders = [];
+    if (!ordersLoaded) reminders.push('Захиалгын мэдээлэл ачаалж байна.');
+    else {
+      const overdue = scoped.filter(order => overviewMatches(order,'overdue')).length;
+      if (overdue) reminders.push(`Хугацаа хэтэрсэн ${overdue} хүргэлтийг эхэлж шалгана уу.`);
+      if (manager && scoped.some(order => overviewMatches(order,'pending'))) reminders.push('Шинэ захиалгуудыг шалгаж батална уу.');
+      const undated = scoped.filter(order => !['done','cancelled'].includes(order.status || 'new') && !order.promisedDate).length;
+      if (undated) reminders.push(`Амласан өдөр бүртгээгүй ${undated} захиалгыг хугацааны тооцоонд оруулаагүй.`);
+    }
+    if (countsLoaded && workdaysLoaded && !closingCounts[today] && isWorkday(today,Boolean(saturdayWorkdays[today]))) reminders.push(canEditStock() ? 'Ажлын өдөр дуусахад бодит үлдэгдлээ тоолж, хаалтын тооллого бүртгэнэ үү.' : 'Өнөөдрийн хаалтын тооллого бүртгэгдээгүй байна.');
+    if (stockLoaded && PRODUCT_KEYS.every(key => !(stockBalances[key]?.onHand))) reminders.push('Барааны үлдэгдэл 0 байна. Батлахаас өмнө бодит үлдэгдлээ бүртгэнэ үү.');
+    document.getElementById('overviewReminders').replaceChildren(...(reminders.length ? reminders : ['Одоогоор яаралтай сануулга алга.']).map(text => { const p = document.createElement('p'); p.textContent = text; return p; }));
+  }
+  document.getElementById('overviewCards').addEventListener('click',event => {
+    const button = event.target.closest('[data-overview]'); if (!button) return;
+    const metric = button.dataset.overview;
+    if (metric === 'stock') { showConsoleView('stock'); return; }
+    showConsoleView('orders');
+    currentFilter = 'all'; statusFilter.value = 'all'; searchBox.value = ''; reportFilter = null;
+    document.getElementById('reportSelection').hidden = true;
+    overviewFilter = metric;
+    document.getElementById('overviewSelectionLabel').textContent = overviewLabels[metric];
+    document.getElementById('overviewSelection').hidden = false;
+    renderOrders();
+  });
+  document.getElementById('clearOverviewSelection').addEventListener('click',() => { overviewFilter = null; document.getElementById('overviewSelection').hidden = true; renderOrders(); });
+  const reportMonth = document.getElementById('reportMonth');
+  function companyDate(value = new Date()) {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ulaanbaatar', year: 'numeric', month: '2-digit', day: '2-digit' }).format(value);
+  }
+  function monthKey() {
+    const [year, month] = companyDate().split('-').map(Number);
+    const date = new Date(Date.UTC(year, month - 1 - (reportMonth.value === 'previous' ? 1 : 0), 1));
+    return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+  }
+  function reportMatches(order, person, metric) {
+    const selectedMonth = monthKey();
+    if (metric === 'created') return order.createdByEmail === person && order.timestamp?.toDate && companyDate(order.timestamp.toDate()).startsWith(selectedMonth);
+    if (order.deliveryAssignee !== person) return false;
+    if (metric === 'overdue') return !['done', 'cancelled'].includes(order.status || 'new') && order.promisedDate && order.promisedDate.startsWith(selectedMonth) && order.promisedDate < companyDate();
+    if (order.status !== 'done' || !order.deliveredAt?.toDate) return false;
+    const completed = companyDate(order.deliveredAt.toDate());
+    return completed.startsWith(selectedMonth) && (metric === 'delivered' || (order.promisedDate && completed > order.promisedDate));
+  }
+  function renderStaffReport() {
+    renderOverview();
+    const visible = ['admin', 'founder'].includes(effectiveRole());
+    document.querySelectorAll('button[data-view="reports"]').forEach(button => { button.hidden = !visible; });
+    document.querySelectorAll('button[data-view="approvals"]').forEach(button => { button.hidden = !visible; });
+    document.querySelectorAll('button[data-view="deliveries"]').forEach(button => { button.hidden = effectiveRole() === 'founder'; });
+    document.querySelectorAll('button[data-view="settings"]').forEach(button => { button.hidden = currentStaff?.role !== 'admin'; });
+    const view = document.getElementById('dashboard').dataset.view;
+    if ((!visible && ['reports','approvals'].includes(view)) || (effectiveRole() === 'founder' && view === 'deliveries')) showConsoleView('orders');
+    document.getElementById('staffReport').hidden = !visible;
+    if (!visible) { document.getElementById('staffReportBody').replaceChildren(); return; }
+    document.getElementById('staffReportBody').innerHTML = Object.entries(DELIVERY_STAFF).map(([key, person]) => `<tr><td>${escHtml(person.name)}<span class="staff-detail">${escHtml(ROLE_NAMES[person.role])}</span></td>${['created','delivered','late','overdue'].map(metric => `<td><button data-person="${escHtml(key)}" data-metric="${metric}" aria-label="${escHtml(person.name)} ${metric}">${allOrders.filter(order => reportMatches(order, key, metric)).length}</button></td>`).join('')}</tr>`).join('');
+  }
+  document.getElementById('staffReportBody').addEventListener('click', event => {
+    const button = event.target.closest('[data-metric]');
+    if (!button || !['admin','founder'].includes(effectiveRole())) return;
+    reportFilter = { person: button.dataset.person, metric: button.dataset.metric };
+    const labels = { created: 'Бүртгэсэн захиалга', delivered: 'Хүргэсэн', late: 'Хоцорч хүргэсэн', overdue: 'Хугацаа хэтэрсэн' };
+    document.getElementById('reportSelectionLabel').textContent = `${DELIVERY_STAFF[reportFilter.person].name} · ${monthKey()} · ${labels[reportFilter.metric]}`;
+    document.getElementById('reportSelection').hidden = false;
+    currentFilter = 'all'; statusFilter.value = 'all'; searchBox.value = '';
+    renderOrders();
+    showConsoleView('orders');
+  });
+  function clearReportFilter() {
+    reportFilter = null;
+    document.getElementById('reportSelection').hidden = true;
+    renderOrders();
+  }
+  document.getElementById('clearReportSelection').addEventListener('click', clearReportFilter);
+  reportMonth.addEventListener('change', () => { clearReportFilter(); renderStaffReport(); });
   const firebaseConfig = {
   apiKey: "AIzaSyAjxbqrD-x--smpIqaT69AdRMTh6s13J_w",
   authDomain: "baragshun-website.firebaseapp.com",
@@ -335,6 +970,30 @@
   const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db   = getFirestore(app);
+  const storage = getStorage(app);
+  const photoUrls = new Set();
+  async function uploadEvidence(file, kind, recordId) {
+    if (!(file instanceof File) || !file.size || file.size > 5 * 1024 * 1024 || !['image/jpeg','image/png','image/webp'].includes(file.type)) throw new Error('JPEG, PNG эсвэл WEBP зураг сонгоно уу. Зураг бүр 5 MB хүртэл байна.');
+    const path = `stock-photos/${auth.currentUser.uid}/${kind}/${recordId}/${crypto.randomUUID()}`;
+    await uploadBytes(ref(storage, path), file, { contentType: file.type });
+    return path;
+  }
+  function photoButton(path, label) {
+    return path ? `<button class="logout-btn" type="button" data-photo="${escHtml(path)}">${escHtml(label)}</button>` : '';
+  }
+  document.getElementById('dashboard').addEventListener('click', async event => {
+    const button = event.target.closest('[data-photo]');
+    if (!button) return;
+    button.disabled = true;
+    try {
+      const blob = await getBlob(ref(storage, button.dataset.photo));
+      const url = URL.createObjectURL(blob); photoUrls.add(url);
+      const dialog = document.getElementById('photoDialog');
+      document.getElementById('evidenceImage').src = url;
+      if (!dialog.open) dialog.showModal();
+    } catch (error) { document.getElementById('actionError').textContent = 'Зураг нээхэд алдаа: ' + error.message; }
+    finally { button.disabled = false; }
+  });
 
   // ── Maps ──
   const PRODUCT_NAMES = {
@@ -348,7 +1007,292 @@
     wholesale: 'Бөөний захиалга',
     other:     'Бусад / Лавлагаа',
   };
-  const STATUS_LABELS = { new: 'Шинэ', called: 'Холбогдсон', done: 'Дууссан', cancelled: 'Цуцлагдсан' };
+  const STATUS_LABELS = { new: 'Шинэ', called: 'Холбогдсон', approved: 'Баталсан', paid: 'Баталсан', ready: 'Хүргэлтэд бэлэн', done: 'Хүргэсэн', cancelled: 'Цуцлагдсан' };
+  const productRows = document.getElementById('productRows');
+  const UNIT_PRICES = { p1: 50000, p2: 30000, p3: 70000, p4: 40000, p5: 25000, p6: 16000, p7: 20000 };
+  function money(amount) { return new Intl.NumberFormat('mn-MN').format(amount) + ' ₮'; }
+  function orderAmounts(items, prices, discount) {
+    const subtotal = Object.entries(items).reduce((sum, [key, quantity]) => sum + prices[key] * quantity, 0);
+    if (!Number.isSafeInteger(subtotal) || !Number.isSafeInteger(discount) || discount < 0 || discount > subtotal) throw new Error('Хямдрал нь 0-ээс бүтээгдэхүүний нийт үнэ хүртэл бүхэл тоо байна.');
+    return { subtotal, discount, total: subtotal - discount };
+  }
+  function updateOrderTotal() {
+    const items = {};
+    for (const row of productRows.children) {
+      const key = row.querySelector('[data-product]').value;
+      items[key] = (items[key] || 0) + Number(row.querySelector('[data-quantity]').value);
+      row.querySelector('[data-unit-price]').textContent = money(UNIT_PRICES[key]);
+    }
+    try {
+      const amounts = orderAmounts(items, UNIT_PRICES, Number(document.getElementById('orderDiscount').value));
+      document.getElementById('orderTotal').textContent = `Бүтээгдэхүүний үнэ: ${money(amounts.subtotal)} · Хямдрал: ${money(amounts.discount)} · Нийт: ${money(amounts.total)}`;
+    } catch (error) { document.getElementById('orderTotal').textContent = error.message; }
+  }
+  productRows.addEventListener('input', updateOrderTotal);
+  productRows.addEventListener('change', updateOrderTotal);
+  document.getElementById('orderDiscount').addEventListener('input', updateOrderTotal);
+  const addProduct = document.getElementById('addProduct');
+  const productOptions = Object.entries(PRODUCT_NAMES).filter(([key]) => /^p[1-7]$/.test(key)).map(([key, name]) => `<option value="${key}">${escHtml(name)}</option>`).join('');
+  let stockBalances = {};
+  let closingCounts = {};
+  let saturdayWorkdays = {};
+  let withdrawals = {};
+  let stockLoaded = false;
+  let countsLoaded = false;
+  let workdaysLoaded = false;
+  const stockSubscriptions = [];
+  function canEditStock() { return ['admin','accountant','production'].includes(effectiveRole()); }
+  const closingPhotoInput = document.querySelector('#closingForm [name="closingPhoto"]');
+  // Enable only after a Storage bucket, rules and CORS have been configured.
+  const PHOTO_UPLOADS_ENABLED = false;
+  document.querySelectorAll('#closingForm input[type="file"], #withdrawalForm input[type="file"]').forEach(input => {
+    input.required = PHOTO_UPLOADS_ENABLED;
+    input.disabled = !PHOTO_UPLOADS_ENABLED;
+    input.closest('label').hidden = !PHOTO_UPLOADS_ENABLED;
+  });
+  if (!PHOTO_UPLOADS_ENABLED) {
+    for (const formId of ['closingForm','withdrawalForm']) {
+      const notice = document.createElement('p'); notice.className = 'report-note';
+      notice.textContent = 'Зураг хавсаргах боломж түр идэвхгүй. Бүртгэлийг зураггүй хадгална.';
+      document.getElementById(formId).prepend(notice);
+    }
+  }
+  const closingPhotoPreview = document.createElement('div');
+  closingPhotoPreview.className = 'photo-preview'; closingPhotoPreview.hidden = true;
+  closingPhotoPreview.innerHTML = '<img alt="Сонгосон үлдэгдэл бүтээгдэхүүний зураг" /><p></p><button type="button" class="logout-btn">Зураг устгах</button>';
+  closingPhotoInput.closest('label').after(closingPhotoPreview);
+  const closingPhotoError = document.createElement('p');
+  closingPhotoError.className = 'photo-preview-error'; closingPhotoError.setAttribute('role','status');
+  closingPhotoPreview.after(closingPhotoError);
+  let closingPreviewUrl = '';
+  function clearClosingPhotoPreview() {
+    if (closingPreviewUrl) URL.revokeObjectURL(closingPreviewUrl);
+    closingPreviewUrl = '';
+    closingPhotoPreview.querySelector('img').removeAttribute('src');
+    closingPhotoPreview.hidden = true;
+    closingPhotoError.textContent = '';
+  }
+  closingPhotoInput.addEventListener('change',() => {
+    clearClosingPhotoPreview();
+    const file = closingPhotoInput.files[0];
+    if (!file) return;
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type) || !file.size || file.size > 5 * 1024 * 1024) {
+      closingPhotoInput.value = '';
+      closingPhotoError.textContent = 'JPEG, PNG эсвэл WEBP зураг сонгоно уу. Зураг 5 MB хүртэл байна.';
+      return;
+    }
+    closingPreviewUrl = URL.createObjectURL(file);
+    closingPhotoPreview.querySelector('img').src = closingPreviewUrl;
+    closingPhotoPreview.querySelector('p').textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+    closingPhotoPreview.hidden = false;
+  });
+  closingPhotoPreview.querySelector('img').addEventListener('error',() => {
+    clearClosingPhotoPreview(); closingPhotoInput.value = '';
+    closingPhotoError.textContent = 'Зураг нээгдсэнгүй. Өөр зураг сонгоно уу.';
+  });
+  closingPhotoPreview.querySelector('button').addEventListener('click',() => {
+    closingPhotoInput.value = ''; clearClosingPhotoPreview(); closingPhotoInput.focus();
+  });
+  document.getElementById('closingForm').addEventListener('reset',clearClosingPhotoPreview);
+  document.getElementById('restockProduct').innerHTML = productOptions;
+  document.getElementById('closingInputs').innerHTML = PRODUCT_KEYS.map(key => `<label>${escHtml(PRODUCT_NAMES[key])}<input name="${key}" type="number" min="0" max="10000000" step="1" required /></label>`).join('');
+  function renderStock() {
+    renderOverview();
+    const today = companyDate();
+    document.getElementById('stockEditor').hidden = !canEditStock();
+    document.getElementById('stockBody').innerHTML = PRODUCT_KEYS.map(key => {
+      const stock = stockBalances[key] || { onHand: 0, reserved: 0 };
+      return `<tr><td>${escHtml(PRODUCT_NAMES[key])}</td><td>${stockLoaded ? escHtml(stock.onHand) : '—'}</td><td>${stockLoaded ? escHtml(stock.reserved) : '—'}</td><td>${stockLoaded ? escHtml(stock.onHand - stock.reserved) : '—'}</td></tr>`;
+    }).join('');
+    const closingButton = document.querySelector('#closingForm button[type="submit"]');
+    closingButton.disabled = !stockLoaded || !countsLoaded || !workdaysLoaded || Boolean(closingCounts[today]) || !isWorkday(today, Boolean(saturdayWorkdays[today]));
+    document.getElementById('stockReminder').textContent = !stockLoaded || !countsLoaded || !workdaysLoaded ? 'Үлдэгдэл, тооллого ачаалж байна...' : closingCounts[today]
+      ? `${today} · Хаалтын тооллого бүртгэгдсэн: ${closingCounts[today].actorName}`
+      : isWorkday(today, Boolean(saturdayWorkdays[today])) ? `${today} · Өнөөдрийн хаалтын тооллого хүлээгдэж байна.` : `${today} · Амралтын өдөр.`;
+    const dates = Array.from({ length: 30 }, (_, index) => {
+      const date = new Date(today + 'T12:00:00Z'); date.setUTCDate(date.getUTCDate() - index); return date.toISOString().slice(0,10);
+    });
+    document.getElementById('closingHistory').innerHTML = dates.map(date => {
+      const count = closingCounts[date];
+      if (!count) return isWorkday(date, Boolean(saturdayWorkdays[date])) ? `<p>${date} · ${date === today ? 'Хүлээгдэж байна' : 'Тооллого бүртгэгдээгүй'}</p>` : '';
+      const differences = PRODUCT_KEYS.filter(key => count.items[key].difference !== 0).map(key => `${PRODUCT_NAMES[key]}: ${count.items[key].difference > 0 ? '+' : ''}${count.items[key].difference}`).join(', ');
+      return `<details><summary>${date} · ${escHtml(count.actorName)} · ${differences ? 'Зөрүүтэй' : 'Зөрүүгүй'}</summary><p>${escHtml(count.timestamp?.toDate ? count.timestamp.toDate().toLocaleString('mn-MN', {timeZone:'Asia/Ulaanbaatar'}) : '')}</p>${PRODUCT_KEYS.map(key => `<p>${escHtml(PRODUCT_NAMES[key])}: ${count.items[key].expected} → ${count.items[key].actual}</p>`).join('')}<p>${escHtml(differences)} ${escHtml(count.note || '')}</p>${photoButton(count.photoPath, 'Үлдэгдлийн зураг харах')}</details>`;
+    }).join('');
+  }
+  function startStockListening() {
+    for (const [name, assign] of [
+      ['inventory', values => { stockBalances = values; stockLoaded = true; }],
+      ['stockCounts', values => { closingCounts = values; countsLoaded = true; }],
+      ['stockWorkdays', values => { saturdayWorkdays = values; workdaysLoaded = true; }],
+      ['stockWithdrawals', values => { withdrawals = values; renderWithdrawals(); }]
+    ]) stockSubscriptions.push(onSnapshot(collection(db, name), snapshot => {
+      assign(Object.fromEntries(snapshot.docs.map(entry => [entry.id, entry.data()]))); renderStock();
+    }, error => { document.getElementById('stockMessage').textContent = 'Үлдэгдэл ачаалахад алдаа: ' + error.message; }));
+  }
+  function inventoryEntry(balance, action, orderId = '', countDate = '') {
+    return { ...balance, action, orderId, countDate, updatedBy: currentStaff.name, updatedByEmail: auth.currentUser.email.toLowerCase(), updatedAt: serverTimestamp() };
+  }
+  async function stockFormAction(form, action) {
+    if (!canEditStock()) return;
+    const button = form.querySelector('button[type="submit"]') || form.querySelector('button');
+    if (button.disabled) return;
+    button.disabled = true;
+    const closing = form.id === 'closingForm';
+    if (closing) { closingPhotoInput.disabled = true; closingPhotoPreview.querySelector('button').disabled = true; }
+    try { await action(); document.getElementById('stockMessage').textContent = 'Хадгалагдлаа.'; form.reset(); }
+    catch (error) { document.getElementById('stockMessage').textContent = error.message; }
+    finally {
+      button.disabled = false;
+      if (closing) { closingPhotoInput.disabled = !PHOTO_UPLOADS_ENABLED; closingPhotoPreview.querySelector('button').disabled = false; }
+      renderStock();
+    }
+  }
+  document.getElementById('restockForm').addEventListener('submit', event => {
+    event.preventDefault(); const form = event.currentTarget; const values = Object.fromEntries(new FormData(form));
+    stockFormAction(form, () => runTransaction(db, async transaction => {
+      const reference = doc(db, 'inventory', values.product); const snapshot = await transaction.get(reference);
+      const before = snapshot.data() || { onHand: 0, reserved: 0 };
+      const quantity = Number(values.quantity);
+      if (!Number.isSafeInteger(quantity) || quantity <= 0 || quantity > 1000000) throw new Error('Нэмэх тоо буруу байна.');
+      const movement = doc(collection(db, 'stockMovements'));
+      transaction.set(reference, inventoryEntry({ onHand: before.onHand + quantity, reserved: before.reserved, movementId: movement.id }, 'restock'));
+      transaction.set(movement, { product: values.product, quantity, before: before.onHand, after: before.onHand + quantity, note: values.note.trim(), actorName: currentStaff.name, actorEmail: auth.currentUser.email.toLowerCase(), timestamp: serverTimestamp() });
+    }));
+  });
+  document.getElementById('saturdayForm').addEventListener('submit', event => {
+    event.preventDefault(); const form = event.currentTarget; const date = new FormData(form).get('date');
+    stockFormAction(form, async () => {
+      if (weekday(date) !== 6 || date < companyDate()) throw new Error('Өнөөдрийн эсвэл ирээдүйн Бямба гарагийг сонгоно уу.');
+      const batch = writeBatch(db); batch.set(doc(db, 'stockWorkdays', date), { date, actorName: currentStaff.name, actorEmail: auth.currentUser.email.toLowerCase(), timestamp: serverTimestamp() }); await batch.commit();
+    });
+  });
+  document.getElementById('closingForm').addEventListener('submit', event => {
+    event.preventDefault(); const form = event.currentTarget; const values = Object.fromEntries(new FormData(form)); const date = companyDate();
+    stockFormAction(form, async () => {
+      const photoPath = PHOTO_UPLOADS_ENABLED ? await uploadEvidence(values.closingPhoto, 'closing', date) : '';
+      try { await runTransaction(db, async transaction => {
+      const reference = doc(db, 'stockCounts', date);
+      const previous = await transaction.get(reference);
+      const saturday = await transaction.get(doc(db, 'stockWorkdays', date));
+      if (previous.exists()) throw new Error('Өнөөдрийн тооллого аль хэдийн бүртгэгдсэн.');
+      if (!isWorkday(date, saturday.exists())) throw new Error('Ажлын өдөр биш байна.');
+      const snapshots = await Promise.all(PRODUCT_KEYS.map(key => transaction.get(doc(db, 'inventory', key))));
+      const items = {};
+      for (let index = 0; index < PRODUCT_KEYS.length; index++) {
+        const key = PRODUCT_KEYS[index]; const stock = snapshots[index].data() || { onHand: 0, reserved: 0 }; const actual = Number(values[key]);
+        items[key] = { expected: stock.onHand, actual, difference: countDifference(stock, actual) };
+      }
+      if (Object.values(items).some(item => item.difference !== 0) && !values.note.trim()) throw new Error('Зөрүү гарсан тул тайлбар оруулна уу.');
+      transaction.set(reference, { date, items, ...(photoPath ? {photoPath} : {}), actorUid: auth.currentUser.uid, note: values.note.trim(), actorName: currentStaff.name, actorEmail: auth.currentUser.email.toLowerCase(), timestamp: serverTimestamp() });
+      PRODUCT_KEYS.forEach((key, index) => transaction.set(doc(db, 'inventory', key), inventoryEntry({ onHand: items[key].actual, reserved: snapshots[index].data()?.reserved || 0 }, 'closing', '', date)));
+      }); } catch (error) { if (photoPath) await deleteObject(ref(storage, photoPath)).catch(() => {}); throw error; }
+    });
+  });
+  document.getElementById('withdrawalInputs').innerHTML = PRODUCT_KEYS.map(key => `<label>${escHtml(PRODUCT_NAMES[key])}<input name="${key}" type="number" min="0" max="1000000" step="1" value="0" required /></label>`).join('');
+  function renderWithdrawals() {
+    document.getElementById('withdrawalHistory').innerHTML = Object.values(withdrawals).sort((left,right) => (right.timestamp?.seconds || 0) - (left.timestamp?.seconds || 0)).map(entry => `<details><summary>${escHtml(entry.actorName)} · ${escHtml(entry.timestamp?.toDate ? entry.timestamp.toDate().toLocaleString('mn-MN', {timeZone:'Asia/Ulaanbaatar'}) : '—')}</summary><p>${escHtml(entry.note)}</p>${Object.entries(entry.items).map(([key, quantity]) => `<p>${escHtml(PRODUCT_NAMES[key])} × ${escHtml(quantity)}</p>`).join('')}${photoButton(entry.receiptPath,'ПАДААН харах')} ${photoButton(entry.roomPath,'Агуулахын зураг')}</details>`).join('') || 'Бүртгэл байхгүй.';
+  }
+  document.getElementById('withdrawalForm').addEventListener('submit', async event => {
+    event.preventDefault(); if (!currentStaff) return;
+    const form = event.currentTarget; const values = new FormData(form); const items = {};
+    const button = form.querySelector('button'); button.disabled = true;
+    const uploaded = []; let committed = false;
+    try {
+      for (const key of PRODUCT_KEYS) {
+        const quantity = Number(values.get(key));
+        if (!Number.isSafeInteger(quantity) || quantity < 0 || quantity > 1000000) throw new Error('Тоо ширхэг буруу байна.');
+        if (quantity > 0) items[key] = quantity;
+      }
+      if (!Object.keys(items).length || !values.get('note').trim()) throw new Error('Барааны тоо болон авах шалтгааныг оруулна уу.');
+      const reference = doc(collection(db,'stockWithdrawals'));
+      let receiptPath = '', roomPath = '';
+      if (PHOTO_UPLOADS_ENABLED) {
+        receiptPath = await uploadEvidence(values.get('receiptPhoto'),'receipt',reference.id); uploaded.push(receiptPath);
+        roomPath = await uploadEvidence(values.get('roomPhoto'),'room',reference.id); uploaded.push(roomPath);
+      }
+      await runTransaction(db, async transaction => {
+        const snapshots = await Promise.all(Object.keys(items).map(key => transaction.get(doc(db,'inventory',key))));
+        const balances = Object.entries(items).map(([key,quantity],index) => ({ key, balance:stockChange(snapshots[index].data() || {},quantity,'done',false) }));
+        balances.forEach(({key,balance}) => transaction.set(doc(db,'inventory',key),inventoryEntry({ ...balance, withdrawalId:reference.id },'withdrawal')));
+        transaction.set(reference,{ items, note:values.get('note').trim(), ...(receiptPath ? {receiptPath,roomPath} : {}), actorUid:auth.currentUser.uid, actorName:currentStaff.name, actorEmail:auth.currentUser.email.toLowerCase(), timestamp:serverTimestamp() });
+      });
+      committed = true; form.reset(); document.getElementById('withdrawalMessage').textContent = 'Бараа авсан бүртгэл хадгалагдлаа.';
+    } catch (error) { document.getElementById('withdrawalMessage').textContent = error.message; }
+    finally { if (!committed) await Promise.all(uploaded.map(path => deleteObject(ref(storage,path)).catch(() => {}))); button.disabled = false; }
+  });
+  setInterval(() => { if (currentStaff) renderStock(); }, 60000);
+  function addProductRow() {
+    if (productRows.children.length >= 7) return;
+    const row = document.createElement('div');
+    row.className = 'entry-grid';
+    row.innerHTML = `<label>Бүтээгдэхүүн<select data-product required>${productOptions}</select><span data-unit-price></span></label><label>Тоо ширхэг<input data-quantity type="number" min="1" max="10000" step="1" value="1" required /></label><button type="button" class="logout-btn" data-remove>Хасах</button>`;
+    productRows.append(row);
+    refreshProductRows();
+    updateOrderTotal();
+  }
+  function refreshProductRows() {
+    addProduct.disabled = productRows.children.length >= 7;
+    productRows.querySelectorAll('[data-remove]').forEach(button => { button.disabled = productRows.children.length === 1; });
+  }
+  addProduct.addEventListener('click', addProductRow);
+  productRows.addEventListener('click', event => {
+    const button = event.target.closest('[data-remove]');
+    if (button && productRows.children.length > 1) {
+      button.parentElement.remove();
+      refreshProductRows();
+      updateOrderTotal();
+    }
+  });
+  addProductRow();
+  document.getElementById('staffOrderForm').addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!currentStaff || !auth.currentUser) return;
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form));
+    const message = document.getElementById('entryMessage');
+    const items = {};
+    for (const row of productRows.children) {
+      const product = row.querySelector('[data-product]').value;
+      const quantity = Number(row.querySelector('[data-quantity]').value);
+      if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10000) {
+        message.textContent = 'Тоо ширхэг 1–10000 бүхэл тоо байна.';
+        return;
+      }
+      items[product] = (items[product] || 0) + quantity;
+      if (items[product] > 10000) {
+        message.textContent = 'Нэг бүтээгдэхүүний нийт тоо 10000-аас хэтрэхгүй байна.';
+        return;
+      }
+    }
+    if (['market', 'other'].includes(values.source) && !values.sourceDetail.trim()) {
+      message.textContent = 'Эх үүсвэрийн дэлгэрэнгүйг оруулна уу.';
+      return;
+    }
+    const button = form.querySelector('button[type="submit"]');
+    if (button.disabled) return;
+    let amounts;
+    try { amounts = orderAmounts(items, UNIT_PRICES, Number(values.discount)); }
+    catch (error) { message.textContent = error.message; return; }
+    button.disabled = true;
+    try {
+      const reference = doc(collection(db, 'orders'));
+      const batch = writeBatch(db);
+      batch.set(reference, {
+        ...values, ...amounts, unitPrices: { ...UNIT_PRICES }, currency: 'MNT', amountPaid: 0, deliveryAssigneeName: DELIVERY_STAFF[values.deliveryAssignee].name, items, qty: Object.values(items).reduce((total, quantity) => total + quantity, 0), status: 'new', channel: 'staff',
+        uid: auth.currentUser.uid, userEmail: auth.currentUser.email,
+        createdBy: currentStaff.name, createdByRole: currentStaff.role,
+        createdByEmail: auth.currentUser.email.toLowerCase(), timestamp: serverTimestamp(), lang: 'mn'
+      });
+      batch.set(doc(collection(reference, 'activity')), activityEvent('created', { status: 'new' }));
+      await batch.commit();
+      form.reset();
+      productRows.replaceChildren();
+      addProductRow();
+      message.textContent = 'Захиалга бүртгэгдлээ. Батлахыг хүлээж байна.';
+    } catch (error) {
+      message.textContent = 'Захиалга бүртгэхэд алдаа гарлаа: ' + error.message;
+    } finally { button.disabled = false; }
+  });
 
   // ── UI refs ──
   const loginScreen  = document.getElementById('loginScreen');
@@ -357,9 +1301,10 @@
   const loginBtn     = document.getElementById('loginBtn');
   const ordersBody   = document.getElementById('ordersBody');
   const searchBox    = document.getElementById('searchBox');
-  const filterTabs   = document.querySelectorAll('.filter-tab');
+  const statusFilter = document.getElementById('statusFilter');
 
   let currentFilter = 'all';
+  const expandedOrders = new Set();
   let allOrders     = [];
   let unsubOrders   = null;
 
@@ -388,12 +1333,47 @@
   document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
   // ── Auth state ──
-  onAuthStateChanged(auth, user => {
-    if (user && ADMIN_EMAILS.includes(user.email)) {
+  onAuthStateChanged(auth, async user => {
+    stockSubscriptions.splice(0).forEach(unsubscribe => unsubscribe());
+    photoUrls.forEach(url => URL.revokeObjectURL(url)); photoUrls.clear();
+    document.getElementById('photoDialog').close();
+    closeGuide();
+    closingPhotoInput.value = ''; clearClosingPhotoPreview();
+    document.getElementById('evidenceImage').removeAttribute('src');
+    withdrawals = {}; renderWithdrawals();
+    stockBalances = {}; closingCounts = {}; saturdayWorkdays = {};
+    stockLoaded = false; countsLoaded = false; workdaysLoaded = false;
+    if (unsubOrders) { unsubOrders(); unsubOrders = null; }
+    allOrders = [];
+    ordersLoaded = false; overviewFilter = null;
+    reportFilter = null;
+    document.getElementById('reportSelection').hidden = true;
+    document.getElementById('staffReport').hidden = true;
+    currentStaff = user ? STAFF[(user.email || '').toLowerCase()] || null : null;
+    previewRole.value = '';
+    document.getElementById('employeePreview').hidden = currentStaff?.role !== 'admin';
+    if (user && currentStaff && !user.emailVerified) {
+      currentStaff = null;
+      try {
+        await sendEmailVerification(user);
+        loginError.textContent = 'И-мэйл баталгаажуулах холбоос илгээлээ. Баталгаажуулаад дахин нэвтэрнэ үү.';
+      } catch {
+        loginError.textContent = 'И-мэйлээ баталгаажуулна уу. Баталгаажуулах холбоос илгээж чадсангүй.';
+      }
+      await signOut(auth);
+      return;
+    }
+    if (user && currentStaff) {
       loginScreen.style.display = 'none';
       dashboard.style.display = 'block';
-      document.getElementById('adminUserEmail').textContent = user.email;
+      document.getElementById('adminUserEmail').textContent = `${currentStaff.name} · ${ROLE_NAMES[currentStaff.role]}`;
       startListening();
+      startStockListening();
+      showConsoleView('overview');
+      const guideKey = `baragshun-order-guide-v2:${user.uid}`;
+      try {
+        if (!localStorage.getItem(guideKey)) { openGuide(); localStorage.setItem(guideKey,'seen'); }
+      } catch { /* The help button remains available when browser storage is disabled. */ }
     } else if (user) {
       signOut(auth);
       loginError.textContent = 'Энэ хэрэглэгч админ эрхгүй байна.';
@@ -413,23 +1393,21 @@
     const q = query(collection(db, 'orders'), orderBy('timestamp', 'desc'));
     unsubOrders = onSnapshot(q, snapshot => {
       allOrders = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      ordersLoaded = true;
       renderStats();
+      renderStaffReport();
       renderOrders();
     }, err => {
-      ordersBody.innerHTML = `<tr><td colspan="9" style="padding:40px;text-align:center;color:var(--red)">
+      ordersBody.innerHTML = `<tr><td colspan="4" style="padding:40px;text-align:center;color:var(--red)">
         Алдаа гарлаа: ${escHtml(err.message)}
       </td></tr>`;
     });
   }
 
   // ── Filter tabs ──
-  filterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      filterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      currentFilter = tab.dataset.filter;
-      renderOrders();
-    });
+  statusFilter.addEventListener('change', () => {
+    currentFilter = statusFilter.value;
+    renderOrders();
   });
 
   // ── Search ──
@@ -439,25 +1417,39 @@
   function renderStats() {
     document.getElementById('statTotal').textContent     = allOrders.length;
     document.getElementById('statNew').textContent       = allOrders.filter(o => !o.status || o.status === 'new').length;
-    document.getElementById('statCalled').textContent    = allOrders.filter(o => o.status === 'called').length;
+    document.getElementById('statCalled').textContent    = allOrders.filter(o => ['called', 'approved', 'paid', 'ready'].includes(o.status)).length;
     document.getElementById('statDone').textContent      = allOrders.filter(o => o.status === 'done').length;
     document.getElementById('statCancelled').textContent = allOrders.filter(o => o.status === 'cancelled').length;
   }
 
   // ── Render orders ──
   function renderOrders() {
+    const deliveriesView = document.getElementById('dashboard').dataset.view === 'deliveries';
+    const approvalsView = document.getElementById('dashboard').dataset.view === 'approvals';
     const q = (searchBox.value || '').toLowerCase();
     let list = currentFilter === 'all'
       ? allOrders
-      : allOrders.filter(o => (o.status || 'new') === currentFilter);
+      : allOrders.filter(o => (o.status === 'paid' ? 'approved' : o.status || 'new') === currentFilter);
     if (q) list = list.filter(o =>
       (o.name  || '').toLowerCase().includes(q) ||
       (o.phone || '').toLowerCase().includes(q) ||
-      (o.email || '').toLowerCase().includes(q)
+      (o.email || '').toLowerCase().includes(q) ||
+      (o.createdBy || '').toLowerCase().includes(q) ||
+      (o.sourceDetail || '').toLowerCase().includes(q)
     );
+    if (reportFilter) list = list.filter(order => reportMatches(order, reportFilter.person, reportFilter.metric));
+    if (overviewFilter) {
+      const permittedIds = new Set(overviewOrders().map(order => order.id));
+      list = list.filter(order => permittedIds.has(order.id) && overviewMatches(order,overviewFilter));
+    }
+    if (approvalsView) list = ['admin','founder'].includes(effectiveRole())
+      ? list.filter(order => ['new','called'].includes(order.status || 'new')).sort((left,right) => (left.timestamp?.seconds || 0) - (right.timestamp?.seconds || 0))
+      : [];
+    if (deliveriesView) list = list.filter(order => order.deliveryAssignee === deliveryIdentity() && !['done','cancelled'].includes(order.status))
+      .sort((left,right) => (left.promisedDate || '9999-12-31').localeCompare(right.promisedDate || '9999-12-31'));
 
     if (list.length === 0) {
-      ordersBody.innerHTML = `<tr class="empty-row"><td colspan="9">
+      ordersBody.innerHTML = `<tr class="empty-row"><td colspan="4">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32" style="display:block;margin:0 auto 10px"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
         Захиалга байхгүй байна
       </td></tr>`;
@@ -472,62 +1464,199 @@
             hour:'2-digit', minute:'2-digit'
           })
         : '—';
-      const product = PRODUCT_NAMES[order.product] || order.product || '—';
+      const product = order.items
+        ? Object.entries(order.items).map(([key, quantity]) => `${PRODUCT_NAMES[key] || key} × ${quantity}`).join('\n')
+        : PRODUCT_NAMES[order.product] || order.product || '—';
       const shortId = order.id.substring(0, 8).toUpperCase();
+      const expanded = expandedOrders.has(order.id);
+      const totalQuantity = order.items ? Object.values(order.items).reduce((total, quantity) => total + Number(quantity), 0) : order.qty || 1;
+      const detailId = 'details-' + order.id;
 
       return `<tr>
-        <td class="td-date">${escHtml(dateStr)}<br><span class="td-id">#${shortId}</span></td>
-        <td class="td-name">${escHtml(order.name  || '—')}</td>
-        <td class="td-phone">${escHtml(order.phone || '—')}</td>
-        <td class="td-product">${escHtml(product)}</td>
-        <td class="td-qty">${order.qty || 1}</td>
-        <td class="td-email hide-sm">${escHtml(order.email || '—')}</td>
-        <td class="td-note  hide-sm">${escHtml(order.note  || '—')}</td>
-        <td><span class="status-badge ${status}">${STATUS_LABELS[status] || status}</span></td>
-        <td><div class="action-btns">${buildActionBtns(status, order.id)}</div></td>
-      </tr>`;
+        <td data-label="Бүртгэсэн ажилтан">${escHtml(order.createdBy || 'Вэбсайтын хэрэглэгч')}<span class="staff-detail">${escHtml(ROLE_NAMES[order.createdByRole] || '')}</span>${deliveriesView ? `<strong>${escHtml(order.name || '—')}</strong><span class="staff-detail">${escHtml(order.address || 'Хаяг бүртгээгүй')}</span><span class="staff-detail" ${order.promisedDate && order.promisedDate < companyDate() ? 'style="color:var(--red)"' : ''}>${escHtml(order.promisedDate || 'Өдөр бүртгээгүй')}${order.promisedDate && order.promisedDate < companyDate() ? ' · Хугацаа хэтэрсэн' : ''}</span>` : ''}</td>
+        <td data-label="Нийт тоо">${escHtml(totalQuantity)} ш</td>
+        <td data-label="Төлөв"><span class="status-badge ${Object.hasOwn(STATUS_LABELS, status) ? status : 'new'}">${escHtml(STATUS_LABELS[status] || status)}</span></td>
+        <td><button class="logout-btn" data-details="${escHtml(order.id)}" aria-label="Захиалга ${escHtml(shortId)} дэлгэрэнгүй" aria-expanded="${expanded}" aria-controls="${escHtml(detailId)}">${expanded ? 'Хураах' : 'Дэлгэрэнгүй'}</button></td>
+      </tr><tr class="order-details" id="${escHtml(detailId)}" ${expanded ? '' : 'hidden'}><td colspan="4">
+        <dl class="detail-grid">
+          <div><dt>Захиалгын дугаар / огноо</dt><dd>#${escHtml(shortId)}\n${escHtml(dateStr)}</dd></div>
+          <div><dt>Захиалагч</dt><dd>${escHtml(order.name || '—')}\n${escHtml(order.phone || '—')}\n${escHtml(order.email || '')}</dd></div>
+          <div><dt>Бүтээгдэхүүн</dt><dd>${escHtml(product)}</dd></div>
+          <div><dt>Үнэ / төлбөр</dt><dd>${order.total != null ? escHtml(`Үнэ: ${money(order.subtotal)}\nХямдрал: ${money(order.discount)}\nНийт: ${money(order.total)}\nТөлсөн: ${money(order.amountPaid || 0)}\nҮлдэгдэл: ${money(order.total - (order.amountPaid || 0))}\n${order.amountPaid >= order.total ? 'Төлөгдсөн' : order.amountPaid > 0 ? 'Хэсэгчлэн төлсөн' : 'Төлөөгүй'}`) : 'Үнэ бүртгээгүй хуучин захиалга'}</dd></div>
+          <div><dt>Хадгалсан нэгж үнэ</dt><dd>${order.unitPrices ? escHtml(Object.keys(order.items || {}).map(key => `${PRODUCT_NAMES[key]}: ${money(order.unitPrices[key])}`).join('\n')) : '—'}</dd></div>
+          <div><dt>Төлбөр бүртгэсэн</dt><dd>${escHtml(order.paymentRecordedBy || '—')}\n${escHtml(order.paymentRecordedAt?.toDate ? order.paymentRecordedAt.toDate().toLocaleString('mn-MN') : '')}</dd></div>
+          <div><dt>Эх үүсвэр</dt><dd>${escHtml(SOURCES[order.source] || 'Вэбсайт')}\n${escHtml(order.sourceDetail || '')}</dd></div>
+          <div><dt>Хүргэлтийн хаяг</dt><dd>${escHtml(order.address || '—')}</dd></div>
+          <div><dt>Хүргэлт хариуцсан</dt><dd>${escHtml(order.deliveryAssigneeName || 'Бүртгээгүй')}</dd></div>
+          <div><dt>Амласан өдөр</dt><dd>${escHtml(order.promisedDate || 'Бүртгээгүй')}</dd></div>
+          <div><dt>Хүргэсэн өдөр / бүртгэсэн ажилтан</dt><dd>${escHtml(order.deliveredAt?.toDate ? companyDate(order.deliveredAt.toDate()) : '—')}\n${escHtml(order.deliveredBy || '—')}</dd></div>
+          <div><dt>Тайлбар</dt><dd>${escHtml(order.note || '—')}</dd></div>
+          <div><dt>Баталсан</dt><dd>${escHtml(order.approvedBy || '—')}\n${escHtml(order.approvedAt?.toDate ? order.approvedAt.toDate().toLocaleString('mn-MN') : '')}</dd></div>
+          <div><dt>Сүүлд өөрчилсөн</dt><dd>${escHtml(order.updatedBy || '—')}\n${escHtml(order.updatedAt?.toDate ? order.updatedAt.toDate().toLocaleString('mn-MN') : '')}</dd></div>
+          <div><dt>Сүүлд цуцалсан</dt><dd>${escHtml(order.cancelledBy || '—')}\n${escHtml(order.cancelledAt?.toDate ? order.cancelledAt.toDate().toLocaleString('mn-MN') : '')}\n${escHtml(order.cancellationReason || '')}\n${escHtml(order.cancellationNote || '')}</dd></div>
+          <div><dt>Сүүлд сэргээсэн</dt><dd>${escHtml(order.recoveredBy || '—')}\n${escHtml(order.recoveredAt?.toDate ? order.recoveredAt.toDate().toLocaleString('mn-MN') : '')}</dd></div>
+          <div><dt>Сүүлчийн хүргэлтийн оролдлого</dt><dd>${escHtml(order.deliveryAttemptReason || '—')}\n${escHtml(order.deliveryAttemptBy || '')}\n${escHtml(order.deliveryAttemptAt?.toDate ? order.deliveryAttemptAt.toDate().toLocaleString('mn-MN',{timeZone:'Asia/Ulaanbaatar'}) : '')}</dd></div>
+        </dl>
+        <div class="action-btns">${buildActionBtns(status, order.id, order)}</div>
+        <div class="action-btns" style="margin-top:12px">${order.phone && String(order.phone).replace(/[^0-9+]/g,'') ? `<a class="logout-btn" href="tel:${escHtml(String(order.phone).replace(/[^0-9+]/g,''))}">Залгах</a>` : ''}${order.address ? `<a class="logout-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(order.address)}" target="_blank" rel="noopener noreferrer">Газрын зураг</a>` : ''}${status === 'ready' && (order.deliveryAssignee === deliveryIdentity() || ['admin','founder'].includes(effectiveRole())) ? `<button class="logout-btn" data-attempt="${escHtml(order.id)}" type="button">Хүргэж чадаагүй</button>` : ''}</div>
+        <section style="margin-top:20px"><button class="logout-btn" type="button" data-history="${escHtml(order.id)}">Үйлдлийн түүх харах</button><div id="history-${escHtml(order.id)}" aria-live="polite" style="margin-top:12px"></div></section>
+        ${order.total != null && status !== 'cancelled' && ['admin','founder','accountant'].includes(effectiveRole()) ? `<form data-payment="${escHtml(order.id)}" class="entry-grid"><label>Нийт төлсөн дүн (₮)<input name="amountPaid" type="number" min="0" max="${Number(order.total)}" step="1" value="${Number(order.amountPaid || 0)}" required /></label><label>Төлбөрийн тайлбар<input name="paymentNote" maxlength="500" value="${escHtml(order.paymentNote || '')}" /></label><button class="logout-btn" type="submit">Төлбөр хадгалах</button></form>` : ''}
+      </td></tr>`;
     }).join('');
   }
 
-  function buildActionBtns(status, id) {
-    const b = [];
-    if (status === 'cancelled') {
-      b.push(`<button class="act-btn set-new" data-id="${id}" data-status="new">Сэргээх</button>`);
-      b.push(`<button class="act-btn delete-order" data-id="${id}" style="background:rgba(224,112,112,0.15);color:#e07070;border-color:rgba(224,112,112,0.3);">Устгах</button>`);
-    } else {
-      if (status !== 'called') b.push(`<button class="act-btn set-called" data-id="${id}" data-status="called">Холбогдсон</button>`);
-      if (status !== 'done')   b.push(`<button class="act-btn set-done"   data-id="${id}" data-status="done">Дууссан</button>`);
-      if (status !== 'new')    b.push(`<button class="act-btn set-new"    data-id="${id}" data-status="new">Шинэ болгох</button>`);
-      b.push(`<button class="act-btn set-cancelled" data-id="${id}" data-status="cancelled">Цуцлах</button>`);
-    }
-    return b.join('');
+  function buildActionBtns(status, id, order) {
+    const labels = { new: 'Захиалга сэргээх', approved: 'Батлах', ready: 'Бэлтгэсэн', done: 'Хүргэсэн ✓', cancelled: 'Захиалагч цуцалсан' };
+    return availableActions(status, order).map(target => `<button class="act-btn set-${target === 'cancelled' ? 'cancelled' : 'called'}" data-id="${escHtml(id)}" data-status="${target}">${escHtml(labels[target])}</button>`).join('');
+  }
+
+  function availableActions(status, order = {}) {
+    if (!currentStaff) return [];
+    const role = effectiveRole();
+    const manager = ['admin', 'founder'].includes(role);
+    const actions = [];
+    if (['new', 'called'].includes(status) && manager) actions.push('approved');
+    if (['approved', 'paid'].includes(status) && (manager || ['accountant', 'production'].includes(role))) actions.push('ready');
+    const previewPerson = currentStaff.role === 'admin' && previewRole.value
+      ? Object.entries(DELIVERY_STAFF).find(([, person]) => person.role === role)?.[0]
+      : auth.currentUser?.email?.toLowerCase();
+    if (status === 'ready' && (manager || (role !== 'founder' && order.deliveryAssignee === previewPerson))) actions.push('done');
+    if (!['done', 'cancelled'].includes(status)) actions.push('cancelled');
+    if (status === 'cancelled') actions.push('new');
+    return actions;
   }
 
   // ── Status change (event delegation) ──
   ordersBody.addEventListener('click', async e => {
+    const attemptButton = e.target.closest('[data-attempt]');
+    if (attemptButton) {
+      const reason = prompt('Хүргэж чадаагүй шалтгааныг оруулна уу:', '');
+      if (reason === null || !reason.trim()) return;
+      attemptButton.disabled = true;
+      try {
+        await runTransaction(db, async transaction => {
+          const reference = doc(db,'orders',attemptButton.dataset.attempt);
+          const snapshot = await transaction.get(reference);
+          const order = snapshot.data();
+          if (!snapshot.exists() || order.status !== 'ready' || (order.deliveryAssignee !== deliveryIdentity() && !['admin','founder'].includes(effectiveRole()))) throw new Error('Хүргэлтийн эрх эсвэл төлөв өөрчлөгдсөн байна.');
+          const note = reason.trim().slice(0,1000);
+          transaction.update(reference,{ deliveryAttemptReason:note, deliveryAttemptBy:currentStaff.name, deliveryAttemptByEmail:auth.currentUser.email.toLowerCase(), deliveryAttemptAt:serverTimestamp() });
+          transaction.set(doc(collection(reference,'activity')),activityEvent('deliveryAttempt',{note}));
+        });
+        document.getElementById('actionError').textContent = '';
+      } catch (error) { document.getElementById('actionError').textContent = error.message; }
+      finally { attemptButton.disabled = false; }
+      return;
+    }
+    const historyButton = e.target.closest('[data-history]');
+    if (historyButton) {
+      historyButton.disabled = true;
+      const container = document.getElementById('history-' + historyButton.dataset.history);
+      container.textContent = 'Ачаалж байна...';
+      try {
+        const snapshot = await getDocs(query(collection(db, 'orders', historyButton.dataset.history, 'activity'), orderBy('timestamp', 'desc')));
+        const labels = { created: 'Захиалга бүртгэсэн', status: 'Төлөв өөрчилсөн', payment: 'Төлбөр бүртгэсэн', deliveryAttempt:'Хүргэж чадаагүй' };
+        container.innerHTML = snapshot.empty ? '<p class="report-note">Үйлдлийн түүх бүртгэгдээгүй. Өмнөх өөрчлөлтүүдийн түүх хадгалагдаагүй байна.</p>' : snapshot.docs.map(entry => {
+          const activity = entry.data();
+          const detail = activity.kind === 'payment'
+            ? `${money(activity.previousAmount)} → ${money(activity.amountPaid)}`
+            : activity.previousStatus ? `${STATUS_LABELS[activity.previousStatus] || activity.previousStatus} → ${STATUS_LABELS[activity.status] || activity.status}` : STATUS_LABELS[activity.status] || '';
+          return `<div style="padding:12px 0;border-bottom:1px solid var(--border)"><strong>${escHtml(labels[activity.kind] || activity.kind)}</strong><span class="staff-detail">${escHtml(activity.actorName)} · ${escHtml(ROLE_NAMES[activity.actorRole] || activity.actorRole)} · ${escHtml(activity.timestamp?.toDate ? activity.timestamp.toDate().toLocaleString('mn-MN', {timeZone:'Asia/Ulaanbaatar'}) : '—')}</span><p class="report-note">${escHtml(detail)}${activity.note ? '<br>' + escHtml(activity.note) : ''}</p></div>`;
+        }).join('');
+      } catch (error) { container.textContent = 'Түүх ачаалахад алдаа гарлаа: ' + error.message; }
+      finally { historyButton.disabled = false; }
+      return;
+    }
+    const detailButton = e.target.closest('[data-details]');
+    if (detailButton) {
+      const id = detailButton.dataset.details;
+      const expanded = !expandedOrders.has(id);
+      if (expanded) expandedOrders.add(id); else expandedOrders.delete(id);
+      document.getElementById('details-' + id).hidden = !expanded;
+      detailButton.setAttribute('aria-expanded', String(expanded));
+      detailButton.textContent = expanded ? 'Хураах' : 'Дэлгэрэнгүй';
+      return;
+    }
     const statusBtn = e.target.closest('[data-status]');
     if (statusBtn) {
+      let cancellationNote = '';
+      if (statusBtn.dataset.status === 'cancelled') {
+        const note = prompt('Захиалагч цуцалсан. Тайлбар (заавал биш):', '');
+        if (note === null) return;
+        cancellationNote = note.trim().slice(0, 2000);
+      }
       statusBtn.disabled = true;
       try {
-        await updateDoc(doc(db, 'orders', statusBtn.dataset.id), { status: statusBtn.dataset.status });
+        await runTransaction(db, async transaction => {
+          const reference = doc(db, 'orders', statusBtn.dataset.id);
+          const snapshot = await transaction.get(reference);
+          const target = statusBtn.dataset.status;
+          if (!snapshot.exists() || !availableActions(snapshot.data().status || 'new', snapshot.data()).includes(target)) throw new Error('Захиалгын төлөв өөрчлөгдсөн эсвэл эрх хүрэлцэхгүй байна.');
+          const order = snapshot.data();
+          const stockAffected = target === 'approved' || target === 'done' || (target === 'cancelled' && order.stockReserved === true);
+          const items = stockAffected ? quantities(order) : {};
+          const stockSnapshots = await Promise.all(Object.keys(items).map(key => transaction.get(doc(db, 'inventory', key))));
+          const stockUpdates = Object.entries(items).map(([key, quantity], index) => {
+            try { return { key, balance: stockChange(stockSnapshots[index].data() || {}, quantity, target, order.stockReserved === true) }; }
+            catch (error) { throw new Error(`${PRODUCT_NAMES[key]}: ${error.message}`); }
+          });
+          const changes = { status: target, updatedBy: currentStaff.name, updatedByEmail: auth.currentUser.email.toLowerCase(), updatedAt: serverTimestamp() };
+          if (target === 'approved') changes.stockReserved = true;
+          if (['cancelled','done'].includes(target)) changes.stockReserved = false;
+          stockUpdates.forEach(({key, balance}) => transaction.set(doc(db, 'inventory', key), inventoryEntry(balance, target, reference.id)));
+          if (target === 'approved') Object.assign(changes, { approvedBy: currentStaff.name, approvedByEmail: auth.currentUser.email.toLowerCase(), approvedAt: serverTimestamp() });
+          if (target === 'done') Object.assign(changes, { deliveredBy: currentStaff.name, deliveredByEmail: auth.currentUser.email.toLowerCase(), deliveredAt: serverTimestamp() });
+          if (target === 'cancelled') Object.assign(changes, {
+            cancellationReason: 'Захиалагч цуцалсан', cancellationNote,
+            cancelledBy: currentStaff.name, cancelledByEmail: auth.currentUser.email.toLowerCase(), cancelledAt: serverTimestamp()
+          });
+          if (target === 'new') Object.assign(changes, {
+            recoveredBy: currentStaff.name, recoveredByEmail: auth.currentUser.email.toLowerCase(), recoveredAt: serverTimestamp(),
+            approvedBy: deleteField(), approvedByEmail: deleteField(), approvedAt: deleteField()
+          });
+          transaction.update(reference, changes);
+          transaction.set(doc(collection(reference, 'activity')), activityEvent('status', {
+            previousStatus: snapshot.data().status || 'new', status: target, note: cancellationNote
+          }));
+        });
+        document.getElementById('actionError').textContent = '';
       } catch (err) {
         console.error(err);
+        document.getElementById('actionError').textContent = err.message;
         statusBtn.disabled = false;
       }
       return;
     }
-    const delBtn = e.target.closest('.delete-order');
-    if (delBtn) {
-      if (!confirm('Энэ захиалгыг устгах уу? Энэ үйлдлийг буцаах боломжгүй.')) return;
-      delBtn.disabled = true;
-      try {
-        await deleteDoc(doc(db, 'orders', delBtn.dataset.id));
-      } catch (err) {
-        console.error(err);
-        delBtn.disabled = false;
-      }
-    }
   });
+
+  ordersBody.addEventListener('submit', async event => {
+    const form = event.target.closest('[data-payment]');
+    if (!form) return;
+    event.preventDefault();
+    if (!['admin','founder','accountant'].includes(effectiveRole())) return;
+    const values = Object.fromEntries(new FormData(form));
+    const amountPaid = Number(values.amountPaid);
+    const button = form.querySelector('button');
+    button.disabled = true;
+    try {
+      await runTransaction(db, async transaction => {
+        const reference = doc(db, 'orders', form.dataset.payment);
+        const snapshot = await transaction.get(reference);
+        const order = snapshot.data();
+        if (!snapshot.exists() || order.status === 'cancelled' || !Number.isSafeInteger(amountPaid) || amountPaid < 0 || amountPaid > order.total) throw new Error('Төлсөн дүн буруу эсвэл захиалга цуцлагдсан байна.');
+        transaction.update(reference, { amountPaid, paymentNote: values.paymentNote.trim(), paymentRecordedBy: currentStaff.name, paymentRecordedByEmail: auth.currentUser.email.toLowerCase(), paymentRecordedAt: serverTimestamp() });
+        transaction.set(doc(collection(reference, 'activity')), activityEvent('payment', {
+          previousAmount: order.amountPaid || 0, amountPaid, note: values.paymentNote.trim()
+        }));
+      });
+      document.getElementById('actionError').textContent = '';
+    } catch (error) { document.getElementById('actionError').textContent = error.message; }
+    finally { button.disabled = false; }
+  });
+
+  function activityEvent(kind, details) {
+    return { kind, ...details, actorUid: auth.currentUser.uid, actorEmail: auth.currentUser.email.toLowerCase(), actorName: currentStaff.name, actorRole: currentStaff.role, timestamp: serverTimestamp() };
+  }
 
   // ── Helpers ──
   function escHtml(s) {
