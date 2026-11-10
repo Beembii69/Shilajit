@@ -16,6 +16,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    // Enable scroll fade-ins, but undo them if the main script never starts
+    // (for example when the page is opened as a local file), so content is never left hidden.
+    document.documentElement.classList.add('js');
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (!window.__uiReady) document.documentElement.classList.remove('js');
+      }, 300);
+    });
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -947,11 +957,11 @@
     .footer-bottom-links a:hover { color: var(--gold); opacity: 1; }
 
     /* ─── ANIMATIONS ─── */
-    .fade-up {
+    .js .fade-up {
       opacity: 0; transform: translateY(28px);
       transition: opacity 0.75s ease, transform 0.75s ease;
     }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .js .fade-up.visible { opacity: 1; transform: translateY(0); }
     .fade-up-d1 { transition-delay: 0.1s; }
     .fade-up-d2 { transition-delay: 0.2s; }
     .fade-up-d3 { transition-delay: 0.3s; }
@@ -3212,6 +3222,7 @@
     card.style.transitionDelay = (i * 0.08) + 's';
   });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  window.__uiReady = true;
 
   // ── Sale and order form ──
   const orderForm = document.getElementById('orderForm');
