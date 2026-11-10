@@ -1,0 +1,65 @@
+:root {
+  --bg: #080c14;
+  --bg-2: #0d1220;
+  --gold: #c9a96e;
+  --gold-lt: #e2c98a;
+  --cream: #f0ece4;
+  --muted: rgba(240,236,228,0.68);
+  --border-gold: rgba(201,169,110,0.18);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Noto Sans', system-ui, sans-serif;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--gold-lt); text-underline-offset: 3px; }
+a:hover { color: var(--cream); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 3px; }
+
+.legal-nav {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px clamp(16px, 5vw, 48px);
+  border-bottom: 1px solid var(--border-gold);
+  background: var(--bg-2);
+}
+.legal-logo {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--cream); text-decoration: none;
+  font: 600 1.15rem/1.2 'Cormorant Infant', serif; letter-spacing: 0.04em;
+}
+.legal-logo img { width: 40px; height: 40px; object-fit: contain; }
+.lang-toggle { display: flex; gap: 4px; flex-shrink: 0; }
+.lang-btn {
+  background: none; border: 1px solid transparent; color: var(--muted);
+  font: 500 0.78rem 'Noto Sans', sans-serif; letter-spacing: 0.06em;
+  padding: 6px 10px; cursor: pointer;
+}
+.lang-btn:hover { color: var(--cream); }
+.lang-btn.active { color: var(--gold-lt); border-color: var(--border-gold); }
+
+.legal { max-width: 760px; margin: 0 auto; padding: clamp(32px, 7vw, 72px) 16px 80px; }
+.legal article[hidden] { display: none; }
+.legal h1 {
+  font: 600 clamp(2rem, 6vw, 3rem)/1.1 'Cormorant Infant', serif;
+  letter-spacing: -0.01em; margin-bottom: 8px;
+}
+.legal .updated { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.06em; margin-bottom: 28px; }
+.legal h2 {
+  font: 600 1.45rem/1.25 'Cormorant Infant', serif; color: var(--gold-lt);
+  margin: 36px 0 10px;
+}
+.legal p, .legal li { color: var(--muted); font-size: 0.95rem; }
+.legal p + p { margin-top: 12px; }
+.legal ul { margin: 10px 0 12px 22px; }
+.legal li { margin-bottom: 8px; }
+.legal strong { color: var(--cream); font-weight: 600; }
+.legal-back {
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border-gold);
+  font-size: 0.85rem;
+}
+@media (max-width: 480px) {
+  .legal-logo span { display: none; }
+}

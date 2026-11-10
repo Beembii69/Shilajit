@@ -4,10 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Монгол Алтайн Барагшун — Байгалийн цэвэр эрч хүч</title>
+  <meta name="description" content="Монгол Алтайн нурууны 3500–4000 м өндрөөс цуглуулсан байгалийн цэвэр барагшун." />
+  <link rel="icon" type="image/png" href="app-icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="app-icons/apple-touch-icon.png" />
   <meta property="og:title" content="Монгол Алтайн Барагшун — Байгалийн цэвэр эрч хүч" />
   <meta property="og:description" content="Монгол Алтайн нурууны 3500–4000 м өндрөөс цуглуулсан байгалийн цэвэр барагшун." />
-  <meta property="og:image" content="https://beembii69.github.io/Shilajit/preview.png" />
-  <meta property="og:url" content="https://beembii69.github.io/Shilajit/" />
+  <meta property="og:image" content="https://shilajit.mn/preview.png" />
+  <meta property="og:url" content="https://shilajit.mn/" />
+  <link rel="canonical" href="https://shilajit.mn/" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -794,6 +798,37 @@
     .ci-lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
     .ci-val { font-size: 0.9rem; color: var(--cream); font-weight: 500; }
 
+    /* 11:11 sale */
+    .sale-banner {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: 24px; align-items: center; margin-bottom: 36px; padding: clamp(16px, 4vw, 34px);
+      border: 1px solid var(--border-gold-bright); border-radius: 3px;
+      background: radial-gradient(ellipse at 0 0, rgba(201,169,110,0.17), transparent 72%), var(--bg-3);
+    }
+    .sale-banner[hidden], .sale-action[hidden] { display: none; }
+    .sale-banner h3 { margin: 8px 0; color: var(--cream); font: 600 clamp(1.65rem, 4vw, 2.6rem)/1.1 'Cormorant Infant', serif; }
+    .sale-banner p { color: var(--muted); font-size: 0.88rem; }
+    .sale-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; list-style: none; }
+    .sale-tiers li { text-align: center; padding: 10px 4px; border: 1px solid var(--border-gold); }
+    .sale-tiers strong { display: block; color: var(--gold-lt); font: 700 clamp(1.5rem, 4vw, 2.8rem)/1.15 'Cormorant Infant', serif; }
+    .sale-tiers span { color: var(--cream); font-size: 0.78rem; }
+    @media (max-width: 700px) { .sale-banner { grid-template-columns: 1fr; } }
+    .sale-action:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 3px; }
+    .sale-action:active { transform: translateY(1px); }
+    .order-extra-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(62px, 0.35fr) auto; align-items: end; gap: 8px; }
+    .fg.order-extra-row label { margin: 0; }
+    .order-extra-row label span { display: block; margin-bottom: 8px; }
+    .order-extra-row .btn, #addOrderProduct { padding: 10px 12px; font-size: 0.75rem; }
+    @media (max-width: 600px) {
+      .order-extra-row { grid-template-columns: minmax(0, 1fr) auto; }
+      .order-extra-row label:first-child { grid-column: 1 / -1; }
+    }
+    #addOrderProduct { margin-bottom: 14px; }
+    .order-price-summary { margin-bottom: 18px; padding: 12px 14px; border: 1px solid var(--border-gold); font-size: 0.86rem; }
+    .order-price-summary div { display: flex; justify-content: space-between; gap: 10px; }
+    .order-price-summary dd { text-align: right; }
+    .order-price-summary strong { color: var(--gold-lt); }
+
     /* form */
     .contact-form {
       padding: 44px 40px;
@@ -1305,6 +1340,8 @@
   const CANCEL_CONFIRM = { mn:'Захиалгыг цуцлах уу?', en:'Cancel this order?', zh:'确认取消此订单？' };
   const CANCEL_ERROR   = { mn:'Алдаа гарлаа. Дахин оролдоно уу.', en:'Something went wrong. Please try again.', zh:'发生错误，请重试。' };
 
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
   async function loadMyOrders(uid) {
     const section = document.getElementById('my-orders');
     const list    = document.getElementById('myOrdersList');
@@ -1338,8 +1375,12 @@
           ? d.timestamp.toDate().toLocaleDateString(lang === 'zh' ? 'zh-CN' : lang === 'en' ? 'en-US' : 'mn-MN')
           : '—';
         const status    = d.status || 'new';
-        const pName     = (PRODUCT_NAMES_ALL[lang] || PRODUCT_NAMES_ALL.mn)[d.product] || d.product || '—';
-        const label     = statusLabels[status] || status;
+        const names     = PRODUCT_NAMES_ALL[lang] || PRODUCT_NAMES_ALL.mn;
+        const pName     = d.items
+          ? Object.entries(d.items).map(([key, quantity]) => `${esc(names[key] || key)} × ${esc(quantity)}`).join(' · ')
+          : esc(names[d.product] || d.product || '—');
+        const total     = Number.isSafeInteger(d.total) ? ` · ${d.total.toLocaleString(lang)} ₮` : '';
+        const label     = esc(statusLabels[status] || status);
         const canCancel = status === 'new';
         return `
           <div class="order-card" data-id="${d2.id}">
@@ -1349,17 +1390,17 @@
             </div>
             <div>
               <div class="order-card-product">${pName}</div>
-              <div class="order-card-detail">${d.qty || 1} · ${d.phone || '—'}</div>
+              <div class="order-card-detail">${esc(d.qty || 1)} · ${esc(d.phone || '—')}${total}</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-              <span class="oc-status ${status}">${label}</span>
+              <span class="oc-status ${esc(status)}">${label}</span>
               ${canCancel ? `<button class="oc-cancel-btn" data-id="${d2.id}">${cancelTxt}</button>` : ''}
             </div>
           </div>`;
       }).join('');
 
       // Cancel button handler
-      list.addEventListener('click', async e => {
+      list.onclick = async e => {
         const btn = e.target.closest('.oc-cancel-btn');
         if (!btn) return;
         if (!confirm(confirmTxt)) return;
@@ -1374,7 +1415,7 @@
           btn.textContent = cancelTxt;
           alert(errorTxt);
         }
-      }, { once: true });
+      };
     } catch (err) {
       console.error('loadMyOrders:', err);
       list.innerHTML = '<div class="orders-empty">Мэдээлэл ачаалахад алдаа гарлаа</div>';
@@ -1561,11 +1602,14 @@
     document.getElementById('otpInput').value = '';
   });
 
-  /* ── Order buttons — require login, then pre-fill & scroll ── */
+  /* ── Order buttons — pre-fill & scroll (login is optional) ── */
   function goToContact(productVal) {
     if (productVal) {
       const sel = document.getElementById('orderProduct');
-      if (sel) sel.value = productVal;
+      if (sel) {
+        sel.value = productVal;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
     }
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
   }
@@ -1573,14 +1617,7 @@
   document.querySelectorAll('.order-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      const productVal = btn.dataset.product || '';
-      if (auth.currentUser) {
-        goToContact(productVal);
-      } else {
-        pendingOrderLink = '#contact';
-        pendingProduct   = productVal;
-        openAuth('login');
-      }
+      goToContact(btn.dataset.product || '');
     });
   });
 
@@ -1892,8 +1929,8 @@
     <div style="
       width:100%; height:100%;
       background-color: rgba(197,160,90,0.28);
-      mask-image: url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png');
-      -webkit-mask-image: url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png');
+      mask-image: url('brand_assets/hero-mask.png');
+      -webkit-mask-image: url('brand_assets/hero-mask.png');
       mask-size: cover; -webkit-mask-size: cover;
       mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
       mask-position: center; -webkit-mask-position: center;
@@ -1903,7 +1940,7 @@
   <!-- Noise overlay -->
   <div style="
     position:absolute; inset:0; z-index:1; pointer-events:none;
-    background-image: url('https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png');
+    background-image: url('brand_assets/noise.png');
     background-size: 240px; background-repeat: repeat;
     opacity: 0.04;
   "></div>
@@ -1926,7 +1963,8 @@
           Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
         </p>
         <div class="hero-actions fade-up fade-up-d3">
-          <a href="#products" class="btn btn-gold" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
+          <a href="#products" class="btn btn-gold sale-action" id="heroProducts" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
+          <a href="#products" class="btn btn-gold sale-action" id="heroSale" data-i18n="sale.cta" hidden>11:11 хямдрал · 30% хүртэл</a>
           <a href="#what" class="btn btn-outline-gold" data-i18n="hero.cta2">Дэлгэрэнгүй</a>
         </div>
         <div class="hero-proof fade-up fade-up-d4">
@@ -2080,13 +2118,25 @@
         МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.
       </p>
     </div>
+    <aside class="sale-banner" id="saleBanner" aria-labelledby="saleTitle" hidden>
+      <div>
+        <div class="label" data-i18n="sale.dates">11 сарын 11–17</div>
+        <h3 id="saleTitle" data-i18n="sale.title">11:11 · Бүх бүтээгдэхүүн хямдарлаа</h3>
+        <p data-i18n="sale.detail">Бүтээгдэхүүнээ хослуулан сонгоорой. Хямдрал нийт тоо ширхгээр бодогдоно.</p>
+      </div>
+      <ul class="sale-tiers">
+        <li><strong>10%</strong><span data-i18n="sale.one">1 ширхэг</span></li>
+        <li><strong>20%</strong><span data-i18n="sale.two">2 ширхэг</span></li>
+        <li><strong>30%</strong><span data-i18n="sale.three">3 ба түүнээс дээш</span></li>
+      </ul>
+    </aside>
     <div class="products-grid">
 
       <!-- Product 1: Өтгөн барагшун 100мл -->
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
 <div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div>
-          <img src="Products/product-1.jpg" alt="Өтгөн барагшун 100мл">
+          <img src="Products/product-1.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Өтгөн барагшун 100мл">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
@@ -2101,7 +2151,7 @@
       <!-- Product 2: Өтгөн барагшун 50мл -->
       <div class="product-card fade-up fade-up-d2">
         <div class="product-img">
-<img src="Products/product-2.jpg" alt="Өтгөн барагшун 50мл">
+<img src="Products/product-2.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Өтгөн барагшун 50мл">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
@@ -2116,7 +2166,7 @@
       <!-- Product 3: Шингэн барагшун 60ш -->
       <div class="product-card fade-up fade-up-d3">
         <div class="product-img">
-<img src="Products/product-3.jpg" alt="Шингэн барагшун 60ш">
+<img src="Products/product-3.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 60ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
@@ -2131,7 +2181,7 @@
       <!-- Product 4: Шингэн барагшун 30ш -->
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
-<img src="Products/product-4.jpg" alt="Шингэн барагшун 30ш">
+<img src="Products/product-4.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 30ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
@@ -2146,7 +2196,7 @@
       <!-- Product 5: Шингэн барагшун 15ш -->
       <div class="product-card fade-up fade-up-d2">
         <div class="product-img">
-<img src="Products/product-5.jpg" alt="Шингэн барагшун 15ш">
+<img src="Products/product-5.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 15ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
@@ -2161,7 +2211,7 @@
       <!-- Product 6: Шингэн барагшун 10ш -->
       <div class="product-card fade-up fade-up-d3">
         <div class="product-img">
-<img src="Products/product-6.jpg" alt="Шингэн барагшун 10ш">
+<img src="Products/product-6.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 10ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
@@ -2177,7 +2227,7 @@
       <div class="product-card fade-up fade-up-d1">
         <div class="product-img">
 <div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div>
-          <img src="Products/product-7.jpg" alt="Барагшунтай жасминтай цай 50ш">
+          <img src="Products/product-7.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Барагшунтай жасминтай цай 50ш">
         </div>
         <div class="product-info">
           <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
@@ -2472,7 +2522,7 @@
             </div>
             <div>
               <div class="ci-lbl" data-i18n="contact.ci_web">Цахим хуудас</div>
-              <div class="ci-val">www.baragshun.mn</div>
+              <div class="ci-val">shilajit.mn</div>
             </div>
           </div>
           <div class="ci-item">
@@ -2501,7 +2551,7 @@
             </div>
           </div>
           <div class="fg">
-            <label data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</label>
+            <label for="orderProduct" data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</label>
             <select id="orderProduct">
               <option value="" data-i18n="contact.f_select">Сонгох...</option>
               <option value="p1" data-i18n="contact.f_opt1">Өтгөн барагшун — 100мл</option>
@@ -2517,14 +2567,28 @@
           </div>
           <div class="form-row">
             <div class="fg">
-              <label data-i18n="contact.f_qty">Тоо хэмжээ</label>
-              <input id="orderQty" type="number" placeholder="1" min="1" value="1" />
+              <label for="orderQty" data-i18n="contact.f_qty">Тоо хэмжээ</label>
+              <input id="orderQty" type="number" placeholder="1" min="1" max="70000" value="1" />
             </div>
             <div class="fg">
               <label data-i18n="contact.f_email">И-мэйл (заавал биш)</label>
               <input id="orderEmail" type="email" placeholder="email@example.com" />
             </div>
           </div>
+          <div id="extraOrderProducts"></div>
+          <template id="extraOrderProduct">
+            <div class="order-extra-row fg">
+              <label><span data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</span><select required></select></label>
+              <label><span data-i18n="contact.f_qty">Тоо хэмжээ</span><input type="number" min="1" max="70000" value="1" required /></label>
+              <button type="button" class="btn btn-outline-gold sale-action" data-i18n="sale.remove">Хасах</button>
+            </div>
+          </template>
+          <button type="button" class="btn btn-outline-gold sale-action" id="addOrderProduct" data-i18n="sale.add" hidden>+ Бүтээгдэхүүн нэмэх</button>
+          <dl class="order-price-summary" id="orderPriceSummary" aria-live="polite" hidden>
+            <div><dt data-i18n="sale.subtotal">Бүтээгдэхүүний үнэ</dt><dd id="orderSubtotal"></dd></div>
+            <div><dt data-i18n="sale.discount">Хямдрал</dt><dd id="orderSavings"></dd></div>
+            <div><dt><strong data-i18n="sale.total">Төлөх дүн</strong></dt><dd><strong id="orderFinalTotal"></strong></dd></div>
+          </dl>
           <div class="fg">
             <label data-i18n="contact.f_note">Нэмэлт тайлбар</label>
             <textarea id="orderNote" placeholder="Хүргэлтийн хаяг, асуулт болон бусад..." data-i18n-placeholder="contact.f_note_ph"></textarea>
@@ -2607,14 +2671,15 @@
     <div class="footer-bottom">
       <p data-i18n="footer.copy">© 2026 Монгол Алтайн Барагшун ХХК. Бүх эрх хуулиар хамгаалагдсан.</p>
       <div class="footer-bottom-links">
-        <a href="#" data-i18n="footer.privacy">Нууцлалын бодлого</a>
-        <a href="#" data-i18n="footer.terms">Үйлчилгээний нөхцөл</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Нууцлалын бодлого</a>
+        <a href="terms.html" data-i18n="footer.terms">Үйлчилгээний нөхцөл</a>
       </div>
     </div>
   </div>
 </footer>
 
-<script>
+<script type="module">
+  import { UNIT_PRICES, saleActive, saleRate, saleDiscount, orderSubtotal } from './pricing.mjs';
   // Navbar scroll
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -2669,6 +2734,14 @@
       'contact.f_opt7':'Жасминтай цай — 50ш / хайрцаг',
       'contact.f_opt8':'Бөөний захиалга','contact.f_opt9':'Бусад / Лавлагаа',
       'contact.f_qty':'Тоо хэмжээ','contact.f_email':'И-мэйл (заавал биш)',
+      'sale.cta':'11:11 хямдрал · 30% хүртэл','sale.dates':'11 сарын 11–17',
+      'sale.title':'11:11 · Бүх бүтээгдэхүүн хямдарлаа',
+      'sale.detail':'Бүтээгдэхүүнээ хослуулан сонгоорой. Хямдрал нийт тоо ширхгээр бодогдоно.',
+      'sale.one':'1 ширхэг','sale.two':'2 ширхэг','sale.three':'3 ба түүнээс дээш',
+      'sale.add':'+ Бүтээгдэхүүн нэмэх','sale.remove':'Хасах',
+      'sale.subtotal':'Бүтээгдэхүүний үнэ','sale.discount':'Хямдрал','sale.total':'Төлөх дүн',
+      'sale.invalid_qty':'Нийт тоо хэмжээ 1–70000 бүхэл тоо байна.',
+      'sale.price_changed':'Хямдралын дүн өөрчлөгдлөө. Нийт дүнгээ шалгаад дахин илгээнэ үү.',
       'contact.f_note':'Нэмэлт тайлбар','contact.f_note_ph':'Хүргэлтийн хаяг, асуулт болон бусад...',
       'contact.f_submit':'Захиалга илгээх',
       'contact.form_required':'Нэр болон утасны дугаараа оруулна уу.',
@@ -2810,6 +2883,14 @@
       'contact.f_opt7':'Jasmine Tea with Shilajit — 50 sachets',
       'contact.f_opt8':'Wholesale Order','contact.f_opt9':'Other / Inquiry',
       'contact.f_qty':'Quantity','contact.f_email':'Email (optional)',
+      'sale.cta':'11:11 Sale · Up to 30% off','sale.dates':'November 11–17',
+      'sale.title':'11:11 · All products on sale',
+      'sale.detail':'Mix and match any products. Your discount is based on the total number of items.',
+      'sale.one':'1 item','sale.two':'2 items','sale.three':'3+ items',
+      'sale.add':'+ Add a product','sale.remove':'Remove',
+      'sale.subtotal':'Subtotal','sale.discount':'Discount','sale.total':'Order total',
+      'sale.invalid_qty':'Enter a whole number of items between 1 and 70,000 in total.',
+      'sale.price_changed':'The sale price has changed. Review your total and submit again.',
       'contact.f_note':'Additional Notes','contact.f_note_ph':'Delivery address, questions, etc.',
       'contact.f_submit':'Send Order',
       'contact.form_required':'Please enter your name and phone number.',
@@ -2951,6 +3032,14 @@
       'contact.f_opt7':'喜来芝茉莉花茶 — 50袋/盒',
       'contact.f_opt8':'批发订购','contact.f_opt9':'其他 / 咨询',
       'contact.f_qty':'数量','contact.f_email':'电子邮件（选填）',
+      'sale.cta':'11:11 特惠 · 最高立减 30%','sale.dates':'11月11日–17日',
+      'sale.title':'11:11 · 全场特惠',
+      'sale.detail':'全场商品可自由搭配，折扣按订单商品总件数计算。',
+      'sale.one':'1 件','sale.two':'2 件','sale.three':'3 件及以上',
+      'sale.add':'+ 添加商品','sale.remove':'移除',
+      'sale.subtotal':'商品小计','sale.discount':'优惠金额','sale.total':'订单总额',
+      'sale.invalid_qty':'商品总数量须为 1 至 70,000 之间的整数。',
+      'sale.price_changed':'优惠金额已变更。请核对订单总额后重新提交。',
       'contact.f_note':'备注','contact.f_note_ph':'收货地址、问题及其他...',
       'contact.f_submit':'提交订单',
       'contact.form_required':'请输入您的姓名和联系电话。',
@@ -3094,6 +3183,7 @@
 
     // Sync lang for the module script and re-render orders if loaded
     window.__currentLang = lang;
+    updateSale();
     const fb = window.__fb;
     if (fb?.auth?.currentUser && fb?.loadMyOrders) {
       fb.loadMyOrders(fb.auth.currentUser.uid);
@@ -3104,9 +3194,6 @@
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => applyLang(btn.dataset.lang));
   });
-
-  // Apply saved language on load
-  applyLang(currentLang);
 
   // Hamburger
   const ham = document.getElementById('hamburger');
@@ -3126,18 +3213,85 @@
   });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-  // ── Order form submission ──
+  // ── Sale and order form ──
   const orderForm = document.getElementById('orderForm');
+  const orderProduct = document.getElementById('orderProduct');
+  const orderQty = document.getElementById('orderQty');
+  const extraProducts = document.getElementById('extraOrderProducts');
+  const addProduct = document.getElementById('addOrderProduct');
+  const priceSummary = document.getElementById('orderPriceSummary');
+  const saleBanner = document.getElementById('saleBanner');
+  const heroSale = document.getElementById('heroSale');
+  const heroProducts = document.getElementById('heroProducts');
+  const catalogueOptions = [...orderProduct.options].filter(option => Object.hasOwn(UNIT_PRICES, option.value));
+  const inquiryOptions = [...orderProduct.options].filter(option => !catalogueOptions.includes(option));
+
+  function selectedItems() {
+    const lines = [[orderProduct.value, Number(orderQty.value || 1)]];
+    for (const row of extraProducts.children) {
+      lines.push([row.querySelector('select').value, row.querySelector('input').valueAsNumber]);
+    }
+    const items = {};
+    let qty = 0;
+    for (const [product, quantity] of lines) {
+      if (!Object.hasOwn(UNIT_PRICES, product) || !Number.isInteger(quantity) || quantity < 1) return null;
+      items[product] = (items[product] || 0) + quantity;
+      qty += quantity;
+    }
+    return qty <= 70000 ? { items, qty } : null;
+  }
+
+  function updateSale(now = Date.now()) {
+    const active = saleActive(now);
+    const hasExtras = extraProducts.childElementCount > 0;
+    saleBanner.hidden = heroSale.hidden = !active;
+    heroProducts.hidden = active;
+    addProduct.hidden = !active || orderProduct.disabled || !Object.hasOwn(UNIT_PRICES, orderProduct.value)
+      || extraProducts.childElementCount >= catalogueOptions.length - 1;
+    inquiryOptions.forEach(option => { option.disabled = hasExtras; });
+
+    const selection = selectedItems();
+    priceSummary.hidden = !selection || (!active && !hasExtras);
+    if (priceSummary.hidden) return;
+    const { items, qty } = selection;
+    const subtotal = orderSubtotal(items);
+    const discount = saleDiscount(subtotal, qty, now);
+    const money = amount => `${amount.toLocaleString(currentLang)} ₮`;
+    document.getElementById('orderSubtotal').textContent = money(subtotal);
+    document.getElementById('orderSavings').textContent = `${money(discount)} (${saleRate(qty, now)}%)`;
+    document.getElementById('orderFinalTotal').textContent = money(subtotal - discount);
+  }
+
+  addProduct.addEventListener('click', () => {
+    const row = document.getElementById('extraOrderProduct').content.firstElementChild.cloneNode(true);
+    const select = row.querySelector('select');
+    const placeholder = orderProduct.options[0].cloneNode(true);
+    placeholder.disabled = true;
+    select.append(placeholder, ...catalogueOptions.map(option => option.cloneNode(true)));
+    select.value = '';
+    row.querySelectorAll('label span, button').forEach(el => { el.textContent = TRANSLATIONS[currentLang][el.dataset.i18n]; });
+    row.querySelector('button').addEventListener('click', () => {
+      row.remove();
+      updateSale();
+      (addProduct.hidden ? orderProduct : addProduct).focus();
+    });
+    extraProducts.append(row);
+    updateSale();
+    select.focus();
+  });
+  orderProduct.addEventListener('change', () => updateSale());
+  orderQty.addEventListener('input', () => updateSale());
+  extraProducts.addEventListener('input', () => updateSale());
+  extraProducts.addEventListener('change', () => updateSale());
+  setInterval(() => {
+    if (saleBanner.hidden === saleActive()) updateSale();
+  }, 1000);
+  applyLang(currentLang);
+
   if (orderForm) {
     orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fb = window.__fb;
-
-      // Block submission if not logged in
-      if (!fb?.auth?.currentUser) {
-        if (window.__openAuth) window.__openAuth('login');
-        return;
-      }
 
       const t          = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
       const btn        = document.getElementById('orderSubmitBtn');
@@ -3148,8 +3302,9 @@
 
       const name    = document.getElementById('orderName').value.trim();
       const phone   = document.getElementById('orderPhone').value.trim();
-      const product = document.getElementById('orderProduct').value;
-      const qty     = parseInt(document.getElementById('orderQty').value, 10) || 1;
+      const product = orderProduct.value;
+      const selection = selectedItems();
+      const qty = selection?.qty ?? Number(orderQty.value || 1);
       const email   = document.getElementById('orderEmail').value.trim();
       const note    = document.getElementById('orderNote').value.trim();
 
@@ -3163,7 +3318,28 @@
         errorEl.textContent = t['contact.form_phone_digits'];
         return;
       }
+      if ((!selection && (Object.hasOwn(UNIT_PRICES, product) || extraProducts.childElementCount))
+        || !Number.isInteger(qty) || qty < 1 || qty > 70000) {
+        errorEl.textContent = t['sale.invalid_qty'];
+        return;
+      }
 
+      const now = Date.now();
+      const active = saleActive(now);
+      if (selection && saleBanner.hidden === active) {
+        updateSale(now);
+        errorEl.textContent = t['sale.price_changed'];
+        return;
+      }
+      let orderDetails = { product };
+      if (selection && (active || extraProducts.childElementCount)) {
+        const subtotal = orderSubtotal(selection.items);
+        const discount = saleDiscount(subtotal, qty, now);
+        orderDetails = { items: selection.items, unitPrices: UNIT_PRICES, currency: 'MNT', subtotal,
+          discount, total: subtotal - discount, amountPaid: 0 };
+      }
+
+      if (btn.disabled) return;
       btn.disabled = true;
       btnSpan.textContent = t['contact.form_loading'];
 
@@ -3176,17 +3352,21 @@
 
       try {
         const docRef = await fb.addDoc(fb.collection(fb.db, 'orders'), {
-          name, phone, product, qty, email, note,
+          name, phone, qty, email, note, ...orderDetails,
           lang:      currentLang,
           timestamp: fb.serverTimestamp(),
-          uid:       fb.auth.currentUser?.uid   || null,
-          userEmail: fb.auth.currentUser?.email || null,
+          // Guests order without an account; signed-in orders are tied to it for order history.
+          ...(fb.auth.currentUser
+            ? { uid: fb.auth.currentUser.uid, userEmail: fb.auth.currentUser.email || null }
+            : {}),
         });
+        if (fb.auth.currentUser) fb.loadMyOrders(fb.auth.currentUser.uid);
 
         // Show success panel
         const shortId = docRef.id.substring(0, 8).toUpperCase();
         orderIdEl.textContent = (t['contact.form_order_id'] || 'Order #:') + ' ' + shortId;
-        orderForm.querySelectorAll('input,select,textarea').forEach(el => el.disabled = true);
+        orderForm.querySelectorAll('input,select,textarea,button').forEach(el => el.disabled = true);
+        addProduct.hidden = true;
         btn.style.display = 'none';
         successEl.style.display = 'flex';
 
@@ -3199,16 +3379,21 @@
               customer_name:  name,
               customer_phone: phone,
               customer_email: email || '—',
-              product:        product,
+              product:        selection && Object.keys(selection.items).length > 1
+                ? Object.entries(selection.items).map(([key, count]) => `${key} × ${count}`).join(', ')
+                : product,
               qty:            qty,
+              discount:       orderDetails.discount ?? '',
+              total:          orderDetails.total ?? '',
               note:           note || '—',
             });
           }
         } catch (_) { /* email failure must never break the order flow */ }
 
       } catch (err) {
+        updateSale();
         console.error('Order submit error:', err);
-        errorEl.textContent = t['contact.form_error'];
+        errorEl.textContent = t[selection && active !== saleActive() ? 'sale.price_changed' : 'contact.form_error'];
         btn.disabled = false;
         btnSpan.textContent = t['contact.f_submit'];
       }

@@ -2,7 +2,7 @@
 <html lang="mn">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Барагшун — Захиалгын самбар</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -513,6 +513,7 @@
     @media(max-width:1000px) { .overview-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:500px) { .overview-grid { grid-template-columns:1fr; gap:12px; } .overview-card { min-height:140px; } }
   </style>
+  <link rel="stylesheet" href="./admin-app.css" />
 </head>
 <body>
 
@@ -532,7 +533,7 @@
       <label for="adminPass">Нууц үг</label>
       <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password" />
     </div>
-    <div class="login-error" id="loginError"></div>
+    <div class="login-error" role="alert" id="loginError"></div>
     <button class="login-btn" id="loginBtn">Нэвтрэх</button>
   </div>
 </div>
@@ -561,10 +562,16 @@
   </header>
 
   <main class="admin-main">
+    <div class="app-eyebrow">?????? ?????? ????????</div>
     <h1 class="page-heading" id="consoleHeading">Захиалга</h1>
     <p class="page-description" id="consoleDescription">Захиалга бүртгэх, батлах, гүйцэтгэлийг хянах.</p>
     <section id="overviewPanel" data-console-section="overview" aria-label="Өнөөдрийн тойм">
       <p class="report-note" id="overviewDate"></p>
+      <div class="quick-actions">
+        <button type="button" class="quick-primary" id="appNewOrder"><span class="quick-symbol">?</span><span>???? ????????<small>????????? 3 ??????? ???????</small></span><span aria-hidden="true">?</span></button>
+        <button type="button" class="quick-secondary" data-app-view="deliveries"><span>????? ???????<small>????????? ????????? ?????</small></span><span aria-hidden="true">?</span></button>
+      </div>
+      <h2 class="app-section-title">????????? ????</h2>
       <div class="overview-grid" id="overviewCards"></div>
       <div class="overview-note"><h2>Өнөөдөр хийх зүйл</h2><div id="overviewReminders" role="status"></div></div>
     </section>
@@ -680,7 +687,24 @@
     </div>
 
   </main>
+  <nav class="app-bottom-nav" aria-label="????? ????? ?????? ???">
+    <button type="button" data-app-view="overview" aria-current="page"><span aria-hidden="true">?</span>????</button>
+    <button type="button" data-app-view="orders"><span aria-hidden="true">?</span>????????</button>
+    <button type="button" data-app-view="deliveries"><span aria-hidden="true">?</span>???????</button>
+    <button type="button" data-app-view="stock"><span aria-hidden="true">?</span>????????</button>
+    <button type="button" id="appMore"><span aria-hidden="true">???</span>?????</button>
+  </nav>
 </div>
+<div class="app-connection" id="appConnection" role="status" hidden>???????? ??????? ????????. ???????? ?????????? ???? ????? ?????????? ??.</div>
+<div class="app-install-strip"><span>????????? ?????? ???????? ????????</span><button type="button" class="logout-btn" id="appInstall">???????</button></div>
+<dialog class="app-install-dialog" id="appInstallDialog" aria-labelledby="appInstallTitle">
+  <form method="dialog"><button class="logout-btn" aria-label="????">???? ?</button></form>
+  <span class="install-mark" aria-hidden="true">?</span><h2 id="appInstallTitle">???????? ??? ???????</h2>
+  <p>????????? ?????? ????????? ????? ???? ???????????.</p>
+  <h3>iPhone ? Safari</h3><p>Safari ???? ??? ??????? ??????? <strong>????????? (Share) ? Add to Home Screen ? Add</strong> ???????. ????? ????????? Share ?? ? ?????? ?????.</p>
+  <h3>Android ? Chrome</h3><p>Chrome ??????? <strong>Install app</strong> ????? <strong>Add to Home screen</strong> ???????.</p>
+  <p class="report-note">????????? HTTPS ???? ????????. ????????, ??????, ???????? ????????? ???????? ????????????.</p>
+</dialog>
 
 <dialog id="photoDialog" aria-label="Баримтын зураг"><form method="dialog"><button class="logout-btn">Хаах</button></form><img id="evidenceImage" alt="Барааны үлдэгдэл, агуулах эсвэл ПАДААН баримтын зураг" /></dialog>
 <section id="orderGuide" hidden aria-label="Захиалга бүртгэх заавар">
@@ -690,6 +714,7 @@
 </section>
 <script type="module">
   import { PRODUCT_KEYS, quantities, stockChange, countDifference, weekday, isWorkday } from './inventory.mjs';
+  import { UNIT_PRICES, saleActive, saleDiscount, orderSubtotal } from './pricing.mjs';
   import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification }
     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
@@ -769,7 +794,7 @@
     ['[data-product]','Бүтээгдэхүүнээ сонгоно уу.','Энэ сонголтыг дарж захиалсан бүтээгдэхүүнийг сонгоно.'],
     ['[data-quantity]','Хэдэн ширхэг авахыг бичнэ үү.','Тоо ширхэгийг оруулна. Жишээ: 2.'],
     ['#addProduct','Өөр бүтээгдэхүүн нэмэх үү?','Нэмэх бол энэ товчийг дараад шинэ мөрөнд бүтээгдэхүүн, тоог оруулна. Нэмэхгүй бол «Дараах» дарна.'],
-    ['[name="discount"]','Хямдрал байвал дүнг бичнэ үү.','Төгрөгөөр оруулна. Хямдралгүй бол 0 хэвээр үлдээнэ.'],
+    ['[name="discount"]','Хямдралын дүнг шалгана уу.','11:11 хямдрал автоматаар бодогдоно. Бусад үед дүнг төгрөгөөр оруулна.'],
     ['button[type="submit"]','Шалгаад энэ товчийг дарна уу.','Мэдээлэл болон нийт дүн зөв бол «Захиалга бүртгэх» дарна. Ингэснээр бодит захиалга хадгалагдана.']
   ];
   let guideStep = 0;
@@ -828,11 +853,13 @@
       if (button.dataset.view === view) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
     });
     closeSidebar();
+    window.dispatchEvent(new CustomEvent('appviewchange', { detail: view }));
     if (['deliveries','approvals'].includes(view)) { currentFilter = 'all'; statusFilter.value = 'all'; searchBox.value = ''; reportFilter = null; document.getElementById('reportSelection').hidden = true; }
     renderOrders();
     renderOverview();
   }
   document.querySelectorAll('button[data-view]').forEach(button => button.addEventListener('click', () => showConsoleView(button.dataset.view)));
+  window.addEventListener('appnavigate', event => showConsoleView(event.detail));
   document.getElementById('openSidebar').addEventListener('click', () => {
     const open = document.getElementById('dashboard').classList.toggle('menu-open');
     document.getElementById('openSidebar').setAttribute('aria-expanded',String(open));
@@ -930,7 +957,7 @@
     const visible = ['admin', 'founder'].includes(effectiveRole());
     document.querySelectorAll('button[data-view="reports"]').forEach(button => { button.hidden = !visible; });
     document.querySelectorAll('button[data-view="approvals"]').forEach(button => { button.hidden = !visible; });
-    document.querySelectorAll('button[data-view="deliveries"]').forEach(button => { button.hidden = effectiveRole() === 'founder'; });
+    document.querySelectorAll('button[data-view="deliveries"], button[data-app-view="deliveries"]').forEach(button => { button.hidden = effectiveRole() === 'founder'; });
     document.querySelectorAll('button[data-view="settings"]').forEach(button => { button.hidden = currentStaff?.role !== 'admin'; });
     const view = document.getElementById('dashboard').dataset.view;
     if ((!visible && ['reports','approvals'].includes(view)) || (effectiveRole() === 'founder' && view === 'deliveries')) showConsoleView('orders');
@@ -1009,10 +1036,18 @@
   };
   const STATUS_LABELS = { new: 'Шинэ', called: 'Холбогдсон', approved: 'Баталсан', paid: 'Баталсан', ready: 'Хүргэлтэд бэлэн', done: 'Хүргэсэн', cancelled: 'Цуцлагдсан' };
   const productRows = document.getElementById('productRows');
-  const UNIT_PRICES = { p1: 50000, p2: 30000, p3: 70000, p4: 40000, p5: 25000, p6: 16000, p7: 20000 };
+  const discountInput = document.getElementById('orderDiscount');
+  let manualDiscount = '0';
   function money(amount) { return new Intl.NumberFormat('mn-MN').format(amount) + ' ₮'; }
-  function orderAmounts(items, prices, discount) {
-    const subtotal = Object.entries(items).reduce((sum, [key, quantity]) => sum + prices[key] * quantity, 0);
+  function orderAmounts(items, now = Date.now()) {
+    const subtotal = orderSubtotal(items);
+    const qty = Object.values(items).reduce((sum, quantity) => sum + quantity, 0);
+    const active = saleActive(now);
+    if (active && !discountInput.readOnly) manualDiscount = discountInput.value;
+    if (!active && discountInput.readOnly) discountInput.value = manualDiscount;
+    discountInput.readOnly = active;
+    const discount = active ? saleDiscount(subtotal, qty, now) : Number(discountInput.value);
+    if (active) discountInput.value = discount;
     if (!Number.isSafeInteger(subtotal) || !Number.isSafeInteger(discount) || discount < 0 || discount > subtotal) throw new Error('Хямдрал нь 0-ээс бүтээгдэхүүний нийт үнэ хүртэл бүхэл тоо байна.');
     return { subtotal, discount, total: subtotal - discount };
   }
@@ -1024,13 +1059,17 @@
       row.querySelector('[data-unit-price]').textContent = money(UNIT_PRICES[key]);
     }
     try {
-      const amounts = orderAmounts(items, UNIT_PRICES, Number(document.getElementById('orderDiscount').value));
-      document.getElementById('orderTotal').textContent = `Бүтээгдэхүүний үнэ: ${money(amounts.subtotal)} · Хямдрал: ${money(amounts.discount)} · Нийт: ${money(amounts.total)}`;
+      const amounts = orderAmounts(items);
+      const discountLabel = discountInput.readOnly ? '11:11 хямдрал' : 'Хямдрал';
+      document.getElementById('orderTotal').textContent = `Бүтээгдэхүүний үнэ: ${money(amounts.subtotal)} · ${discountLabel}: ${money(amounts.discount)} · Нийт: ${money(amounts.total)}`;
     } catch (error) { document.getElementById('orderTotal').textContent = error.message; }
   }
   productRows.addEventListener('input', updateOrderTotal);
   productRows.addEventListener('change', updateOrderTotal);
-  document.getElementById('orderDiscount').addEventListener('input', updateOrderTotal);
+  discountInput.addEventListener('input', updateOrderTotal);
+  setInterval(() => {
+    if (discountInput.readOnly !== saleActive()) updateOrderTotal();
+  }, 1000);
   const addProduct = document.getElementById('addProduct');
   const productOptions = Object.entries(PRODUCT_NAMES).filter(([key]) => /^p[1-7]$/.test(key)).map(([key, name]) => `<option value="${key}">${escHtml(name)}</option>`).join('');
   let stockBalances = {};
@@ -1271,7 +1310,7 @@
     const button = form.querySelector('button[type="submit"]');
     if (button.disabled) return;
     let amounts;
-    try { amounts = orderAmounts(items, UNIT_PRICES, Number(values.discount)); }
+    try { amounts = orderAmounts(items); }
     catch (error) { message.textContent = error.message; return; }
     button.disabled = true;
     try {
@@ -1286,6 +1325,7 @@
       batch.set(doc(collection(reference, 'activity')), activityEvent('created', { status: 'new' }));
       await batch.commit();
       form.reset();
+      manualDiscount = '0';
       productRows.replaceChildren();
       addProductRow();
       message.textContent = 'Захиалга бүртгэгдлээ. Батлахыг хүлээж байна.';
@@ -1371,9 +1411,7 @@
       startStockListening();
       showConsoleView('overview');
       const guideKey = `baragshun-order-guide-v2:${user.uid}`;
-      try {
-        if (!localStorage.getItem(guideKey)) { openGuide(); localStorage.setItem(guideKey,'seen'); }
-      } catch { /* The help button remains available when browser storage is disabled. */ }
+      // Employees can open the guide when needed; keep home as the landing screen.
     } else if (user) {
       signOut(auth);
       loginError.textContent = 'Энэ хэрэглэгч админ эрхгүй байна.';
@@ -1665,5 +1703,6 @@
       .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 </script>
+<script src="./admin-app.js" defer></script>
 </body>
 </html>

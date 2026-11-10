@@ -190,33 +190,53 @@ service cloud.firestore {
           && data.discount is int && data.discount >= 0 && data.discount <= data.subtotal
           && data.total == data.subtotal - data.discount && data.amountPaid == 0;
       }
-      function validQuantity(items, key) {
-        return !(key in items) || (items[key] is int && items[key] > 0 && items[key] <= 10000);
+      function saleActive() {
+        // Ulaanbaatar, Nov 11 through Nov 17 inclusive. See pricing.mjs.
+        let localTime = request.time + duration.value(8, 'h');
+        return localTime >= timestamp.date(2026, 11, 11) && localTime < timestamp.date(2026, 11, 18);
       }
-      function validItems(items) {
+      function validSaleDiscount(data) {
+        let rate = saleActive() ? (data.qty >= 3 ? 30 : data.qty * 10) : 0;
+        return data.discount * 100 == data.subtotal * rate;
+      }
+      function validQuantity(items, key, limit) {
+        return !(key in items) || (items[key] is int && items[key] > 0 && items[key] <= limit);
+      }
+      function validItems(items, limit) {
         return items is map && items.size() > 0
           && items.keys().hasOnly(['p1','p2','p3','p4','p5','p6','p7'])
-          && validQuantity(items, 'p1') && validQuantity(items, 'p2')
-          && validQuantity(items, 'p3') && validQuantity(items, 'p4')
-          && validQuantity(items, 'p5') && validQuantity(items, 'p6') && validQuantity(items, 'p7')
+          && validQuantity(items, 'p1', limit) && validQuantity(items, 'p2', limit)
+          && validQuantity(items, 'p3', limit) && validQuantity(items, 'p4', limit)
+          && validQuantity(items, 'p5', limit) && validQuantity(items, 'p6', limit) && validQuantity(items, 'p7', limit)
           && request.resource.data.qty == items.get('p1',0) + items.get('p2',0) + items.get('p3',0) + items.get('p4',0) + items.get('p5',0) + items.get('p6',0) + items.get('p7',0);
       }
       allow read: if signedIn() && (staff() || resource.data.uid == request.auth.uid);
-      allow create: if signedIn()
-        && request.resource.data.uid == request.auth.uid
+      // Guests may order without an account: no uid, and bounded text fields.
+      allow create: if (signedIn()
+          ? request.resource.data.uid == request.auth.uid
+          : (!request.resource.data.keys().hasAny(['uid','userEmail'])
+            && request.resource.data.name.size() <= 100
+            && request.resource.data.phone.size() >= 8 && request.resource.data.phone.size() <= 20
+            && request.resource.data.get('email','') is string && request.resource.data.get('email','').size() <= 200
+            && request.resource.data.get('note','') is string && request.resource.data.get('note','').size() <= 2000))
         && request.resource.data.timestamp == request.time
         && request.resource.data.name is string && request.resource.data.name.size() > 0
         && request.resource.data.phone is string
         && request.resource.data.qty is int && request.resource.data.qty > 0 && request.resource.data.qty <= 70000
-        && ((!request.resource.data.keys().hasAny(['channel', 'createdBy', 'approvedBy', 'status'])
-          && request.resource.data.keys().hasOnly(['name', 'phone', 'product', 'qty', 'email', 'note', 'lang', 'timestamp', 'uid', 'userEmail']))
+        && ((request.resource.data.keys().hasOnly(['name', 'phone', 'product', 'qty', 'email', 'note', 'lang', 'timestamp', 'uid', 'userEmail'])
+            && (!saleActive() || !(request.resource.data.get('product', '') in ['p1','p2','p3','p4','p5','p6','p7'])))
+          || (request.resource.data.keys().hasOnly(['name','phone','items','qty','email','note','lang','timestamp','uid','userEmail','unitPrices','currency','subtotal','discount','total','amountPaid'])
+            && validItems(request.resource.data.items, 70000)
+            && validAmounts(request.resource.data)
+            && validSaleDiscount(request.resource.data))
           || (staff() && request.resource.data.channel == 'staff'
             && request.resource.data.status == 'new'
             && request.resource.data.createdBy == staffName()
             && request.resource.data.createdByRole == role()
             && request.resource.data.createdByEmail == email()
-            && validItems(request.resource.data.items)
+            && validItems(request.resource.data.items, 10000)
             && validAmounts(request.resource.data)
+            && (!saleActive() || validSaleDiscount(request.resource.data))
             && request.resource.data.source in ['phone','market','website','facebook','other']
             && request.resource.data.sourceDetail is string
             && (!(request.resource.data.source in ['market','other']) || request.resource.data.sourceDetail.size() > 0)
