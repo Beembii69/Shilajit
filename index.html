@@ -816,6 +816,25 @@
       background: radial-gradient(ellipse at 0 0, rgba(201,169,110,0.17), transparent 72%), var(--bg-3);
     }
     .sale-banner[hidden], .sale-action[hidden] { display: none; }
+    .sale-bar {
+      display: block; padding: 9px 16px; text-align: center; text-decoration: none;
+      background: linear-gradient(90deg, var(--gold-dk), var(--gold-lt), var(--gold-dk));
+      color: #0a0d14; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1.35;
+    }
+    .sale-bar:hover { filter: brightness(1.08); }
+    body.sale-on #hero .hero-content { padding-top: 176px; }
+    body.sale-on .mobile-menu { top: 112px; }
+    .price-old {
+      display: block; font: 400 0.8rem 'Noto Sans', sans-serif;
+      color: var(--muted); text-decoration: line-through;
+    }
+    /* the accent line is its own block, so the <br> after it only added an empty line */
+    .hero-text .h1 .accent + br { display: none; }
+    @media (max-width: 768px) {
+      .sale-bar { font-size: 0.7rem; padding: 7px 10px; letter-spacing: 0.02em; }
+      body.sale-on #hero .hero-content { padding-top: 136px; }
+      body.sale-on .mobile-menu { top: 96px; }
+    }
     .sale-banner h3 { margin: 8px 0; color: var(--cream); font: 600 clamp(1.65rem, 4vw, 2.6rem)/1.1 'Cormorant Infant', serif; }
     .sale-banner p { color: var(--muted); font-size: 0.88rem; }
     .sale-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; list-style: none; }
@@ -1738,6 +1757,7 @@
 
 <!-- ═══ NAV ═══ -->
 <nav id="navbar">
+  <a href="#products" class="sale-bar sale-action" id="saleBar" data-i18n="sale.bar" hidden>11.11 ХЯМДРАЛ · 1ш −10% · 2ш −20% · 3ш+ −30% · 11/17 хүртэл</a>
   <div class="nav-inner">
     <a href="#" class="nav-logo">
       <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
@@ -2744,7 +2764,7 @@
       'contact.f_opt7':'Жасминтай цай — 50ш / хайрцаг',
       'contact.f_opt8':'Бөөний захиалга','contact.f_opt9':'Бусад / Лавлагаа',
       'contact.f_qty':'Тоо хэмжээ','contact.f_email':'И-мэйл (заавал биш)',
-      'sale.cta':'11:11 хямдрал · 30% хүртэл','sale.dates':'11 сарын 11–17',
+      'sale.bar':'11.11 ХЯМДРАЛ · 1ш −10% · 2ш −20% · 3ш+ −30% · 11/17 хүртэл','sale.cta':'11:11 хямдрал · 30% хүртэл','sale.dates':'11 сарын 11–17',
       'sale.title':'11:11 · Бүх бүтээгдэхүүн хямдарлаа',
       'sale.detail':'Бүтээгдэхүүнээ хослуулан сонгоорой. Хямдрал нийт тоо ширхгээр бодогдоно.',
       'sale.one':'1 ширхэг','sale.two':'2 ширхэг','sale.three':'3 ба түүнээс дээш',
@@ -2893,7 +2913,7 @@
       'contact.f_opt7':'Jasmine Tea with Shilajit — 50 sachets',
       'contact.f_opt8':'Wholesale Order','contact.f_opt9':'Other / Inquiry',
       'contact.f_qty':'Quantity','contact.f_email':'Email (optional)',
-      'sale.cta':'11:11 Sale · Up to 30% off','sale.dates':'November 11–17',
+      'sale.bar':'11.11 SALE · 1 item −10% · 2 items −20% · 3+ items −30% · until Nov 17','sale.cta':'11:11 Sale · Up to 30% off','sale.dates':'November 11–17',
       'sale.title':'11:11 · All products on sale',
       'sale.detail':'Mix and match any products. Your discount is based on the total number of items.',
       'sale.one':'1 item','sale.two':'2 items','sale.three':'3+ items',
@@ -3042,7 +3062,7 @@
       'contact.f_opt7':'喜来芝茉莉花茶 — 50袋/盒',
       'contact.f_opt8':'批发订购','contact.f_opt9':'其他 / 咨询',
       'contact.f_qty':'数量','contact.f_email':'电子邮件（选填）',
-      'sale.cta':'11:11 特惠 · 最高立减 30%','sale.dates':'11月11日–17日',
+      'sale.bar':'11.11 特惠 · 1件 −10% · 2件 −20% · 3件以上 −30% · 截至11月17日','sale.cta':'11:11 特惠 · 最高立减 30%','sale.dates':'11月11日–17日',
       'sale.title':'11:11 · 全场特惠',
       'sale.detail':'全场商品可自由搭配，折扣按订单商品总件数计算。',
       'sale.one':'1 件','sale.two':'2 件','sale.three':'3 件及以上',
@@ -3234,6 +3254,23 @@
   const saleBanner = document.getElementById('saleBanner');
   const heroSale = document.getElementById('heroSale');
   const heroProducts = document.getElementById('heroProducts');
+  const saleBar = document.getElementById('saleBar');
+
+  // During the sale, product cards show the 1-item sale price next to the struck regular price.
+  function updateCardPrices(active, now) {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
+    for (const key of Object.keys(UNIT_PRICES)) {
+      const base = t[`products.${key}_price`];
+      const parts = base && base.match(/^(\D*)([\d,]+)([\s\S]*)$/);
+      if (!parts) continue;
+      const [, prefix, amount, rest] = parts;
+      const sale = Math.round(Number(amount.replace(/,/g, '')) * (100 - saleRate(1, now)) / 100);
+      const html = active
+        ? `<s class="price-old">${prefix}${amount}${rest.split('<')[0].trimEnd()}</s>${prefix}${sale.toLocaleString('en-US')}${rest}`
+        : base;
+      document.querySelectorAll(`[data-i18n="products.${key}_price"]`).forEach(el => { el.innerHTML = html; });
+    }
+  }
   const catalogueOptions = [...orderProduct.options].filter(option => Object.hasOwn(UNIT_PRICES, option.value));
   const inquiryOptions = [...orderProduct.options].filter(option => !catalogueOptions.includes(option));
 
@@ -3255,7 +3292,9 @@
   function updateSale(now = Date.now()) {
     const active = saleActive(now);
     const hasExtras = extraProducts.childElementCount > 0;
-    saleBanner.hidden = heroSale.hidden = !active;
+    saleBanner.hidden = heroSale.hidden = saleBar.hidden = !active;
+    document.body.classList.toggle('sale-on', active);
+    updateCardPrices(active, now);
     heroProducts.hidden = active;
     addProduct.hidden = !active || orderProduct.disabled || !Object.hasOwn(UNIT_PRICES, orderProduct.value)
       || extraProducts.childElementCount >= catalogueOptions.length - 1;
