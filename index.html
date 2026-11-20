@@ -26,1253 +26,7 @@
       }, 300);
     });
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:       #080c14;
-      --bg-2:     #0d1220;
-      --bg-3:     #0a0f1a;
-      --gold:     #c9a96e;
-      --gold-lt:  #e2c98a;
-      --gold-dk:  #a07840;
-      --orange:   #f7941d;
-      --teal:     #00abc5;
-      --cream:    #f0ece4;
-      --muted:    rgba(240,236,228,0.50);
-      --muted-2:  rgba(240,236,228,0.25);
-      --white:    #ffffff;
-      --navy:     #052746;
-      --border-gold: rgba(201,169,110,0.18);
-      --border-gold-bright: rgba(201,169,110,0.45);
-    }
-
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Noto Sans', sans-serif;
-      color: var(--cream);
-      background: var(--bg);
-      overflow-x: hidden;
-    }
-
-    /* ─── UTILS ─── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
-    .label {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.26em;
-      text-transform: uppercase; color: var(--gold);
-    }
-    .label::before {
-      content: ''; display: block; width: 28px; height: 1px;
-      background: var(--gold);
-    }
-    .h1 {
-      font-family: 'Cormorant Infant', serif;
-      font-size: clamp(3rem, 7vw, 5.8rem);
-      font-weight: 700; line-height: 1.02; color: var(--cream);
-    }
-    .h2 {
-      font-family: 'Cormorant Infant', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 600; line-height: 1.1; color: var(--cream);
-    }
-    .h3 {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.5rem; font-weight: 600; color: var(--cream);
-    }
-    .body-text {
-      font-size: 0.975rem; line-height: 1.85;
-      color: var(--muted); max-width: 560px;
-    }
-    .gold { color: var(--gold); }
-    .teal { color: var(--teal); }
-
-    /* buttons */
-    .btn {
-      display: inline-flex; align-items: center; gap: 9px;
-      padding: 15px 36px; border-radius: 3px;
-      font-family: 'Noto Sans', sans-serif; font-size: 0.82rem;
-      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; cursor: pointer; border: none;
-      transition: all 0.28s ease;
-    }
-    .btn-gold {
-      background: linear-gradient(135deg, var(--gold-dk), var(--gold), var(--gold-lt));
-      color: var(--bg); background-size: 200% 100%; background-position: right;
-    }
-    .btn-gold:hover {
-      background-position: left;
-      box-shadow: 0 8px 32px rgba(201,169,110,0.3);
-      transform: translateY(-2px);
-    }
-    @keyframes orderPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.0); }
-      50%       { box-shadow: 0 0 0 7px rgba(201,169,110,0.28); }
-    }
-    .order-btn {
-      animation: orderPulse 2.8s ease-in-out infinite;
-    }
-    .order-btn:hover {
-      animation: none;
-    }
-    .btn-outline-gold {
-      background: transparent; color: var(--gold);
-      border: 1px solid var(--border-gold-bright);
-    }
-    .btn-outline-gold:hover {
-      background: rgba(201,169,110,0.08);
-      border-color: var(--gold); transform: translateY(-2px);
-    }
-    .btn-teal {
-      background: var(--teal); color: var(--bg);
-    }
-    .btn-teal:hover {
-      background: #009db6; transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(0,171,197,0.25);
-    }
-
-    /* ─── GOLD DIVIDER ─── */
-    .gold-line {
-      width: 60px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto;
-    }
-    .gold-ornament {
-      display: flex; align-items: center; gap: 16px;
-      justify-content: center; margin: 20px 0;
-    }
-    .gold-ornament::before,
-    .gold-ornament::after {
-      content: ''; flex: 1; max-width: 80px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold));
-    }
-    .gold-ornament::after {
-      background: linear-gradient(90deg, var(--gold), transparent);
-    }
-    .gold-ornament span {
-      font-size: 1rem; color: var(--gold); opacity: 0.6;
-    }
-
-    /* ─── WAVE SVG DECORATOR ─── */
-    .wave-gold {
-      position: absolute; pointer-events: none; overflow: visible;
-    }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      transition: background 0.4s, border-color 0.4s;
-      border-bottom: 1px solid transparent;
-    }
-    nav.scrolled {
-      background: rgba(8,12,20,0.97);
-      border-bottom-color: var(--border-gold);
-      backdrop-filter: blur(16px);
-    }
-    .nav-inner {
-      max-width: 1280px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 70px; padding: 0 24px;
-      gap: 16px;
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none;
-    }
-    .nav-logo img { height: 50px; width: auto; }
-    .nav-logo-text { line-height: 1.1; }
-    .nav-logo-text .top {
-      display: block; font-size: 0.58rem; font-weight: 600;
-      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
-    }
-    .nav-logo-text .bottom {
-      display: block; font-family: 'Cormorant Infant', serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--cream);
-      letter-spacing: 0.06em;
-    }
-    .nav-links { display: flex; align-items: center; gap: 22px; list-style: none; }
-    .nav-links a {
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
-      text-transform: uppercase; color: var(--muted);
-      text-decoration: none; transition: color 0.2s; white-space: nowrap;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .hamburger span {
-      display: block; width: 22px; height: 1px;
-      background: var(--cream); transition: all 0.3s;
-    }
-
-    /* Mobile Menu */
-    .mobile-menu {
-      display: none; position: fixed;
-      top: 76px; left: 0; right: 0;
-      background: rgba(8,12,20,0.98);
-      border-top: 1px solid var(--border-gold);
-      border-bottom: 1px solid var(--border-gold);
-      padding: 28px; z-index: 199;
-      backdrop-filter: blur(20px);
-    }
-    .mobile-menu.open { display: block; }
-    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; }
-    .mobile-menu ul li a {
-      display: block; padding: 13px 0;
-      font-size: 0.85rem; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none;
-      border-bottom: 1px solid var(--border-gold);
-      transition: color 0.2s;
-    }
-    .mobile-menu ul li a:hover { color: var(--gold); }
-    .mobile-menu .btn { margin-top: 24px; width: 100%; justify-content: center; }
-
-    /* ─── HERO ─── */
-    #hero {
-      position: relative; min-height: 100vh;
-      display: flex; align-items: center;
-      overflow: hidden; background: var(--bg);
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 140px 0 100px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 64px;
-    }
-    /* ── Hero Visual (right column) ── */
-    .hero-visual {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      height: 540px;
-      margin-top: -290px;
-    }
-    .hero-glow {
-      position: absolute;
-      width: 380px; height: 380px;
-      background: radial-gradient(circle, rgba(197,160,90,0.22) 0%, rgba(197,160,90,0.06) 50%, transparent 72%);
-      border-radius: 50%;
-      animation: glowPulse 5s ease-in-out infinite;
-    }
-    @keyframes glowPulse {
-      0%,100% { transform: scale(1); opacity: 0.8; }
-      50%      { transform: scale(1.12); opacity: 1; }
-    }
-    .hero-ring {
-      position: absolute; border-radius: 50%;
-      border: 1px solid rgba(197,160,90,0.28);
-      width: 340px; height: 340px;
-      animation: ringRotate 20s linear infinite;
-    }
-    .hero-ring::before {
-      content: '';
-      position: absolute; top: -4px; left: 50%;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--gold); opacity: 0.7;
-      transform: translateX(-50%);
-    }
-    .hero-ring-2 {
-      position: absolute; border-radius: 50%;
-      border: 1px solid rgba(197,160,90,0.12);
-      width: 480px; height: 480px;
-      animation: ringRotate 34s linear infinite reverse;
-    }
-    .hero-ring-2::before {
-      content: '';
-      position: absolute; bottom: -4px; right: 20%;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(197,160,90,0.5);
-    }
-    @keyframes ringRotate {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    .hero-logo-float {
-      position: relative; z-index: 3;
-      width: 220px; height: auto;
-      animation: logoGlow 4s ease-in-out infinite;
-      will-change: transform;
-    }
-    @keyframes logoGlow {
-      0%, 100% {
-        filter:
-          drop-shadow(0 0 14px rgba(197,160,90,0.45))
-          drop-shadow(0 0 40px rgba(197,160,90,0.20))
-          drop-shadow(0 0 80px rgba(197,160,90,0.08));
-      }
-      50% {
-        filter:
-          drop-shadow(0 0 24px rgba(197,160,90,0.75))
-          drop-shadow(0 0 64px rgba(197,160,90,0.38))
-          drop-shadow(0 0 110px rgba(197,160,90,0.18));
-      }
-    }
-    /* mineral chips floating around the logo */
-    .hero-chip {
-      position: absolute; z-index: 4;
-      background: rgba(197,160,90,0.08);
-      border: 1px solid rgba(197,160,90,0.3);
-      border-radius: 100px;
-      padding: 7px 14px;
-      font-size: 0.65rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--gold);
-      backdrop-filter: blur(6px);
-      animation: chipFloat 6s ease-in-out infinite;
-    }
-    .hero-chip:nth-child(1) { top: 12%; right: 6%;  animation-delay: 0s; }
-    .hero-chip:nth-child(2) { top: 40%; left: 2%;  animation-delay: 1.5s; }
-    .hero-chip:nth-child(3) { bottom: 18%; right: 10%; animation-delay: 3s; }
-    .hero-chip:nth-child(4) { bottom: 32%; left: 8%;  animation-delay: 4.5s; }
-    @keyframes chipFloat {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-10px); }
-    }
-    /* hero curve at bottom */
-    .hero-curve {
-      position: absolute; bottom: -1px; left: 0; right: 0; z-index: 3;
-      line-height: 0;
-    }
-    .hero-text .label { margin-bottom: 28px; }
-    .hero-text .h1 { margin-bottom: 20px; }
-    .hero-text .h1 .accent { color: var(--gold); display: block; }
-    .hero-tagline {
-      font-family: 'Cormorant Infant', serif;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      font-style: italic; font-weight: 300;
-      color: var(--muted); margin-bottom: 28px;
-    }
-    .hero-text .body-text { margin-bottom: 44px; }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
-    .hero-proof {
-      display: flex; gap: 40px; flex-wrap: wrap;
-      padding-top: 36px;
-      border-top: 1px solid var(--border-gold);
-    }
-    .proof-num {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 2rem; font-weight: 700;
-      color: var(--gold); line-height: 1;
-    }
-    .proof-num sup { font-size: 1rem; }
-    .proof-label {
-      font-size: 0.7rem; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); margin-top: 5px;
-    }
-    .scroll-cue {
-      position: absolute; bottom: 36px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: var(--muted); font-size: 0.65rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      animation: scrollBounce 2.5s ease-in-out infinite;
-    }
-    .scroll-cue svg { width: 18px; height: 18px; }
-    @keyframes scrollBounce {
-      0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
-      50% { transform: translateX(-50%) translateY(7px); opacity: 1; }
-    }
-
-    /* ─── SECTION BASE ─── */
-    section { position: relative; overflow: hidden; }
-    .section-header { margin-bottom: 60px; }
-    .section-header.center { text-align: center; }
-    .section-header.center .label { justify-content: center; }
-    .section-header.center .label::before,
-    .section-header.center .label::after { content: none; }
-    .section-header.center .label {
-      display: flex; gap: 10px;
-    }
-    .section-header .h2 { margin: 16px 0 20px; }
-    .section-header .body-text { margin: 0; }
-
-    /* ─── WHAT IS SHILAJIT ─── */
-    #what {
-      padding: 80px 0;
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(8,12,22,0.85) 0%,
-          rgba(8,12,22,0.70) 40%,
-          rgba(8,12,22,0.85) 100%
-        ),
-        url('brand_assets/altai-bg.jpg') center/cover no-repeat;
-      border-top: 1px solid var(--border-gold);
-      position: relative;
-    }
-    .what-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
-    }
-    .what-text .label { margin-bottom: 20px; }
-    .what-text .h2 { margin-bottom: 24px; }
-    .what-text .body-text { margin-bottom: 20px; }
-    .avicenna-quote {
-      margin-top: 40px; padding: 24px 24px 24px 20px;
-      border-left: 1px solid var(--gold);
-    }
-    .avicenna-quote p {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.1rem; font-style: italic;
-      color: var(--cream); line-height: 1.7; margin-bottom: 10px;
-    }
-    .avicenna-quote cite {
-      font-size: 0.72rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gold);
-    }
-
-    /* ─── BENEFITS ─── */
-    #benefits {
-      padding: 80px 0;
-      background: var(--bg);
-      border-top: 1px solid var(--border-gold);
-    }
-    .benefits-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-    .benefit-card {
-      padding: 32px 24px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-      transition: all 0.3s;
-      position: relative; overflow: hidden;
-    }
-    .benefit-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--gold-dk), var(--gold-lt));
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.35s;
-    }
-    .benefit-card:hover { background: rgba(201,169,110,0.05); border-color: var(--border-gold-bright); }
-    .benefit-card:hover::before { transform: scaleX(1); }
-    .benefit-icon {
-      width: 48px; height: 48px; margin-bottom: 20px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold);
-    }
-    .benefit-icon svg { width: 30px; height: 30px; }
-    .benefit-title {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.15rem; font-weight: 600;
-      color: var(--cream); margin-bottom: 10px; line-height: 1.3;
-    }
-    .benefit-desc {
-      font-size: 0.83rem; line-height: 1.7; color: var(--muted);
-    }
-
-    /* ─── ABOUT COMPANY ─── */
-    #about {
-      padding: 80px 0;
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(8,12,22,0.82) 0%,
-          rgba(8,12,22,0.68) 40%,
-          rgba(8,12,22,0.82) 100%
-        ),
-        url('brand_assets/altai-bg.jpg') center/cover no-repeat;
-      border-top: 1px solid var(--border-gold);
-      position: relative;
-    }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
-    }
-    .about-text .label { margin-bottom: 20px; }
-    .about-text .h2 { margin-bottom: 28px; }
-    .about-text .body-text { margin-bottom: 20px; max-width: 100%; }
-    .about-facts {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin-top: 40px;
-    }
-    .fact-box {
-      padding: 22px 20px;
-      background: rgba(8,12,22,0.55);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-      backdrop-filter: blur(6px);
-    }
-    .fact-box .num {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 2rem; font-weight: 700; color: var(--gold);
-      line-height: 1;
-    }
-    .fact-box .lbl {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); margin-top: 6px;
-    }
-
-    /* Certifications */
-    .about-certs {
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .cert-card {
-      display: flex; align-items: center; gap: 20px;
-      padding: 24px 24px;
-      background: rgba(8,12,22,0.55);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-      transition: border-color 0.2s;
-      backdrop-filter: blur(6px);
-    }
-    .cert-card:hover { border-color: var(--border-gold-bright); }
-    .cert-badge {
-      width: 52px; height: 52px; border-radius: 50%;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Infant', serif;
-      font-size: 0.85rem; font-weight: 700;
-      text-align: center; line-height: 1.2;
-    }
-    .cert-badge.gold-badge {
-      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
-      color: var(--bg);
-    }
-    .cert-badge.teal-badge {
-      background: linear-gradient(135deg, #005a6b, var(--teal));
-      color: var(--white);
-    }
-    .cert-badge.navy-badge {
-      background: linear-gradient(135deg, #021b36, var(--navy));
-      color: var(--cream);
-    }
-    .cert-info .cert-name {
-      font-weight: 600; font-size: 0.9rem; color: var(--cream);
-      margin-bottom: 5px;
-    }
-    .cert-info .cert-desc {
-      font-size: 0.78rem; color: var(--muted); line-height: 1.5;
-    }
-    .cert-check {
-      margin-left: auto; width: 22px; height: 22px;
-      border-radius: 50%; background: rgba(201,169,110,0.15);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold); flex-shrink: 0;
-    }
-    .cert-check svg { width: 12px; height: 12px; }
-
-    /* ─── PRODUCTS ─── */
-    #products {
-      padding: 80px 0;
-      background: var(--bg-2);
-      border-top: 1px solid var(--border-gold);
-    }
-    .products-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    @property --gradient-angle {
-      syntax: '<angle>';
-      inherits: false;
-      initial-value: 0deg;
-    }
-    @keyframes gradient-rotate {
-      from { --gradient-angle: 0deg; }
-      to   { --gradient-angle: 360deg; }
-    }
-    .product-card {
-      border: 1.5px solid transparent;
-      border-radius: 3px; overflow: hidden;
-      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s cubic-bezier(.22,1,.36,1);
-      background-image:
-        linear-gradient(#0a0f1a, #0a0f1a),
-        conic-gradient(
-          from var(--gradient-angle),
-          #3d2a0a 0%,
-          #c9a96e 30%,
-          #f0d99a 50%,
-          #c9a96e 70%,
-          #3d2a0a 100%
-        );
-      background-clip: padding-box, border-box;
-      background-origin: padding-box, border-box;
-      animation: gradient-rotate 6s linear infinite;
-    }
-    .product-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 48px rgba(201,169,110,0.22), 0 4px 16px rgba(0,0,0,0.4);
-    }
-    /* Ensure card hover stays snappy even when fade-up transition is active */
-    .products-grid .product-card {
-      transition: opacity 0.75s ease, transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s cubic-bezier(.22,1,.36,1) !important;
-    }
-    .product-img {
-      width: 100%; aspect-ratio: 4/5;
-      background: linear-gradient(145deg, #0d1525, #0a0e1a);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .product-img img {
-      position: relative; z-index: 1;
-      max-width: 70%; max-height: 80%;
-      object-fit: contain;
-      filter: drop-shadow(0 12px 40px rgba(201,169,110,0.2));
-    }
-    .product-img-placeholder {
-      position: relative; z-index: 1;
-      text-align: center; padding: 20px;
-    }
-    .product-img-placeholder svg {
-      width: 48px; height: 48px; color: var(--gold); opacity: 0.3;
-      margin-bottom: 12px;
-    }
-    .product-img-placeholder p {
-      font-size: 0.7rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--gold); opacity: 0.4;
-    }
-    .product-badge-top {
-      position: absolute; top: 16px; right: 16px; z-index: 2;
-      background: var(--gold); color: var(--bg);
-      font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 2px;
-    }
-    .product-info { padding: 22px 20px; }
-    .product-info .product-name {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.2rem; font-weight: 600;
-      color: var(--cream); margin-bottom: 4px;
-    }
-    .product-info .product-sub {
-      font-size: 0.76rem; color: var(--muted);
-      letter-spacing: 0.05em; margin-bottom: 0;
-    }
-    .product-cta {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 16px; padding-top: 16px;
-      border-top: 1px solid var(--border-gold);
-    }
-    .product-price {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.5rem; font-weight: 700; color: var(--gold);
-    }
-    .product-price .unit {
-      font-size: 0.75rem; font-weight: 400;
-      color: var(--muted); font-family: 'Noto Sans', sans-serif;
-    }
-
-    /* ─── HOW TO USE ─── */
-    #how {
-      padding: 80px 0;
-      background: var(--bg);
-      border-top: 1px solid var(--border-gold);
-    }
-    .how-inner {
-      max-width: 640px;
-    }
-    .how-steps {
-      display: flex; flex-direction: column; gap: 0;
-    }
-    .how-step {
-      display: flex; align-items: flex-start; gap: 24px;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--border-gold);
-    }
-    .how-step:first-child { padding-top: 0; }
-    .how-step:last-child { border-bottom: none; }
-    .step-num {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 2.5rem; font-weight: 700;
-      color: var(--gold); opacity: 0.25; line-height: 1;
-      flex-shrink: 0; width: 40px;
-    }
-    .step-content {}
-    .step-title {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.2rem; font-weight: 600;
-      color: var(--cream); margin-bottom: 8px;
-    }
-    .step-desc {
-      font-size: 0.875rem; line-height: 1.75;
-      color: var(--muted);
-    }
-    .how-note {
-      margin-top: 36px; padding: 22px 24px;
-      background: rgba(201,169,110,0.05);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-      display: flex; gap: 16px;
-    }
-    .how-note svg { width: 20px; height: 20px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .how-note p { font-size: 0.82rem; line-height: 1.7; color: var(--muted); }
-
-    /* ─── SCIENCE ─── */
-    #science {
-      padding: 80px 0;
-      background: var(--bg-3);
-      border-top: 1px solid var(--border-gold);
-    }
-    .science-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; margin-top: 0;
-    }
-    .sci-card {
-      padding: 36px 28px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px; text-align: center;
-      transition: all 0.3s;
-    }
-    .sci-card:hover { background: rgba(201,169,110,0.05); border-color: var(--border-gold-bright); }
-    .sci-num {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 3rem; font-weight: 700;
-      color: var(--gold); line-height: 1;
-    }
-    .sci-num sup { font-size: 1.2rem; }
-    .sci-label {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); margin: 10px 0 16px;
-    }
-    .sci-desc {
-      font-size: 0.83rem; line-height: 1.7; color: var(--muted);
-    }
-
-    /* ─── TESTIMONIALS ─── */
-    #testimonials {
-      padding: 80px 0;
-      background: var(--bg-2);
-      border-top: 1px solid var(--border-gold);
-    }
-    .testi-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .testi-card {
-      padding: 36px 32px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px; transition: border-color 0.3s;
-    }
-    .testi-card:hover { border-color: var(--border-gold-bright); }
-    .testi-stars { display: flex; gap: 4px; margin-bottom: 20px; }
-    .testi-stars svg { width: 13px; height: 13px; fill: var(--gold); }
-    .testi-quote-mark {
-      font-family: 'Cormorant Infant', serif; font-size: 3rem;
-      line-height: 0.5; color: var(--gold); opacity: 0.35;
-      display: block; margin-bottom: 16px;
-    }
-    .testi-text {
-      font-size: 0.9rem; line-height: 1.8;
-      color: var(--muted); font-style: italic; margin-bottom: 28px;
-    }
-    .testi-divider { width: 32px; height: 1px; background: var(--gold); margin-bottom: 20px; opacity: 0.5; }
-    .testi-author { display: flex; align-items: center; gap: 14px; }
-    .testi-av {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1rem; font-weight: 700; color: var(--bg);
-      flex-shrink: 0;
-    }
-    .testi-name { font-weight: 600; font-size: 0.88rem; color: var(--cream); }
-    .testi-role { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
-
-    /* ─── CONTACT ─── */
-    #contact {
-      padding: 80px 0;
-      background: var(--bg);
-      border-top: 1px solid var(--border-gold);
-    }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
-    }
-    .contact-text .label { margin-bottom: 20px; }
-    .contact-text .h2 { margin-bottom: 24px; }
-    .contact-text .body-text { margin-bottom: 40px; max-width: 100%; }
-    .contact-info { display: flex; flex-direction: column; gap: 20px; }
-    .ci-item {
-      display: flex; align-items: flex-start; gap: 16px;
-    }
-    .ci-icon {
-      width: 42px; height: 42px; flex-shrink: 0;
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold);
-    }
-    .ci-icon svg { width: 18px; height: 18px; }
-    .ci-lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-    .ci-val { font-size: 0.9rem; color: var(--cream); font-weight: 500; }
-
-
-    /* the accent line is its own block, so the <br> after it only added an empty line */
-    .hero-text .h1 .accent + br { display: none; }
-
-    /* form */
-    .contact-form {
-      padding: 44px 40px;
-      background: rgba(201,169,110,0.03);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-    }
-    .contact-form .form-title {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1.5rem; font-weight: 600;
-      color: var(--cream); margin-bottom: 28px;
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .fg { margin-bottom: 18px; }
-    .fg label {
-      display: block; font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 8px;
-    }
-    .fg input, .fg textarea, .fg select {
-      width: 100%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-gold);
-      border-radius: 2px; padding: 12px 14px;
-      font-family: 'Noto Sans', sans-serif;
-      font-size: 0.875rem; color: var(--cream);
-      outline: none; transition: border-color 0.2s, background 0.2s;
-      -webkit-appearance: none;
-    }
-    .fg input::placeholder, .fg textarea::placeholder { color: var(--muted-2); }
-    .fg input:focus, .fg textarea:focus, .fg select:focus {
-      border-color: var(--gold); background: rgba(201,169,110,0.05);
-    }
-    .fg select option { background: var(--bg); color: var(--cream); }
-    .fg textarea { resize: vertical; min-height: 100px; }
-    .form-submit-row { margin-top: 8px; }
-    .form-submit-row .btn { width: 100%; justify-content: center; }
-    .form-error-msg {
-      font-size: 0.82rem; color: #e07070;
-      min-height: 1.2em; margin-bottom: 6px;
-    }
-    .form-success-msg {
-      display: none; flex-direction: column; align-items: center;
-      gap: 12px; padding: 32px 20px; text-align: center;
-    }
-    .form-success-msg .success-icon {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: rgba(111,207,151,0.15);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .form-success-msg .success-icon svg { stroke: #6fcf97; }
-    .form-success-msg .success-title {
-      font-family: 'Cormorant Infant', serif; font-size: 1.5rem;
-      font-weight: 600; color: var(--cream);
-    }
-    .form-success-msg .success-body { font-size: 0.875rem; color: var(--muted); }
-    .form-success-msg .order-id {
-      font-family: monospace; font-size: 0.8rem; letter-spacing: 0.12em;
-      background: rgba(201,169,110,0.12); border: 1px solid var(--border-gold);
-      padding: 6px 14px; border-radius: 4px; color: var(--gold);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #05080f;
-      border-top: 1px solid var(--border-gold);
-      padding: 56px 0 28px;
-    }
-    .footer-top {
-      display: grid; grid-template-columns: 2fr 1fr 1fr;
-      gap: 48px; margin-bottom: 40px;
-    }
-    .footer-brand img { height: 56px; margin-bottom: 20px; }
-    .footer-brand p {
-      font-size: 0.83rem; line-height: 1.8;
-      color: var(--muted); max-width: 260px; margin-bottom: 24px;
-    }
-    .footer-tagline {
-      font-family: 'Cormorant Infant', serif;
-      font-size: 1rem; font-style: italic;
-      color: var(--gold); opacity: 0.7;
-    }
-    .footer-social { display: flex; gap: 10px; margin-top: 24px; }
-    .social-btn {
-      width: 36px; height: 36px; border-radius: 2px;
-      border: 1px solid var(--border-gold);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); text-decoration: none;
-      transition: all 0.2s;
-    }
-    .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.07); }
-    .social-btn svg { width: 15px; height: 15px; }
-    .footer-col h4 {
-      font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 22px;
-      padding-bottom: 12px; border-bottom: 1px solid var(--border-gold);
-    }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col ul li a {
-      font-size: 0.83rem; color: var(--muted);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .footer-col ul li a:hover { color: var(--gold); }
-    .footer-bottom {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 28px; border-top: 1px solid var(--border-gold);
-      gap: 16px; flex-wrap: wrap;
-    }
-    .footer-bottom p { font-size: 0.75rem; color: var(--muted); opacity: 0.6; }
-    .footer-bottom-links { display: flex; gap: 24px; }
-    .footer-bottom-links a {
-      font-size: 0.75rem; color: var(--muted); opacity: 0.6;
-      text-decoration: none; transition: opacity 0.2s, color 0.2s;
-    }
-    .footer-bottom-links a:hover { color: var(--gold); opacity: 1; }
-
-    /* ─── ANIMATIONS ─── */
-    .js .fade-up {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
-    }
-    .js .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .fade-up-d1 { transition-delay: 0.1s; }
-    .fade-up-d2 { transition-delay: 0.2s; }
-    .fade-up-d3 { transition-delay: 0.3s; }
-    .fade-up-d4 { transition-delay: 0.4s; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      .what-grid { grid-template-columns: 1fr; gap: 48px; }
-      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .products-grid { grid-template-columns: repeat(2, 1fr); }
-      .science-grid { grid-template-columns: 1fr 1fr; }
-      .testi-grid { grid-template-columns: 1fr 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      /* Nav */
-      .nav-links, nav .btn { display: none; }
-      #navUser { display: none !important; }
-      .hamburger { display: flex; }
-      .nav-inner { height: 64px; padding: 0 20px; }
-      .nav-logo img { height: 42px; }
-      .nav-logo-text .bottom { font-size: 0.95rem; }
-
-      /* Hero */
-      .hero-content {
-        grid-template-columns: 1fr;
-        gap: 0;
-        padding-top: 100px;
-        padding-bottom: 60px;
-      }
-      .hero-visual {
-        height: 280px;
-        margin-top: -20px;
-        order: -1;
-      }
-      .hero-ring { width: 200px; height: 200px; }
-      .hero-ring-2 { width: 270px; height: 270px; }
-      .hero-logo-float { width: 130px; }
-      .hero-glow { width: 240px; height: 240px; }
-      .hero-chip { font-size: 0.58rem; padding: 5px 10px; }
-      .hero-text .label { margin-bottom: 16px; }
-      .hero-text .h1 { font-size: clamp(2.4rem, 10vw, 3.4rem); margin-bottom: 14px; }
-      .hero-tagline { font-size: 0.9rem; margin-bottom: 18px; }
-      .hero-text .body-text { font-size: 0.88rem; margin-bottom: 28px; }
-      .hero-actions { gap: 12px; margin-bottom: 36px; }
-      .hero-actions .btn { padding: 13px 20px; font-size: 0.72rem; }
-      .hero-proof { gap: 20px; padding-top: 24px; }
-      .proof-num { font-size: 1.5rem; }
-      .proof-label { font-size: 0.62rem; }
-
-      /* Sections padding */
-      #what, #benefits, #products, #how, #science, #about, #testimonials, #contact {
-        padding: 60px 0;
-      }
-      .container { padding: 0 18px; }
-      .h2 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
-      .section-header { margin-bottom: 40px; }
-
-      /* What */
-      .what-grid { grid-template-columns: 1fr; gap: 32px; }
-
-      /* Benefits */
-      .benefits-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .benefit-card { padding: 20px 16px; }
-
-      /* Products */
-      .products-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-      .product-info { padding: 14px 12px; }
-      .product-name { font-size: 0.85rem; }
-      .product-price { font-size: 1rem; }
-      .product-cta .btn { padding: 8px 12px; font-size: 0.68rem; }
-
-      /* How */
-      .how-steps { max-width: 100%; }
-      .how-step { gap: 16px; padding: 20px 0; }
-      .step-num { font-size: 2.2rem; min-width: 40px; }
-
-      /* Science */
-      .science-grid { grid-template-columns: 1fr; gap: 32px; }
-
-      /* About */
-      .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .about-facts { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .fact-num { font-size: 2rem; }
-
-      /* Testimonials */
-      .testi-grid { grid-template-columns: 1fr; gap: 16px; }
-
-      /* Contact */
-      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-      .contact-form { padding: 28px 18px; }
-      .form-row { grid-template-columns: 1fr; }
-
-      /* Footer */
-      .footer-top { grid-template-columns: 1fr; gap: 28px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-
-      /* Scroll cue */
-      .scroll-cue { display: none; }
-    }
-
-    /* ─── AUTH MODAL ─── */
-    .auth-overlay {
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(5,8,15,0.85);
-      backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .auth-overlay.open { opacity: 1; pointer-events: all; }
-    .auth-modal {
-      background: #0c1120;
-      border: 1px solid var(--border-gold);
-      border-radius: 4px;
-      padding: 40px 36px;
-      width: min(440px, 92vw);
-      position: relative;
-      transform: translateY(24px);
-      transition: transform 0.35s cubic-bezier(.22,1,.36,1);
-    }
-    .auth-overlay.open .auth-modal { transform: translateY(0); }
-    .auth-close {
-      position: absolute; top: 16px; right: 18px;
-      background: none; border: none; cursor: pointer;
-      color: var(--muted); font-size: 1.1rem; line-height: 1;
-      transition: color 0.2s;
-    }
-    .auth-close:hover { color: var(--cream); }
-    .auth-tabs {
-      display: flex; gap: 0;
-      border-bottom: 1px solid var(--border-gold);
-      margin-bottom: 28px;
-    }
-    .auth-tab {
-      background: none; border: none; cursor: pointer;
-      padding: 10px 20px;
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted);
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .auth-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-    .auth-form { display: none; flex-direction: column; gap: 18px; }
-    .auth-form.active { display: flex; }
-    .auth-logo {
-      display: flex; justify-content: center; margin-bottom: 16px;
-    }
-    .auth-logo img { height: 72px; width: auto; }
-    .auth-sub {
-      text-align: center; font-size: 0.82rem;
-      color: var(--muted); margin: 0;
-    }
-    .auth-field { display: flex; flex-direction: column; gap: 7px; }
-    .auth-field-row {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .auth-field label {
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted);
-    }
-    .auth-forgot-link {
-      font-size: 0.68rem; color: var(--gold);
-      text-decoration: none; opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .auth-forgot-link:hover { opacity: 1; text-decoration: underline; }
-    .auth-field input {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-gold);
-      border-radius: 2px;
-      padding: 12px 14px;
-      color: var(--cream); font-size: 0.9rem;
-      font-family: 'Noto Sans', sans-serif;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .auth-field input:focus { border-color: var(--gold); }
-    .auth-field input::placeholder { color: rgba(200,190,170,0.3); }
-    .auth-error {
-      font-size: 0.78rem; color: #e07070;
-      min-height: 18px; text-align: center;
-    }
-    .auth-submit { width: 100%; justify-content: center; margin-top: 4px; }
-    .auth-social { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
-    .social-btn {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      width: 100%; padding: 12px 16px;
-      border-radius: 2px; border: 1px solid var(--border-gold);
-      background: rgba(255,255,255,0.04);
-      color: var(--cream); font-size: 0.82rem; font-weight: 600;
-      letter-spacing: 0.04em; cursor: pointer;
-      font-family: 'Noto Sans', sans-serif;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .social-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(197,160,90,0.5); }
-    .social-facebook { color: #fff; }
-    .social-facebook svg { color: #1877F2; }
-    .phone-input-row {
-      display: flex; align-items: center;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border-gold);
-      border-radius: 6px; overflow: hidden;
-    }
-    .phone-prefix {
-      padding: 10px 12px; font-size: 0.85rem;
-      color: var(--muted); border-right: 1px solid var(--border-gold);
-      background: rgba(255,255,255,0.03); white-space: nowrap;
-    }
-    .phone-input-row input {
-      border: none !important; background: transparent !important;
-      flex: 1; padding: 10px 12px;
-    }
-    .auth-divider {
-      display: flex; align-items: center; gap: 12px;
-      margin: 4px 0;
-    }
-    .auth-divider::before, .auth-divider::after {
-      content: ''; flex: 1; height: 1px;
-      background: var(--border-gold);
-    }
-    .auth-divider span {
-      font-size: 0.68rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      white-space: nowrap;
-    }
-    .auth-switch {
-      text-align: center; font-size: 0.78rem;
-      color: var(--muted); margin: 0;
-    }
-    .auth-switch a { color: var(--gold); text-decoration: none; }
-    .auth-switch a:hover { text-decoration: underline; }
-
-    /* ─── Language toggle ─── */
-    .lang-toggle {
-      display: flex; align-items: center; gap: 4px;
-    }
-    .lang-btn {
-      background: none; border: none; cursor: pointer;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-      color: var(--muted); padding: 4px 6px; border-radius: 2px;
-      transition: color 0.2s;
-    }
-    .lang-btn.active { color: var(--gold); }
-    .lang-btn:hover { color: var(--cream); }
-    .lang-sep { color: var(--border-gold); font-size: 0.7rem; }
-
-    /* Nav user state */
-    .nav-user {
-      display: none; align-items: center; gap: 10px;
-    }
-    .nav-user.visible { display: flex; }
-    .nav-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 700;
-      color: #0a0d14; flex-shrink: 0;
-    }
-    .nav-username {
-      font-size: 0.75rem; font-weight: 500;
-      color: var(--cream); letter-spacing: 0.04em;
-      max-width: 100px; overflow: hidden;
-      white-space: nowrap; text-overflow: ellipsis;
-    }
-    .nav-logout {
-      background: none; border: 1px solid var(--border-gold);
-      border-radius: 2px; padding: 6px 12px;
-      font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .nav-logout:hover { color: var(--cream); border-color: var(--cream); }
-
-    /* Extra small phones */
-    @media (max-width: 400px) {
-      .products-grid { grid-template-columns: 1fr; }
-      .benefits-grid { grid-template-columns: 1fr; }
-      .hero-visual { height: 240px; }
-      .hero-logo-float { width: 110px; }
-    }
-
-    /* ─── MY ORDERS SECTION ─── */
-    #my-orders {
-      padding: 80px 0;
-      background: var(--bg-3);
-      display: none; /* shown via JS when user is logged in */
-    }
-    .my-orders-header { margin-bottom: 40px; }
-    .orders-grid { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
-    .order-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 18px 22px;
-      display: grid;
-      grid-template-columns: 90px 1fr auto;
-      gap: 16px;
-      align-items: center;
-      transition: border-color 0.2s;
-    }
-    .order-card:hover { border-color: var(--border-gold-bright); }
-    .order-card-id  { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); }
-    .order-card-date{ font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
-    .order-card-product { font-weight: 600; color: var(--cream); font-size: 0.88rem; }
-    .order-card-detail  { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
-    .oc-status {
-      font-size: 0.68rem; font-weight: 700; padding: 4px 12px;
-      border-radius: 20px; white-space: nowrap;
-    }
-    .oc-status.new       { background: rgba(59,130,246,0.15); color: #60a5fa; }
-    .oc-status.called    { background: rgba(234,179,8,0.15);  color: #fbbf24; }
-    .oc-status.done      { background: rgba(34,197,94,0.15);  color: #4ade80; }
-    .oc-status.cancelled { background: rgba(239,68,68,0.12);  color: #f87171; }
-    .oc-cancel-btn {
-      font-size: 0.68rem; font-weight: 600; padding: 4px 11px;
-      border-radius: 20px; border: 1px solid rgba(239,68,68,0.4);
-      color: #f87171; background: transparent; cursor: pointer;
-      transition: background 0.2s, color 0.2s; white-space: nowrap;
-    }
-    .oc-cancel-btn:hover { background: rgba(239,68,68,0.15); }
-    .oc-cancel-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .orders-empty, .orders-loading {
-      text-align: center; padding: 50px 20px;
-      color: var(--muted); font-size: 0.9rem;
-    }
-    @media(max-width:540px) {
-      .order-card { grid-template-columns: 80px 1fr; }
-      .oc-status  { display: none; }
-    }
-  </style>
-<!-- Firebase SDK -->
+  <link rel="stylesheet" href="shop.css?v=1" />
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -1594,7 +348,7 @@
         sel.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
-    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+    window.__showView?.('contact');
   }
 
   document.querySelectorAll('.order-btn').forEach(btn => {
@@ -1697,6 +451,7 @@
     return map[code] || t['auth.err_default'];
   }
 </script>
+
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
@@ -1709,66 +464,61 @@
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
+<!-- ═══ HEADER ═══ -->
 <nav id="navbar">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
-      <div class="nav-logo-text">
-        <span class="top">Монгол Алтайн</span>
-        <span class="bottom">Барагшун</span>
-      </div>
+  <div class="wrap nav-inner">
+    <a href="#home" class="nav-logo" aria-label="Барагшун">
+      <img src="brand_assets/Transparent Baragshun logo copy.png" alt="" />
+      <div class="nav-logo-text"><span class="top">Монгол Алтайн</span><span class="bottom">Барагшун</span></div>
     </a>
-    <ul class="nav-links">
-      <li><a href="#what" data-i18n="nav.what">Барагшун гэж юу</a></li>
-      <li><a href="#benefits" data-i18n="nav.benefits">Ач тус</a></li>
-      <li><a href="#products" data-i18n="nav.products">Бүтээгдэхүүн</a></li>
-      <li><a href="#about" data-i18n="nav.about">Компани</a></li>
-      <li><a href="#contact" data-i18n="nav.contact">Холбоо барих</a></li>
-      <li id="navMyOrdersLink" style="display:none"><a href="#my-orders" data-i18n="nav.my_orders">Миний захиалга</a></li>
+    <ul class="nav-tabs">
+      <li><a href="#home" data-nav="home" data-i18n="nav.home">Нүүр</a></li>
+      <li><a href="#shop" data-nav="shop" data-i18n="nav.shop">Дэлгүүр</a></li>
+      <li><a href="#learn" data-nav="learn" data-i18n="nav.what">Барагшун гэж юу</a></li>
+      <li><a href="#about" data-nav="about" data-i18n="nav.about">Компани</a></li>
+      <li><a href="#contact" data-nav="contact" data-i18n="nav.contact">Холбоо барих</a></li>
+      <li id="navMyOrdersLink" style="display:none"><a href="#orders" data-nav="orders" data-i18n="nav.my_orders">Миний захиалга</a></li>
     </ul>
-    <!-- Language toggle -->
-    <div class="lang-toggle" id="langToggle">
-      <button class="lang-btn active" data-lang="mn">МН</button>
-      <span class="lang-sep">|</span>
-      <button class="lang-btn" data-lang="en">EN</button>
-      <span class="lang-sep">|</span>
-      <button class="lang-btn" data-lang="zh">中文</button>
+    <div class="nav-actions">
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" data-lang="mn">МН</button><span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en">EN</button><span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="zh">中文</button>
+      </div>
+      <button id="navLoginBtn" class="btn btn-ghost" data-i18n="nav.login">Нэвтрэх</button>
+      <div class="nav-user" id="navUser">
+        <div class="nav-avatar" id="navAvatar">U</div>
+        <span class="nav-username" id="navUsername"></span>
+        <button class="nav-logout" id="navLogout" data-i18n="nav.logout">Гарах</button>
+      </div>
+      <button type="button" class="icon-btn" data-open-cart aria-label="Сагс"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg><span class="cart-count"></span></button>
+      <button type="button" class="icon-btn hamburger" id="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
-    <!-- Logged-out state -->
-    <button id="navLoginBtn" class="btn btn-gold" style="padding:11px 24px;font-size:0.75rem;" data-i18n="nav.login">Нэвтрэх</button>
-    <!-- Logged-in state -->
-    <div class="nav-user" id="navUser">
-      <div class="nav-avatar" id="navAvatar">U</div>
-      <span class="nav-username" id="navUsername"></span>
-      <button class="nav-logout" id="navLogout">Гарах</button>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
-    <li><a href="#what" class="ml" data-i18n="nav.what">Барагшун гэж юу</a></li>
-    <li><a href="#benefits" class="ml" data-i18n="nav.benefits">Ач тус</a></li>
-    <li><a href="#products" class="ml" data-i18n="nav.products">Бүтээгдэхүүн</a></li>
+    <li><a href="#home" class="ml" data-i18n="nav.home">Нүүр</a></li>
+    <li><a href="#shop" class="ml" data-i18n="nav.shop">Дэлгүүр</a></li>
+    <li><a href="#learn" class="ml" data-i18n="nav.what">Барагшун гэж юу</a></li>
     <li><a href="#about" class="ml" data-i18n="nav.about">Компани</a></li>
     <li><a href="#contact" class="ml" data-i18n="nav.contact">Холбоо барих</a></li>
-    <li id="mobileMyOrdersLink" style="display:none"><a href="#my-orders" class="ml" data-i18n="nav.my_orders">Миний захиалга</a></li>
+    <li id="mobileMyOrdersLink" style="display:none"><a href="#orders" class="ml" data-i18n="nav.my_orders">Миний захиалга</a></li>
   </ul>
-  <a href="#contact" class="btn btn-gold order-btn ml" data-href="#contact" data-i18n="nav.order">Захиалах</a>
-  <!-- Logged-out: login button -->
-  <button id="mobileLoginBtn" class="btn btn-gold ml" style="margin-top:10px;width:100%;justify-content:center;" data-i18n="nav.login">Нэвтрэх</button>
-  <!-- Logged-in: user info + logout -->
-  <div id="mobileUser" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-gold);align-items:center;justify-content:space-between;gap:10px;">
+  <button id="mobileLoginBtn" class="btn btn-ghost ml" data-i18n="nav.login">Нэвтрэх</button>
+  <div id="mobileUser" style="display:none;margin-top:14px;align-items:center;justify-content:space-between;gap:10px;">
     <div style="display:flex;align-items:center;gap:10px;">
       <div id="mobileAvatar" class="nav-avatar"></div>
-      <span id="mobileUsername" style="font-size:0.85rem;color:var(--cream);"></span>
+      <span id="mobileUsername" style="font-size:.9rem;"></span>
     </div>
-    <button id="mobileLogout" style="font-size:0.75rem;color:var(--muted);background:none;border:none;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;" data-i18n="nav.logout">Гарах</button>
+    <button id="mobileLogout" class="nav-logout" data-i18n="nav.logout">Гарах</button>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="mn">МН</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="zh">中文</button>
   </div>
 </div>
 
@@ -1887,120 +637,267 @@
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
 
-  <!-- Ethereal shadow background -->
-  <svg style="position:absolute;width:0;height:0">
-    <defs>
-      <filter id="ethereal-filter" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence id="etTurb" result="undulation" numOctaves="2"
-          baseFrequency="0.0005,0.002" seed="0" type="turbulence"/>
-        <feColorMatrix id="etHue" in="undulation" type="hueRotate" values="180" result="hueRotated"/>
-        <feColorMatrix in="hueRotated" result="circulation" type="matrix"
-          values="4 0 0 0 1  4 0 0 0 1  4 0 0 0 1  1 0 0 0 0"/>
-        <feDisplacementMap in="SourceGraphic" in2="circulation" scale="80" result="dist"/>
-        <feDisplacementMap in="dist" in2="undulation" scale="80" result="output"/>
-      </filter>
-    </defs>
-  </svg>
+<main>
 
-  <div id="ethereal-bg" style="
-    position:absolute; inset:-80px; z-index:0; overflow:hidden;
-    filter:url(#ethereal-filter) blur(4px);
-  ">
-    <div style="
-      width:100%; height:100%;
-      background-color: rgba(197,160,90,0.28);
-      mask-image: url('brand_assets/hero-mask.png');
-      -webkit-mask-image: url('brand_assets/hero-mask.png');
-      mask-size: cover; -webkit-mask-size: cover;
-      mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
-      mask-position: center; -webkit-mask-position: center;
-    "></div>
-  </div>
-
-  <!-- Noise overlay -->
-  <div style="
-    position:absolute; inset:0; z-index:1; pointer-events:none;
-    background-image: url('brand_assets/noise.png');
-    background-size: 240px; background-repeat: repeat;
-    opacity: 0.04;
-  "></div>
-
-  <div class="container">
-    <div class="hero-content">
-      <!-- Left: text -->
-      <div class="hero-text">
-        <div class="label fade-up" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</div>
-        <h1 class="h1 fade-up fade-up-d1" data-i18n="hero.h1">
-          3000 жилийн<br>
-          <span class="accent">түүхт эрдэнэсийг</span><br>
-          нээх цаг
-        </h1>
-        <p class="hero-tagline fade-up fade-up-d2" data-i18n="hero.tagline">
-          "Хадан хайлмалын төрөл зүйл нь хамгийн дээд болмой..."<br>
-          <em style="font-size:0.85em;opacity:0.7">— Лунрэгдандар, XVIII зуун</em>
-        </p>
-        <p class="body-text fade-up fade-up-d2" data-i18n="hero.body">
-          Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
-        </p>
-        <div class="hero-actions fade-up fade-up-d3">
-          <a href="#products" class="btn btn-gold" id="heroProducts" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
-          <a href="#what" class="btn btn-outline-gold" data-i18n="hero.cta2">Дэлгэрэнгүй</a>
+<!-- ═══ HOME ═══ -->
+<div class="view" data-view="home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</p>
+        <h1 data-i18n="hero.h1">Монгол Алтайн<br><span class="accent">3000 жилийн түүхт</span><br>эрдэнэс — таны гарт</h1>
+        <p class="hero-lead" data-i18n="hero.body">Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.</p>
+        <div class="cta-row">
+          <a href="#shop" class="btn btn-primary"><span data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</span> <span aria-hidden="true">→</span></a>
+          <a href="#learn" class="btn btn-ghost" data-i18n="hero.cta2">Илүүг мэдэх</a>
         </div>
-        <div class="hero-proof fade-up fade-up-d4">
-          <div class="proof-item">
-            <div class="proof-num">3000<sup>+</sup></div>
-            <div class="proof-label" data-i18n="hero.proof1">Жилийн түүх</div>
-          </div>
-          <div class="proof-item">
-            <div class="proof-num">40<sup>+</sup></div>
-            <div class="proof-label" data-i18n="hero.proof2">Эрдэс бодис</div>
-          </div>
-          <div class="proof-item">
-            <div class="proof-num">100<sup>%</sup></div>
-            <div class="proof-label" data-i18n="hero.proof3">Байгалийн цэвэр</div>
-          </div>
-          <div class="proof-item">
-            <div class="proof-num">MNS</div>
-            <div class="proof-label" data-i18n="hero.proof4">Монгол стандарт</div>
-          </div>
-        </div>
+        <dl class="hero-stats">
+          <div><dt>3000<sup>+</sup></dt><dd data-i18n="hero.proof1">Жилийн түүх</dd></div>
+          <div><dt>40<sup>+</sup></dt><dd data-i18n="hero.proof2">Эрдэс бодис</dd></div>
+          <div><dt>100<sup>%</sup></dt><dd data-i18n="hero.proof3">Байгалийн цэвэр</dd></div>
+          <div><dt>MNS</dt><dd data-i18n="hero.proof4">Монгол стандарт</dd></div>
+        </dl>
       </div>
-
-      <!-- Right: visual -->
-      <div class="hero-visual fade-up fade-up-d2">
-        <div class="hero-chip" data-i18n="hero.chip1">Фулвик хүчил</div>
-        <div class="hero-chip" data-i18n="hero.chip2">40+ эрдэс</div>
-        <div class="hero-chip" data-i18n="hero.chip3">Антиоксидант</div>
-        <div class="hero-chip" data-i18n="hero.chip4">Адаптоген</div>
-        <div class="hero-glow"></div>
-        <div class="hero-ring"></div>
-        <div class="hero-ring-2"></div>
-        <img id="heroLogo" class="hero-logo-float" src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
+      <div class="hero-media">
+        <img src="Products/product-1.jpg" alt="Өтгөн барагшун 100мл" width="558" height="1000" fetchpriority="high" />
+        <a href="#shop" class="hero-tag"><img src="Products/product-1.jpg" alt="" /><div><b data-i18n="products.p1_name">Өтгөн барагшун</b><span>50,000 ₮</span></div></a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Curve transition -->
-  <div class="hero-curve">
-    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;display:block;">
-      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--bg-2)" opacity="0.5"/>
-    </svg>
-  </div>
+  <section class="wrap">
+    <div class="trust">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><div><b data-i18n="home.trust1_t">МНС стандарт</b><span>MNS 6578-3-2016</span></div></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 001.3 2h12.4a1.5 1.5 0 001.3-2L14 9V3"/><path d="M7 15h10"/></svg><div><b data-i18n="home.trust2_t">Лабораторид шалгагдсан</b><span>MNAS · qcTestLab</span></div></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15"/><path d="M5 19l8-8"/></svg><div><b data-i18n="home.trust3_t">100% байгалийн</b><span data-i18n="home.trust3_s">Алтайн 3500–4000 м</span></div></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><div><b data-i18n="home.trust4_t">Хүргэлттэй</b><span data-i18n="home.trust4_s">Хүсэлтээр</span></div></div>
+    </div>
+  </section>
 
-  <div class="scroll-cue">
-    <span>Доош</span>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-  </div>
-</section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-row">
+        <div><p class="eyebrow" data-i18n="products.label">Манай бүтээгдэхүүн</p><h2 class="h2" data-i18n="home.featured">Онцлох бүтээгдэхүүн</h2></div>
+        <a href="#shop" class="link-arrow"><span data-i18n="home.view_all">Бүгдийг үзэх</span> →</a>
+      </div>
+      <div class="products-grid">
+      <article class="product-card" data-cat="thick">
+        <div class="product-img"><div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div><img src="Products/product-1.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.thick">Өтгөн барагшун</div>
+          <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
+          <div class="product-sub" data-i18n="products.p1_sub">100мл · Дусаалгын сав</div>
+          <div class="product-price" data-i18n="products.p1_price">50,000 ₮ <span class="unit">/ ш</span></div>
+          <button type="button" class="btn-add" data-add="p1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="thick">
+        <div class="product-img"><img src="Products/product-2.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.thick">Өтгөн барагшун</div>
+          <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
+          <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
+          <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
+          <button type="button" class="btn-add" data-add="p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="liquid">
+        <div class="product-img"><img src="Products/product-3.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.liquid">Шингэн барагшун</div>
+          <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p3_sub">60 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p3_price">70,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="tea">
+        <div class="product-img"><div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div><img src="Products/product-7.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.tea">Цай</div>
+          <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
+          <div class="product-sub" data-i18n="products.p7_sub">50 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p7_price">20,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
 
-<!-- ═══ WHAT IS SHILAJIT ═══ -->
-<section id="what">
-  <div class="container">
-    <div class="what-grid">
-      <div class="what-text fade-up">
+  <section class="section">
+    <div class="wrap">
+      <div class="section-row"><div><p class="eyebrow" data-i18n="testi.label">Хэрэглэгчдийн туршлага</p><h2 class="h2" data-i18n="testi.h2">Тэд юу мэдэрсэн бэ?</h2></div></div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="testi-quote-mark">"</span>
+        <p class="testi-text" data-i18n="testi.t1_text">3 сар барагшун хэрэглэсний дараа миний ходоодны шархлаа эрс сайжирсан. Эмчид явах шаардлагагүй болж, өдөр бүрийн ажил амьдралаа хэвийн явуулж байна. Маш их баярлалаа!</p>
+        <div class="testi-divider"></div>
+        <div class="testi-author">
+          <div class="testi-av">Б.Д</div>
+          <div>
+            <div class="testi-name">Б. Долгорсүрэн</div>
+            <div class="testi-role" data-i18n="testi.t1_role">Улаанбаатар хот, 52 нас</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="testi-quote-mark">"</span>
+        <p class="testi-text" data-i18n="testi.t2_text">Надад уушигны өвчин байсан бөгөөд барагшун хэрэглэж эхэлсний дараа амьсгал хийхэд хөнгөрсөн. Байгалийн бүтээгдэхүүн хэрэглэх нь хамгийн зөв шийдэл байсан.</p>
+        <div class="testi-divider"></div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,#005a6b,var(--teal));color:var(--white)">Н.Б</div>
+          <div>
+            <div class="testi-name">Н. Батбаяр</div>
+            <div class="testi-role" data-i18n="testi.t2_role">Дархан хот, 45 нас</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="testi-quote-mark">"</span>
+        <p class="testi-text" data-i18n="testi.t3_text">Зүрхний даралт ихсэх өвчтэй байсан ч барагшун хэрэглэж эхэлсний дараа даралт тогтворжсон. Эмийн хамт хэрэглэвэл илүү үр дүнтэй гэдгийг хэлж болно.</p>
+        <div class="testi-divider"></div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,var(--gold-dk),var(--brown,#a97c49))">О.М</div>
+          <div>
+            <div class="testi-name">О. Мөнхжаргал</div>
+            <div class="testi-role" data-i18n="testi.t3_role">Эрдэнэт хот, 61 нас</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ SHOP ═══ -->
+<div class="view" data-view="shop">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow" data-i18n="products.label">Манай бүтээгдэхүүн</p>
+      <h1 class="page-title" data-i18n="nav.shop">Дэлгүүр</h1>
+      <p class="page-sub" data-i18n="products.sub">МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.</p>
+    </header>
+    <div class="chips" id="shopFilters" role="tablist">
+      <button type="button" class="chip" role="tab" aria-selected="true" data-filter="all" data-i18n="shop.all">Бүгд</button>
+      <button type="button" class="chip" role="tab" aria-selected="false" data-filter="thick" data-i18n="shop.thick">Өтгөн барагшун</button>
+      <button type="button" class="chip" role="tab" aria-selected="false" data-filter="liquid" data-i18n="shop.liquid">Шингэн барагшун</button>
+      <button type="button" class="chip" role="tab" aria-selected="false" data-filter="tea" data-i18n="shop.tea">Цай</button>
+    </div>
+    <div class="products-grid" id="shopGrid">
+      <article class="product-card" data-cat="thick">
+        <div class="product-img"><div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div><img src="Products/product-1.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.thick">Өтгөн барагшун</div>
+          <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
+          <div class="product-sub" data-i18n="products.p1_sub">100мл · Дусаалгын сав</div>
+          <div class="product-price" data-i18n="products.p1_price">50,000 ₮ <span class="unit">/ ш</span></div>
+          <button type="button" class="btn-add" data-add="p1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="thick">
+        <div class="product-img"><img src="Products/product-2.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.thick">Өтгөн барагшун</div>
+          <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
+          <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
+          <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
+          <button type="button" class="btn-add" data-add="p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="liquid">
+        <div class="product-img"><img src="Products/product-3.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.liquid">Шингэн барагшун</div>
+          <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p3_sub">60 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p3_price">70,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="liquid">
+        <div class="product-img"><img src="Products/product-4.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.liquid">Шингэн барагшун</div>
+          <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p4_price">40,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="liquid">
+        <div class="product-img"><img src="Products/product-5.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.liquid">Шингэн барагшун</div>
+          <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p5_sub">15 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p5_price">25,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="liquid">
+        <div class="product-img"><img src="Products/product-6.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.liquid">Шингэн барагшун</div>
+          <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p6_sub">10 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p6_price">16,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+      <article class="product-card" data-cat="tea">
+        <div class="product-img"><div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div><img src="Products/product-7.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+        <div class="product-info">
+          <div class="product-cat" data-i18n="shop.tea">Цай</div>
+          <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
+          <div class="product-sub" data-i18n="products.p7_sub">50 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p7_price">20,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+        </div>
+      </article>
+    </div>
+    <p class="shop-note" data-i18n="products.delivery_note">* Худалдан авагчийн хүсэлтээр хүргэлтийн үйлчилгээ болон борлуулалтын нийлүүлэлт хийгдэнэ.</p>
+  </div>
+</div>
+
+<!-- ═══ LEARN ═══ -->
+<div class="view" data-view="learn">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow" data-i18n="what.label">Барагшун гэж юу вэ?</p>
+      <h1 class="page-title" data-i18n="what.h2">Хүн төрөлхтөн 3000 жил хэрэглэсэн байгалийн гайхамшиг</h1>
+    </header>
+    <div class="subtabs" role="tablist">
+      <button type="button" class="chip" role="tab" data-sub="what" data-i18n="learn.t_what">Танилцуулга</button>
+      <button type="button" class="chip" role="tab" data-sub="benefits" data-i18n="nav.benefits">Ач тус</button>
+      <button type="button" class="chip" role="tab" data-sub="how" data-i18n="how.label">Хэрэглэх заавар</button>
+      <button type="button" class="chip" role="tab" data-sub="science" data-i18n="footer.fl4">Судалгаа</button>
+    </div>
+    <section class="panel" data-panel="what">
+      <div class="what-grid">
+      <div class="what-text">
         <div class="label" data-i18n="what.label">Барагшун гэж юу вэ?</div>
         <h2 class="h2" data-i18n="what.h2">Хүн төрөлхтөн 3000 жил хэрэглэсэн байгалийн гайхамшиг</h2>
         <p class="body-text" data-i18n="what.body1">
@@ -2017,68 +914,62 @@
           <cite data-i18n="what.avicenna_c">— Авиценна (Абу-Али ибн Сина), ок. 980–1037</cite>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ═══ BENEFITS ═══ -->
-<section id="benefits">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <div class="label" style="justify-content:center;" data-i18n="benefits.label">Эрүүл мэндийн ач тус</div>
-      <h2 class="h2" style="margin:16px 0 0;" data-i18n="benefits.h2">Барагшуны 8 гол ач тус</h2>
-    </div>
+      </div>
+    </section>
+    <section class="panel" data-panel="benefits" hidden>
+      <h2 class="h2" style="margin-bottom:24px" data-i18n="benefits.h2">Барагшуны 8 гол ач тус</h2>
     <div class="benefits-grid">
-      <div class="benefit-card fade-up fade-up-d1">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b1_title">Зүрх судасны үрэвслийг намдаана</div>
         <div class="benefit-desc" data-i18n="benefits.b1_desc">Зүрх судасны системийг хамгаалж, цусны даралтыг зохицуулах, судасны хатуурлыг бууруулахад тусалдаг.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d2">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b2_title">Дархлааг бөхжүүлж биеийг хамгаалдаг</div>
         <div class="benefit-desc" data-i18n="benefits.b2_desc">Биеийн эсэргүүцлийг дэмжиж, вирус, бактерийн эсрэг байгалийн хамгаалалтыг сайжруулдаг.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d3">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b3_title">Ходоод гэдэсний үйл ажиллагааг сайжруулна</div>
         <div class="benefit-desc" data-i18n="benefits.b3_desc">Хоол боловсруулалтыг дэмжиж, ходоодны шүүс ялгарлыг зохицуулж, гэдэсний микробиомыг тэнцвэржүүлдэг.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d4">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b4_title">Уушигны эрүүл мэндийг сайжруулна</div>
         <div class="benefit-desc" data-i18n="benefits.b4_desc">Амьсгалын замыг цэвэрлэж, уушгийг хамгаалж, гуурсан хоолойн өвчнүүдийг намдаахад дэмждэг.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d1">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b5_title">Яадарлыг тайлж эрч хүч нэмэгдүүлнэ</div>
         <div class="benefit-desc" data-i18n="benefits.b5_desc">ATP үйлдвэрлэлийг сайжруулж, бие махбодийн болон оюун санааны ядаргаа, жадралыг хурдан тайлдаг.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d2">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b6_title">Бодисын солилцоог идэвхжүүлнэ</div>
         <div class="benefit-desc" data-i18n="benefits.b6_desc">Бодисын солилцоог идэвхжүүлж, эд эсийн шинэ төлжилтийг дэмжиж, хорыг гадагшлуулахад тусалдаг.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d3">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
         </div>
         <div class="benefit-title" data-i18n="benefits.b7_title">Булчин мэдрэлийн системийг сэргээнэ</div>
         <div class="benefit-desc" data-i18n="benefits.b7_desc">Яс, мөч хугарах, цээжний гэмтэл, үе булгах үед барагшуныг хэрэглэвэл үр дүнтэй болох нь олон улсын судлаачдаар нотлогдсон.</div>
       </div>
-      <div class="benefit-card fade-up fade-up-d4">
+      <div class="benefit-card">
         <div class="benefit-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
@@ -2087,224 +978,10 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ═══ PRODUCTS ═══ -->
-<section id="products">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <div class="label" style="justify-content:center;" data-i18n="products.label">Манай бүтээгдэхүүн</div>
-      <h2 class="h2" style="margin:16px 0 12px;" data-i18n="products.h2">Монгол Алтайн Барагшун</h2>
-      <p class="body-text" style="margin:0 auto;text-align:center;" data-i18n="products.sub">
-        МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.
-      </p>
-    </div>
-    <div class="products-grid">
-
-      <!-- Product 1: Өтгөн барагшун 100мл -->
-      <div class="product-card fade-up fade-up-d1">
-        <div class="product-img">
-<div class="product-badge-top" data-i18n="products.badge_bestseller">Хамгийн их борлуулалт</div>
-          <img src="Products/product-1.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Өтгөн барагшун 100мл">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p1_name">Өтгөн барагшун</div>
-          <div class="product-sub" data-i18n="products.p1_sub">100мл · Дусаалгын сав</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p1_price">50,000 ₮ <span class="unit">/ ш</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p1" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 2: Өтгөн барагшун 50мл -->
-      <div class="product-card fade-up fade-up-d2">
-        <div class="product-img">
-<img src="Products/product-2.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Өтгөн барагшун 50мл">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
-          <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p2" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 3: Шингэн барагшун 60ш -->
-      <div class="product-card fade-up fade-up-d3">
-        <div class="product-img">
-<img src="Products/product-3.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 60ш">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p3_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p3_sub">60 ширхэг · Хайрцаг</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p3_price">70,000 ₮ <span class="unit">/ хайрцаг</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p3" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 4: Шингэн барагшун 30ш -->
-      <div class="product-card fade-up fade-up-d1">
-        <div class="product-img">
-<img src="Products/product-4.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 30ш">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Хайрцаг</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p4_price">40,000 ₮ <span class="unit">/ хайрцаг</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p4" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 5: Шингэн барагшун 15ш -->
-      <div class="product-card fade-up fade-up-d2">
-        <div class="product-img">
-<img src="Products/product-5.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 15ш">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p5_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p5_sub">15 ширхэг · Хайрцаг</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p5_price">25,000 ₮ <span class="unit">/ хайрцаг</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p5" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 6: Шингэн барагшун 10ш -->
-      <div class="product-card fade-up fade-up-d3">
-        <div class="product-img">
-<img src="Products/product-6.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Шингэн барагшун 10ш">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p6_name">Шингэн барагшун</div>
-          <div class="product-sub" data-i18n="products.p6_sub">10 ширхэг · Хайрцаг</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p6_price">16,000 ₮ <span class="unit">/ хайрцаг</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p6" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 7: Барагшунтай жасминтай цай 50ш -->
-      <div class="product-card fade-up fade-up-d1">
-        <div class="product-img">
-<div class="product-badge-top" data-i18n="products.badge_new">Шинэ бүтээгдэхүүн</div>
-          <img src="Products/product-7.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="Барагшунтай жасминтай цай 50ш">
-        </div>
-        <div class="product-info">
-          <div class="product-name" data-i18n="products.p7_name">Барагшунтай жасминтай цай</div>
-          <div class="product-sub" data-i18n="products.p7_sub">50 ширхэг · Хайрцаг</div>
-          <div class="product-cta">
-            <div class="product-price" data-i18n="products.p7_price">20,000 ₮ <span class="unit">/ хайрцаг</span></div>
-            <a href="#contact" class="btn btn-gold order-btn" data-product="p7" style="padding:10px 20px;font-size:0.75rem;" data-i18n="nav.order">Захиалах</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <p style="text-align:center;margin-top:32px;font-size:0.78rem;color:var(--muted);letter-spacing:0.06em;">
-      <span data-i18n="products.delivery_note">* Худалдан авагчийн хүсэлтээр хүргэлтийн үйлчилгээ болон борлуулалтын нийлүүлэлт хийгдэнэ.</span>
-    </p>
-  </div>
-</section>
-
-<!-- ═══ ABOUT COMPANY ═══ -->
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-text fade-up">
-        <div class="label" data-i18n="about.label">Компанийн тухай</div>
-        <h2 class="h2" data-i18n="about.h2">Монгол Алтайн Барагшун ХХК</h2>
-        <p class="body-text" data-i18n="about.body1">
-          Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.
-        </p>
-        <p class="body-text" data-i18n="about.body2">
-          Уламжлалт эм эмчилгээний 3000 жилийн түүхтэй үнэт түүхий эд барагшун нь Монгол орны Алтайн нурууны өндөрлөг хэсэгт далайн түвшнээс 3500-4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бүтээгдэхүүн юм.
-        </p>
-        <p class="body-text" data-i18n="about.body3">
-          Барагшун нь хүнд үйлдвэрт ажиллагсдын цацрагийн хордлого, хүнд металлийн хордлого тайлахад өндөр үр дүнтэй юм.
-        </p>
-        <div class="about-facts">
-          <div class="fact-box">
-            <div class="num">2016</div>
-            <div class="lbl" data-i18n="about.fact1_lbl">ХХА-ийн хүнсний салбарын шилдэг</div>
-          </div>
-          <div class="fact-box">
-            <div class="num">2017</div>
-            <div class="lbl" data-i18n="about.fact2_lbl">ЭМЯ-ны "Жилийн эзэн" хүртэгч</div>
-          </div>
-          <div class="fact-box">
-            <div class="num">ШУА</div>
-            <div class="lbl" data-i18n="about.fact3_lbl">Биологийн хүрээлэнтэй хамтран</div>
-          </div>
-          <div class="fact-box">
-            <div class="num">MNS</div>
-            <div class="lbl" data-i18n="about.fact4_lbl">6578-3-2016 стандарт</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Certifications -->
-      <div class="about-certs fade-up fade-up-d2">
-        <div class="label" style="margin-bottom:24px;" data-i18n="about.certs_label">Гэрчилгээ & Баталгаа</div>
-
-        <div class="cert-card">
-          <div class="cert-badge gold-badge">MNS</div>
-          <div class="cert-info">
-            <div class="cert-name" data-i18n="about.cert1_name">Монгол Улсын Стандарт</div>
-            <div class="cert-desc" data-i18n="about.cert1_desc">MNS:6578-3-2016 — Монгол улсын хүнсний бүтээгдэхүүний тухай эрүүл ахуйн болон бусад хуулийн шаардлагын дагуу баталгаажуулсан.</div>
-          </div>
-          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-        </div>
-
-        <div class="cert-card">
-          <div class="cert-badge teal-badge">MNAS</div>
-          <div class="cert-info">
-            <div class="cert-name" data-i18n="about.cert2_name">Магадлан итгэмжлэгдсэн лаборатори</div>
-            <div class="cert-desc" data-i18n="about.cert2_desc">Эко стандарт лаборатори (MNS ISO/IEC 17025) — E.coli, Salmonella илрэхгүй. Хар тугалга &lt;0.015 мг/кг, Кадьми &lt;0.001 мг/кг.</div>
-          </div>
-          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-        </div>
-
-        <div class="cert-card">
-          <div class="cert-badge navy-badge">USA</div>
-          <div class="cert-info">
-            <div class="cert-name" data-i18n="about.cert3_name">qcTestLab.com — Олон улсын шинжилгээ</div>
-            <div class="cert-desc" data-i18n="about.cert3_desc">Микробиологийн болон хүнд металлийн (Pb, Hg, As, Cd) шинжилгээгээр бүгд PASS. ICP-OES аргаар 30+ элемент тодорхойлогдсон.</div>
-          </div>
-          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-        </div>
-
-        <div class="cert-card">
-          <div class="cert-badge gold-badge" style="font-size:0.7rem;">ШУА</div>
-          <div class="cert-info">
-            <div class="cert-name" data-i18n="about.cert4_name">Монгол ШУА-ийн Биологийн хүрээлэн</div>
-            <div class="cert-desc" data-i18n="about.cert4_desc">БНСУлс болон Данийн тоног төхөөрөмжөөр хамтран ажиллаж, Монголд анх удаа байгалийн цэвэр барагшун үйлдвэрлэсэн.</div>
-          </div>
-          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ HOW TO USE ═══ -->
-<section id="how">
-  <div class="container">
-    <div class="how-inner">
-      <div class="how-steps fade-up">
-        <div class="label" style="margin-bottom:20px;" data-i18n="how.label">Хэрэглэх заавар</div>
-        <h2 class="h2" style="margin-bottom:40px;" data-i18n="how.h2">Хэрхэн хэрэглэх вэ?</h2>
-
+    </section>
+    <section class="panel" data-panel="how" hidden>
+      <h2 class="h2" style="margin-bottom:24px" data-i18n="how.h2">Хэрхэн хэрэглэх вэ?</h2>
+      <div class="how-steps">
         <div class="how-step">
           <div class="step-num">01</div>
           <div class="step-content">
@@ -2341,123 +1018,194 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           <p data-i18n="how.note"><strong style="color:var(--cream);">Анхааруулга:</strong> Жирэмсэн болон хөхүүл үедээ хэрэглэхгүй байхыг зөвлөж байна. Хүүхдийн гарт хүрэхгүй байлгана.</p>
         </div>
+
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SCIENCE ═══ -->
-<section id="science">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <div class="label" style="justify-content:center;" data-i18n="science.label">Эрдэм шинжилгээний судалгаа</div>
-      <h2 class="h2" style="margin:16px 0 12px;" data-i18n="science.h2">Эрдэмтэд юу хэлэв?</h2>
-      <p class="body-text" style="margin:0 auto;text-align:center;max-width:540px;" data-i18n="science.body">
-        Барагшуны судлалын талаар одоогоор нийт 500 гаруй томоохон бүтээлүүд байгаагийн дийлэнх хэсэг нь эрдэм шинжилгээ–анагаах ухааны чиглэлээр бичигджээ.
-      </p>
-    </div>
+    </section>
+    <section class="panel" data-panel="science" hidden>
+      <h2 class="h2" style="margin-bottom:12px" data-i18n="science.h2">Эрдэмтэд юу хэлэв?</h2>
+      <p class="body-text" style="max-width:640px;margin-bottom:24px" data-i18n="science.body">Барагшуны судлалын талаар одоогоор нийт 500 гаруй томоохон бүтээлүүд байгаагийн дийлэнх хэсэг нь эрдэм шинжилгээ–анагаах ухааны чиглэлээр бичигджээ.</p>
     <div class="science-grid">
-      <div class="sci-card fade-up fade-up-d1">
+      <div class="sci-card">
         <div class="sci-num">500<sup>+</sup></div>
         <div class="sci-label" data-i18n="science.c1_label">Эрдэм шинжилгээний бүтээл</div>
         <div class="sci-desc" data-i18n="science.c1_desc">Дэлхий дахинд барагшуны талаарх судалгааны ажлуудын тоо байнга нэмэгдэж байна.</div>
       </div>
-      <div class="sci-card fade-up fade-up-d2">
+      <div class="sci-card">
         <div class="sci-num">40<sup>+</sup></div>
         <div class="sci-label" data-i18n="science.c2_label">Эрдэс бодис агуулдаг</div>
         <div class="sci-desc" data-i18n="science.c2_desc">Амин хүчил, фульвийн хүчил зэрэг биологийн идэвхт бодисууд нэг бүтээгдэхүүнд агуулагддаг.</div>
       </div>
-      <div class="sci-card fade-up fade-up-d3">
+      <div class="sci-card">
         <div class="sci-num">QRMA</div>
         <div class="sci-label" data-i18n="science.c3_label">Оношилгооны судалгаа 2017</div>
         <div class="sci-desc" data-i18n="science.c3_desc">Монгол Алтайн барагшуныг хэрэглэгчдэд QRMA-ын оношилгоогоор хийсэн шинжилгээний дүнгийн судалгаа 10 өвчтөнд явуулсан.</div>
       </div>
     </div>
 
+    </section>
   </div>
-</section>
+</div>
 
-<!-- ═══ TESTIMONIALS ═══ -->
-<section id="testimonials">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <div class="label" style="justify-content:center;" data-i18n="testi.label">Хэрэглэгчдийн туршлага</div>
-      <h2 class="h2" style="margin:16px 0 0;" data-i18n="testi.h2">Тэд юу мэдэрсэн бэ?</h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card fade-up fade-up-d1">
-        <div class="testi-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <span class="testi-quote-mark">"</span>
-        <p class="testi-text" data-i18n="testi.t1_text">3 сар барагшун хэрэглэсний дараа миний ходоодны шархлаа эрс сайжирсан. Эмчид явах шаардлагагүй болж, өдөр бүрийн ажил амьдралаа хэвийн явуулж байна. Маш их баярлалаа!</p>
-        <div class="testi-divider"></div>
-        <div class="testi-author">
-          <div class="testi-av">Б.Д</div>
-          <div>
-            <div class="testi-name">Б. Долгорсүрэн</div>
-            <div class="testi-role" data-i18n="testi.t1_role">Улаанбаатар хот, 52 нас</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card fade-up fade-up-d2">
-        <div class="testi-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <span class="testi-quote-mark">"</span>
-        <p class="testi-text" data-i18n="testi.t2_text">Надад уушигны өвчин байсан бөгөөд барагшун хэрэглэж эхэлсний дараа амьсгал хийхэд хөнгөрсөн. Байгалийн бүтээгдэхүүн хэрэглэх нь хамгийн зөв шийдэл байсан.</p>
-        <div class="testi-divider"></div>
-        <div class="testi-author">
-          <div class="testi-av" style="background:linear-gradient(135deg,#005a6b,var(--teal));color:var(--white)">Н.Б</div>
-          <div>
-            <div class="testi-name">Н. Батбаяр</div>
-            <div class="testi-role" data-i18n="testi.t2_role">Дархан хот, 45 нас</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card fade-up fade-up-d3">
-        <div class="testi-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <span class="testi-quote-mark">"</span>
-        <p class="testi-text" data-i18n="testi.t3_text">Зүрхний даралт ихсэх өвчтэй байсан ч барагшун хэрэглэж эхэлсний дараа даралт тогтворжсон. Эмийн хамт хэрэглэвэл илүү үр дүнтэй гэдгийг хэлж болно.</p>
-        <div class="testi-divider"></div>
-        <div class="testi-author">
-          <div class="testi-av" style="background:linear-gradient(135deg,var(--gold-dk),var(--brown,#a97c49))">О.М</div>
-          <div>
-            <div class="testi-name">О. Мөнхжаргал</div>
-            <div class="testi-role" data-i18n="testi.t3_role">Эрдэнэт хот, 61 нас</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ CONTACT ═══ -->
-<section id="contact">
-  <div class="container">
-    <div class="contact-grid">
-      <div class="contact-text fade-up">
-        <div class="label" data-i18n="contact.label">Холбоо барих</div>
-        <h2 class="h2" data-i18n="contact.h2">Захиалга өгөх, лавлагаа авах</h2>
-        <p class="body-text" data-i18n="contact.body">
-          Манай хаяг энд байна! Бидэнтэй холбогдоорой. Захиалга болон бөөний нийлүүлэлтийн асуудлаар ажлын 24 цагийн дотор хариу өгнө.
+<!-- ═══ ABOUT ═══ -->
+<div class="view" data-view="about">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow" data-i18n="about.label">Компанийн тухай</p>
+      <h1 class="page-title" data-i18n="about.h2">Монгол Алтайн Барагшун ХХК</h1>
+    </header>
+    <div class="about-grid" style="padding-bottom:72px">
+      <div class="about-text">
+        <div class="label" data-i18n="about.label">Компанийн тухай</div>
+        <h2 class="h2" data-i18n="about.h2">Монгол Алтайн Барагшун ХХК</h2>
+        <p class="body-text" data-i18n="about.body1">
+          Манай компани нь БНСУлс болон Данийн улсын тоног төхөөрөмжөөр ШУА-ийн Биологийн хүрээлэнтэй хамтран Монголд <strong style="color:var(--cream)">анх удаа байгалийн цэвэр барагшун</strong> болон зөгийн балыг хослуулан биологийн идэвхт бүтээгдэхүүн болгон ард түмэндээ хүргэж байгаа үндэсний үйлдвэр юм.
         </p>
+        <p class="body-text" data-i18n="about.body2">
+          Уламжлалт эм эмчилгээний 3000 жилийн түүхтэй үнэт түүхий эд барагшун нь Монгол орны Алтайн нурууны өндөрлөг хэсэгт далайн түвшнээс 3500-4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бүтээгдэхүүн юм.
+        </p>
+        <p class="body-text" data-i18n="about.body3">
+          Барагшун нь хүнд үйлдвэрт ажиллагсдын цацрагийн хордлого, хүнд металлийн хордлого тайлахад өндөр үр дүнтэй юм.
+        </p>
+        <div class="about-facts">
+          <div class="fact-box">
+            <div class="num">2016</div>
+            <div class="lbl" data-i18n="about.fact1_lbl">ХХА-ийн хүнсний салбарын шилдэг</div>
+          </div>
+          <div class="fact-box">
+            <div class="num">2017</div>
+            <div class="lbl" data-i18n="about.fact2_lbl">ЭМЯ-ны "Жилийн эзэн" хүртэгч</div>
+          </div>
+          <div class="fact-box">
+            <div class="num">ШУА</div>
+            <div class="lbl" data-i18n="about.fact3_lbl">Биологийн хүрээлэнтэй хамтран</div>
+          </div>
+          <div class="fact-box">
+            <div class="num">MNS</div>
+            <div class="lbl" data-i18n="about.fact4_lbl">6578-3-2016 стандарт</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div>
+        <p class="certs-title" data-i18n="about.certs_label">Гэрчилгээ &amp; Баталгаа</p>
+        <div class="cert-card">
+          <div class="cert-badge gold-badge">MNS</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert1_name">Монгол Улсын Стандарт</div>
+            <div class="cert-desc" data-i18n="about.cert1_desc">MNS:6578-3-2016 — Монгол улсын хүнсний бүтээгдэхүүний тухай эрүүл ахуйн болон бусад хуулийн шаардлагын дагуу баталгаажуулсан.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge teal-badge">MNAS</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert2_name">Магадлан итгэмжлэгдсэн лаборатори</div>
+            <div class="cert-desc" data-i18n="about.cert2_desc">Эко стандарт лаборатори (MNS ISO/IEC 17025) — E.coli, Salmonella илрэхгүй. Хар тугалга &lt;0.015 мг/кг, Кадьми &lt;0.001 мг/кг.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge navy-badge">USA</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert3_name">qcTestLab.com — Олон улсын шинжилгээ</div>
+            <div class="cert-desc" data-i18n="about.cert3_desc">Микробиологийн болон хүнд металлийн (Pb, Hg, As, Cd) шинжилгээгээр бүгд PASS. ICP-OES аргаар 30+ элемент тодорхойлогдсон.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge gold-badge" style="font-size:0.7rem;">ШУА</div>
+          <div class="cert-info">
+            <div class="cert-name" data-i18n="about.cert4_name">Монгол ШУА-ийн Биологийн хүрээлэн</div>
+            <div class="cert-desc" data-i18n="about.cert4_desc">БНСУлс болон Данийн тоног төхөөрөмжөөр хамтран ажиллаж, Монголд анх удаа байгалийн цэвэр барагшун үйлдвэрлэсэн.</div>
+          </div>
+          <div class="cert-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT / CHECKOUT ═══ -->
+<div class="view" data-view="contact">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow" data-i18n="contact.label">Холбоо барих</p>
+      <h1 class="page-title" data-i18n="contact.h2">Захиалга өгөх, лавлагаа авах</h1>
+      <p class="page-sub" data-i18n="contact.body">Манай хаяг энд байна! Бидэнтэй холбогдоорой. Захиалга болон бөөний нийлүүлэлтийн асуудлаар ажлын 24 цагийн дотор хариу өгнө.</p>
+    </header>
+    <div class="contact-grid" style="padding-bottom:72px">
+      <div class="contact-form">
+        <div class="form-title" data-i18n="contact.form_title">Захиалгын маягт</div>
+        <form id="orderForm">
+          <div class="form-row">
+            <div class="fg">
+              <label data-i18n="contact.f_name">Таны нэр</label>
+              <input id="orderName" type="text" placeholder="Овог нэр" data-i18n-placeholder="contact.f_name_ph" required />
+            </div>
+            <div class="fg">
+              <label data-i18n="contact.f_phone">Утасны дугаар</label>
+              <input id="orderPhone" type="tel" placeholder="88887777" maxlength="8" required />
+            </div>
+          </div>
+          <div class="checkout-cart" id="checkoutCart" hidden>
+            <div class="checkout-cart-head"><span data-i18n="checkout.your_items">Таны сагс</span><button type="button" data-open-cart data-i18n="checkout.edit">Засах</button></div>
+            <div id="checkoutLines"></div>
+            <div class="checkout-total"><span data-i18n="cart.total">Нийт</span><span id="checkoutTotal"></span></div>
+          </div>
+          <div id="singleProductFields">
+          <div class="fg">
+            <label for="orderProduct" data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</label>
+            <select id="orderProduct">
+              <option value="" data-i18n="contact.f_select">Сонгох...</option>
+              <option value="p1" data-i18n="contact.f_opt1">Өтгөн барагшун — 100мл</option>
+              <option value="p2" data-i18n="contact.f_opt2">Өтгөн барагшун — 50мл</option>
+              <option value="p3" data-i18n="contact.f_opt3">Шингэн барагшун — 60ш / хайрцаг</option>
+              <option value="p4" data-i18n="contact.f_opt4">Шингэн барагшун — 30ш / хайрцаг</option>
+              <option value="p5" data-i18n="contact.f_opt5">Шингэн барагшун — 15ш / хайрцаг</option>
+              <option value="p6" data-i18n="contact.f_opt6">Шингэн барагшун — 10ш / хайрцаг</option>
+              <option value="p7" data-i18n="contact.f_opt7">Жасминтай цай — 50ш / хайрцаг</option>
+              <option value="wholesale" data-i18n="contact.f_opt8">Бөөний захиалга</option>
+              <option value="other" data-i18n="contact.f_opt9">Бусад / Лавлагаа</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label for="orderQty" data-i18n="contact.f_qty">Тоо хэмжээ</label>
+              <input id="orderQty" type="number" placeholder="1" min="1" max="70000" value="1" />
+            </div>
+          </div>
+          </div>
+          <div class="fg">
+            <label data-i18n="contact.f_email">И-мэйл (заавал биш)</label>
+            <input id="orderEmail" type="email" placeholder="email@example.com" />
+          </div>
+          <div class="fg">
+            <label data-i18n="contact.f_note">Нэмэлт тайлбар</label>
+            <textarea id="orderNote" placeholder="Хүргэлтийн хаяг, асуулт болон бусад..." data-i18n-placeholder="contact.f_note_ph"></textarea>
+          </div>
+          <div class="form-error-msg" id="formError"></div>
+          <div class="form-submit-row">
+            <button type="submit" class="btn btn-gold form-submit" id="orderSubmitBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span data-i18n="contact.f_submit">Захиалга илгээх</span>
+            </button>
+          </div>
+          <div class="form-success-msg" id="formSuccess">
+            <div class="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" width="26" height="26"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="success-title" data-i18n="contact.form_success_title">Захиалга амжилттай!</div>
+            <div class="success-body" data-i18n="contact.form_success_body">Бид тантай 24 цагийн дотор холбогдох болно.</div>
+            <div class="order-id" id="formOrderId"></div>
+          </div>
+        </form>
+      </div>
+      <div>
         <div class="contact-info">
           <div class="ci-item">
             <div class="ci-icon">
@@ -2505,83 +1253,26 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="contact-form fade-up fade-up-d2">
-        <div class="form-title" data-i18n="contact.form_title">Захиалгын маягт</div>
-        <form id="orderForm">
-          <div class="form-row">
-            <div class="fg">
-              <label data-i18n="contact.f_name">Таны нэр</label>
-              <input id="orderName" type="text" placeholder="Овог нэр" data-i18n-placeholder="contact.f_name_ph" required />
-            </div>
-            <div class="fg">
-              <label data-i18n="contact.f_phone">Утасны дугаар</label>
-              <input id="orderPhone" type="tel" placeholder="88887777" maxlength="8" required />
-            </div>
-          </div>
-          <div class="fg">
-            <label for="orderProduct" data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</label>
-            <select id="orderProduct">
-              <option value="" data-i18n="contact.f_select">Сонгох...</option>
-              <option value="p1" data-i18n="contact.f_opt1">Өтгөн барагшун — 100мл</option>
-              <option value="p2" data-i18n="contact.f_opt2">Өтгөн барагшун — 50мл</option>
-              <option value="p3" data-i18n="contact.f_opt3">Шингэн барагшун — 60ш / хайрцаг</option>
-              <option value="p4" data-i18n="contact.f_opt4">Шингэн барагшун — 30ш / хайрцаг</option>
-              <option value="p5" data-i18n="contact.f_opt5">Шингэн барагшун — 15ш / хайрцаг</option>
-              <option value="p6" data-i18n="contact.f_opt6">Шингэн барагшун — 10ш / хайрцаг</option>
-              <option value="p7" data-i18n="contact.f_opt7">Жасминтай цай — 50ш / хайрцаг</option>
-              <option value="wholesale" data-i18n="contact.f_opt8">Бөөний захиалга</option>
-              <option value="other" data-i18n="contact.f_opt9">Бусад / Лавлагаа</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <div class="fg">
-              <label for="orderQty" data-i18n="contact.f_qty">Тоо хэмжээ</label>
-              <input id="orderQty" type="number" placeholder="1" min="1" max="70000" value="1" />
-            </div>
-            <div class="fg">
-              <label data-i18n="contact.f_email">И-мэйл (заавал биш)</label>
-              <input id="orderEmail" type="email" placeholder="email@example.com" />
-            </div>
-          </div>
-          <div class="fg">
-            <label data-i18n="contact.f_note">Нэмэлт тайлбар</label>
-            <textarea id="orderNote" placeholder="Хүргэлтийн хаяг, асуулт болон бусад..." data-i18n-placeholder="contact.f_note_ph"></textarea>
-          </div>
-          <div class="form-error-msg" id="formError"></div>
-          <div class="form-submit-row">
-            <button type="submit" class="btn btn-gold form-submit" id="orderSubmitBtn">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              <span data-i18n="contact.f_submit">Захиалга илгээх</span>
-            </button>
-          </div>
-          <div class="form-success-msg" id="formSuccess">
-            <div class="success-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" width="26" height="26"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="success-title" data-i18n="contact.form_success_title">Захиалга амжилттай!</div>
-            <div class="success-body" data-i18n="contact.form_success_body">Бид тантай 24 цагийн дотор холбогдох болно.</div>
-            <div class="order-id" id="formOrderId"></div>
-          </div>
-        </form>
+      
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- ═══ MY ORDERS ═══ -->
-<section id="my-orders">
-  <div class="container">
-    <div class="my-orders-header">
-      <div class="label" data-i18n="my_orders.label">Миний захиалгууд</div>
-      <h2 class="h2" style="margin-top:12px" data-i18n="my_orders.h2">Захиалгын түүх</h2>
+<div class="view" data-view="orders">
+  <section id="my-orders">
+    <div class="wrap" style="padding-bottom:72px">
+      <header class="page-head">
+        <p class="eyebrow" data-i18n="my_orders.label">Миний захиалгууд</p>
+        <h1 class="page-title" data-i18n="my_orders.h2">Захиалгын түүх</h1>
+      </header>
+      <div class="orders-grid" id="myOrdersList"><div class="orders-loading">Ачаалж байна…</div></div>
     </div>
-    <div class="orders-grid" id="myOrdersList">
-      <div class="orders-loading">Ачаалж байна…</div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
+
+</main>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
@@ -2633,6 +1324,29 @@
     </div>
   </div>
 </footer>
+
+<!-- Cart drawer -->
+<div class="drawer-backdrop" id="cartBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-labelledby="cartTitle">
+  <div class="cart-head"><h2 id="cartTitle" data-i18n="cart.title">Таны сагс</h2><button type="button" class="icon-btn" id="cartClose" data-close-cart aria-label="Хаах"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot" hidden>
+    <div class="cart-total"><span data-i18n="cart.total">Нийт</span><span id="cartTotal"></span></div>
+    <a href="#contact" class="btn btn-primary btn-block" data-close-cart data-i18n="cart.checkout">Захиалга өгөх</a>
+    <p class="cart-foot-note" data-i18n="cart.note">Бид тантай холбогдож захиалгыг баталгаажуулна.</p>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Phone tab bar -->
+<nav class="tabbar" aria-label="Menu">
+  <a href="#home" data-nav="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><span data-i18n="nav.home">Нүүр</span></a>
+  <a href="#shop" data-nav="shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-i18n="nav.shop">Дэлгүүр</span></a>
+  <button type="button" data-open-cart><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg><span data-i18n="nav.cart">Сагс</span><span class="cart-count"></span></button>
+  <a href="#contact" data-nav="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span data-i18n="nav.contact">Холбоо барих</span></a>
+</nav>
+
+<script src="shop.js"></script>
 
 <script type="module">
   // Navbar scroll
@@ -3086,6 +1800,9 @@
     }
   };
 
+  for (const [lang, extra] of Object.entries({"mn": {"nav.home": "Нүүр", "nav.shop": "Дэлгүүр", "nav.cart": "Сагс", "home.featured": "Онцлох бүтээгдэхүүн", "home.view_all": "Бүгдийг үзэх", "home.trust1_t": "МНС стандарт", "home.trust2_t": "Лабораторид шалгагдсан", "home.trust3_t": "100% байгалийн", "home.trust3_s": "Алтайн 3500–4000 м", "home.trust4_t": "Хүргэлттэй", "home.trust4_s": "Хүсэлтээр", "shop.all": "Бүгд", "shop.thick": "Өтгөн барагшун", "shop.liquid": "Шингэн барагшун", "shop.tea": "Цай", "shop.add": "Сагсанд нэмэх", "cart.title": "Таны сагс", "cart.empty": "Сагс хоосон байна", "cart.browse": "Бүтээгдэхүүн үзэх", "cart.remove": "Хасах", "cart.total": "Нийт", "cart.checkout": "Захиалга өгөх", "cart.note": "Бид тантай холбогдож захиалгыг баталгаажуулна.", "cart.added": "Сагсанд нэмэгдлээ", "checkout.your_items": "Таны сагс", "checkout.edit": "Засах", "learn.t_what": "Танилцуулга"}, "en": {"nav.home": "Home", "nav.shop": "Shop", "nav.cart": "Cart", "home.featured": "Featured products", "home.view_all": "View all", "home.trust1_t": "MNS certified", "home.trust2_t": "Lab tested", "home.trust3_t": "100% natural", "home.trust3_s": "Altai, 3500–4000 m", "home.trust4_t": "Delivery", "home.trust4_s": "On request", "shop.all": "All", "shop.thick": "Concentrated", "shop.liquid": "Liquid", "shop.tea": "Tea", "shop.add": "Add to cart", "cart.title": "Your cart", "cart.empty": "Your cart is empty", "cart.browse": "Browse products", "cart.remove": "Remove", "cart.total": "Total", "cart.checkout": "Checkout", "cart.note": "We will call you to confirm your order.", "cart.added": "Added to cart", "checkout.your_items": "Your items", "checkout.edit": "Edit", "learn.t_what": "Overview"}, "zh": {"nav.home": "首页", "nav.shop": "商店", "nav.cart": "购物车", "home.featured": "精选产品", "home.view_all": "查看全部", "home.trust1_t": "蒙古国标准认证", "home.trust2_t": "实验室检测", "home.trust3_t": "100% 天然", "home.trust3_s": "阿尔泰山 3500–4000 米", "home.trust4_t": "提供配送", "home.trust4_s": "按需配送", "shop.all": "全部", "shop.thick": "浓缩", "shop.liquid": "液态", "shop.tea": "茶", "shop.add": "加入购物车", "cart.title": "购物车", "cart.empty": "购物车是空的", "cart.browse": "浏览产品", "cart.remove": "删除", "cart.total": "合计", "cart.checkout": "去下单", "cart.note": "我们会致电确认您的订单。", "cart.added": "已加入购物车", "checkout.your_items": "您的商品", "checkout.edit": "修改", "learn.t_what": "简介"}})) Object.assign(TRANSLATIONS[lang], extra);
+  window.__TRANSLATIONS = TRANSLATIONS;
+
   let currentLang = localStorage.getItem('lang') || 'mn';
   window.__currentLang = currentLang;
 
@@ -3117,6 +1834,7 @@
 
     // Sync lang for the module script and re-render orders if loaded
     window.__currentLang = lang;
+    window.ShopUI?.render();
     const fb = window.__fb;
     if (fb?.auth?.currentUser && fb?.loadMyOrders) {
       fb.loadMyOrders(fb.auth.currentUser.uid);
@@ -3167,8 +1885,10 @@
 
       const name    = document.getElementById('orderName').value.trim();
       const phone   = document.getElementById('orderPhone').value.trim();
-      const product = orderProduct.value;
-      const qty     = Number(orderQty.value || 1);
+      const cartItems = window.ShopCart?.items() || {};
+      const fromCart  = Object.keys(cartItems).length > 0;
+      const product = fromCart ? '' : orderProduct.value;
+      const qty     = fromCart ? Object.values(cartItems).reduce((a, b) => a + b, 0) : Number(orderQty.value || 1);
       const email   = document.getElementById('orderEmail').value.trim();
       const note    = document.getElementById('orderNote').value.trim();
 
@@ -3200,7 +1920,11 @@
 
       try {
         const docRef = await fb.addDoc(fb.collection(fb.db, 'orders'), {
-          name, phone, product, qty, email, note,
+          name, phone, qty, email, note,
+          ...(fromCart
+            ? { items: cartItems, unitPrices: { ...window.ShopCart.PRICES }, currency: 'MNT',
+                subtotal: window.ShopCart.subtotal(), discount: 0, total: window.ShopCart.subtotal(), amountPaid: 0 }
+            : { product }),
           lang:      currentLang,
           timestamp: fb.serverTimestamp(),
           // Guests order without an account; signed-in orders are tied to it for order history.
@@ -3216,6 +1940,7 @@
         orderForm.querySelectorAll('input,select,textarea,button').forEach(el => el.disabled = true);
         btn.style.display = 'none';
         successEl.style.display = 'flex';
+        if (fromCart) window.ShopCart.clear();
 
         // Send admin notification email (silently — don't block on failure)
         try {
@@ -3226,7 +1951,7 @@
               customer_name:  name,
               customer_phone: phone,
               customer_email: email || '—',
-              product:        product,
+              product:        fromCart ? window.ShopCart.label() : product,
               qty:            qty,
               note:           note || '—',
             });
