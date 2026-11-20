@@ -645,8 +645,9 @@
   <section class="hero banner">
     <picture class="banner-media">
       <source media="(max-width: 700px)" srcset="brand_assets/hero-banner-mobile.jpg" />
-      <img src="brand_assets/hero-banner.jpg" alt="Монгол Алтайн барагшун — Алтайн нурууны дэвсгэр дээрх бүтээгдэхүүн" width="1344" height="752" fetchpriority="high" />
+      <img src="brand_assets/hero-banner.jpg" alt="Монгол Алтайн барагшун — цастай Алтайн нуруу, шинэ жилийн чимэглэлтэй бүтээгдэхүүн" width="1344" height="752" fetchpriority="high" />
     </picture>
+    <div class="banner-snow" aria-hidden="true"></div>
     <div class="wrap banner-inner">
       <div class="banner-copy">
         <p class="eyebrow" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</p>
@@ -692,14 +693,14 @@
           <button type="button" class="btn-add" data-add="p1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
         </div>
       </article>
-      <article class="product-card" data-cat="thick">
-        <div class="product-img"><img src="Products/product-2.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
+      <article class="product-card" data-cat="liquid">
+        <div class="product-img"><img src="Products/product-4.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
         <div class="product-info">
-          <div class="product-cat" data-i18n="shop.thick">Өтгөн барагшун</div>
-          <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
-          <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
-          <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
-          <button type="button" class="btn-add" data-add="p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
+          <div class="product-cat" data-i18n="shop.liquid">Шингэн барагшун</div>
+          <div class="product-name" data-i18n="products.p4_name">Шингэн барагшун</div>
+          <div class="product-sub" data-i18n="products.p4_sub">30 ширхэг · Хайрцаг</div>
+          <div class="product-price" data-i18n="products.p4_price">40,000 ₮ <span class="unit">/ хайрцаг</span></div>
+          <button type="button" class="btn-add" data-add="p4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
         </div>
       </article>
       <article class="product-card" data-cat="liquid">
@@ -815,16 +816,6 @@
           <div class="product-sub" data-i18n="products.p1_sub">100мл · Дусаалгын сав</div>
           <div class="product-price" data-i18n="products.p1_price">50,000 ₮ <span class="unit">/ ш</span></div>
           <button type="button" class="btn-add" data-add="p1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
-        </div>
-      </article>
-      <article class="product-card" data-cat="thick">
-        <div class="product-img"><img src="Products/product-2.jpg" loading="lazy" decoding="async" width="558" height="1000" alt="" /></div>
-        <div class="product-info">
-          <div class="product-cat" data-i18n="shop.thick">Өтгөн барагшун</div>
-          <div class="product-name" data-i18n="products.p2_name">Өтгөн барагшун</div>
-          <div class="product-sub" data-i18n="products.p2_sub">50мл · Дусаалгын сав</div>
-          <div class="product-price" data-i18n="products.p2_price">30,000 ₮ <span class="unit">/ ш</span></div>
-          <button type="button" class="btn-add" data-add="p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="shop.add">Сагсанд нэмэх</span></button>
         </div>
       </article>
       <article class="product-card" data-cat="liquid">
@@ -1163,7 +1154,6 @@
             <select id="orderProduct">
               <option value="" data-i18n="contact.f_select">Сонгох...</option>
               <option value="p1" data-i18n="contact.f_opt1">Өтгөн барагшун — 100мл</option>
-              <option value="p2" data-i18n="contact.f_opt2">Өтгөн барагшун — 50мл</option>
               <option value="p3" data-i18n="contact.f_opt3">Шингэн барагшун — 60ш / хайрцаг</option>
               <option value="p4" data-i18n="contact.f_opt4">Шингэн барагшун — 30ш / хайрцаг</option>
               <option value="p5" data-i18n="contact.f_opt5">Шингэн барагшун — 15ш / хайрцаг</option>
@@ -1297,10 +1287,9 @@
       <div class="footer-col">
         <h4 data-i18n="footer.col1">Бүтээгдэхүүн</h4>
         <ul>
-          <li><a href="#products" data-i18n="footer.fp1">Өтгөн барагшун 100мл</a></li>
-          <li><a href="#products" data-i18n="footer.fp2">Өтгөн барагшун 50мл</a></li>
-          <li><a href="#products" data-i18n="footer.fp3">Шингэн барагшун 60ш</a></li>
-          <li><a href="#products" data-i18n="footer.fp4">Жасминтай цай 50ш</a></li>
+          <li><a href="#shop" data-i18n="footer.fp1">Өтгөн барагшун 100мл</a></li>
+          <li><a href="#shop" data-i18n="footer.fp3">Шингэн барагшун 60ш</a></li>
+          <li><a href="#shop" data-i18n="footer.fp4">Жасминтай цай 50ш</a></li>
           <li><a href="#contact" data-i18n="footer.fp5">Хүргэлтийн үйлчилгээ</a></li>
         </ul>
       </div>

@@ -3,7 +3,8 @@
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const PRICES = { p1: 50000, p2: 30000, p3: 70000, p4: 40000, p5: 25000, p6: 16000, p7: 20000 };
-  const KEYS = Object.keys(PRICES);
+  // The full price list stays because the order rules check it; p2 (Өтгөн 50мл) is no longer sold.
+  const KEYS = Object.keys(PRICES).filter(k => k !== 'p2');
   const MAX_QTY = 999;
   const t = key => (window.__TRANSLATIONS?.[window.__currentLang || 'mn'] || window.__TRANSLATIONS?.mn || {})[key] ?? key;
   const plain = html => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent.trim(); };
