@@ -808,55 +808,9 @@
     .ci-lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
     .ci-val { font-size: 0.9rem; color: var(--cream); font-weight: 500; }
 
-    /* 11:11 sale */
-    .sale-banner {
-      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-      gap: 24px; align-items: center; margin-bottom: 36px; padding: clamp(16px, 4vw, 34px);
-      border: 1px solid var(--border-gold-bright); border-radius: 3px;
-      background: radial-gradient(ellipse at 0 0, rgba(201,169,110,0.17), transparent 72%), var(--bg-3);
-    }
-    .sale-banner[hidden], .sale-action[hidden] { display: none; }
-    .sale-bar {
-      display: block; padding: 9px 16px; text-align: center; text-decoration: none;
-      background: linear-gradient(90deg, var(--gold-dk), var(--gold-lt), var(--gold-dk));
-      color: #0a0d14; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1.35;
-    }
-    .sale-bar:hover { filter: brightness(1.08); }
-    body.sale-on #hero .hero-content { padding-top: 176px; }
-    body.sale-on .mobile-menu { top: 112px; }
-    .price-old {
-      display: block; font: 400 0.8rem 'Noto Sans', sans-serif;
-      color: var(--muted); text-decoration: line-through;
-    }
+
     /* the accent line is its own block, so the <br> after it only added an empty line */
     .hero-text .h1 .accent + br { display: none; }
-    @media (max-width: 768px) {
-      .sale-bar { font-size: 0.7rem; padding: 7px 10px; letter-spacing: 0.02em; }
-      body.sale-on #hero .hero-content { padding-top: 136px; }
-      body.sale-on .mobile-menu { top: 96px; }
-    }
-    .sale-banner h3 { margin: 8px 0; color: var(--cream); font: 600 clamp(1.65rem, 4vw, 2.6rem)/1.1 'Cormorant Infant', serif; }
-    .sale-banner p { color: var(--muted); font-size: 0.88rem; }
-    .sale-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; list-style: none; }
-    .sale-tiers li { text-align: center; padding: 10px 4px; border: 1px solid var(--border-gold); }
-    .sale-tiers strong { display: block; color: var(--gold-lt); font: 700 clamp(1.5rem, 4vw, 2.8rem)/1.15 'Cormorant Infant', serif; }
-    .sale-tiers span { color: var(--cream); font-size: 0.78rem; }
-    @media (max-width: 700px) { .sale-banner { grid-template-columns: 1fr; } }
-    .sale-action:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 3px; }
-    .sale-action:active { transform: translateY(1px); }
-    .order-extra-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(62px, 0.35fr) auto; align-items: end; gap: 8px; }
-    .fg.order-extra-row label { margin: 0; }
-    .order-extra-row label span { display: block; margin-bottom: 8px; }
-    .order-extra-row .btn, #addOrderProduct { padding: 10px 12px; font-size: 0.75rem; }
-    @media (max-width: 600px) {
-      .order-extra-row { grid-template-columns: minmax(0, 1fr) auto; }
-      .order-extra-row label:first-child { grid-column: 1 / -1; }
-    }
-    #addOrderProduct { margin-bottom: 14px; }
-    .order-price-summary { margin-bottom: 18px; padding: 12px 14px; border: 1px solid var(--border-gold); font-size: 0.86rem; }
-    .order-price-summary div { display: flex; justify-content: space-between; gap: 10px; }
-    .order-price-summary dd { text-align: right; }
-    .order-price-summary strong { color: var(--gold-lt); }
 
     /* form */
     .contact-form {
@@ -1757,7 +1711,6 @@
 
 <!-- ═══ NAV ═══ -->
 <nav id="navbar">
-  <a href="#products" class="sale-bar sale-action" id="saleBar" data-i18n="sale.bar" hidden>11.11 ХЯМДРАЛ · 1ш −10% · 2ш −20% · 3ш+ −30% · 11/17 хүртэл</a>
   <div class="nav-inner">
     <a href="#" class="nav-logo">
       <img src="brand_assets/Transparent Baragshun logo copy.png" alt="Барагшун" />
@@ -1993,8 +1946,7 @@
           Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.
         </p>
         <div class="hero-actions fade-up fade-up-d3">
-          <a href="#products" class="btn btn-gold sale-action" id="heroProducts" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
-          <a href="#products" class="btn btn-gold sale-action" id="heroSale" data-i18n="sale.cta" hidden>11:11 хямдрал · 30% хүртэл</a>
+          <a href="#products" class="btn btn-gold" id="heroProducts" data-i18n="hero.cta1">Бүтээгдэхүүн үзэх</a>
           <a href="#what" class="btn btn-outline-gold" data-i18n="hero.cta2">Дэлгэрэнгүй</a>
         </div>
         <div class="hero-proof fade-up fade-up-d4">
@@ -2148,18 +2100,6 @@
         МНС:6578-3-2016 стандартын дагуу үйлдвэрлэгдсэн, хамгийн сүүлийн үеийн 3 давхар хамгаалалттай, нарны тусгалаас хамгаалагдсан савлагаатай.
       </p>
     </div>
-    <aside class="sale-banner" id="saleBanner" aria-labelledby="saleTitle" hidden>
-      <div>
-        <div class="label" data-i18n="sale.dates">11 сарын 11–17</div>
-        <h3 id="saleTitle" data-i18n="sale.title">11:11 · Бүх бүтээгдэхүүн хямдарлаа</h3>
-        <p data-i18n="sale.detail">Бүтээгдэхүүнээ хослуулан сонгоорой. Хямдрал нийт тоо ширхгээр бодогдоно.</p>
-      </div>
-      <ul class="sale-tiers">
-        <li><strong>10%</strong><span data-i18n="sale.one">1 ширхэг</span></li>
-        <li><strong>20%</strong><span data-i18n="sale.two">2 ширхэг</span></li>
-        <li><strong>30%</strong><span data-i18n="sale.three">3 ба түүнээс дээш</span></li>
-      </ul>
-    </aside>
     <div class="products-grid">
 
       <!-- Product 1: Өтгөн барагшун 100мл -->
@@ -2605,20 +2545,6 @@
               <input id="orderEmail" type="email" placeholder="email@example.com" />
             </div>
           </div>
-          <div id="extraOrderProducts"></div>
-          <template id="extraOrderProduct">
-            <div class="order-extra-row fg">
-              <label><span data-i18n="contact.f_product">Бүтээгдэхүүн сонгох</span><select required></select></label>
-              <label><span data-i18n="contact.f_qty">Тоо хэмжээ</span><input type="number" min="1" max="70000" value="1" required /></label>
-              <button type="button" class="btn btn-outline-gold sale-action" data-i18n="sale.remove">Хасах</button>
-            </div>
-          </template>
-          <button type="button" class="btn btn-outline-gold sale-action" id="addOrderProduct" data-i18n="sale.add" hidden>+ Бүтээгдэхүүн нэмэх</button>
-          <dl class="order-price-summary" id="orderPriceSummary" aria-live="polite" hidden>
-            <div><dt data-i18n="sale.subtotal">Бүтээгдэхүүний үнэ</dt><dd id="orderSubtotal"></dd></div>
-            <div><dt data-i18n="sale.discount">Хямдрал</dt><dd id="orderSavings"></dd></div>
-            <div><dt><strong data-i18n="sale.total">Төлөх дүн</strong></dt><dd><strong id="orderFinalTotal"></strong></dd></div>
-          </dl>
           <div class="fg">
             <label data-i18n="contact.f_note">Нэмэлт тайлбар</label>
             <textarea id="orderNote" placeholder="Хүргэлтийн хаяг, асуулт болон бусад..." data-i18n-placeholder="contact.f_note_ph"></textarea>
@@ -2709,7 +2635,6 @@
 </footer>
 
 <script type="module">
-  import { UNIT_PRICES, saleActive, saleRate, saleDiscount, orderSubtotal } from './pricing.mjs';
   // Navbar scroll
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -2764,14 +2689,7 @@
       'contact.f_opt7':'Жасминтай цай — 50ш / хайрцаг',
       'contact.f_opt8':'Бөөний захиалга','contact.f_opt9':'Бусад / Лавлагаа',
       'contact.f_qty':'Тоо хэмжээ','contact.f_email':'И-мэйл (заавал биш)',
-      'sale.bar':'11.11 ХЯМДРАЛ · 1ш −10% · 2ш −20% · 3ш+ −30% · 11/17 хүртэл','sale.cta':'11:11 хямдрал · 30% хүртэл','sale.dates':'11 сарын 11–17',
-      'sale.title':'11:11 · Бүх бүтээгдэхүүн хямдарлаа',
-      'sale.detail':'Бүтээгдэхүүнээ хослуулан сонгоорой. Хямдрал нийт тоо ширхгээр бодогдоно.',
-      'sale.one':'1 ширхэг','sale.two':'2 ширхэг','sale.three':'3 ба түүнээс дээш',
-      'sale.add':'+ Бүтээгдэхүүн нэмэх','sale.remove':'Хасах',
-      'sale.subtotal':'Бүтээгдэхүүний үнэ','sale.discount':'Хямдрал','sale.total':'Төлөх дүн',
-      'sale.invalid_qty':'Нийт тоо хэмжээ 1–70000 бүхэл тоо байна.',
-      'sale.price_changed':'Хямдралын дүн өөрчлөгдлөө. Нийт дүнгээ шалгаад дахин илгээнэ үү.',
+      'contact.invalid_qty':'Нийт тоо хэмжээ 1–70000 бүхэл тоо байна.',
       'contact.f_note':'Нэмэлт тайлбар','contact.f_note_ph':'Хүргэлтийн хаяг, асуулт болон бусад...',
       'contact.f_submit':'Захиалга илгээх',
       'contact.form_required':'Нэр болон утасны дугаараа оруулна уу.',
@@ -2913,14 +2831,7 @@
       'contact.f_opt7':'Jasmine Tea with Shilajit — 50 sachets',
       'contact.f_opt8':'Wholesale Order','contact.f_opt9':'Other / Inquiry',
       'contact.f_qty':'Quantity','contact.f_email':'Email (optional)',
-      'sale.bar':'11.11 SALE · 1 item −10% · 2 items −20% · 3+ items −30% · until Nov 17','sale.cta':'11:11 Sale · Up to 30% off','sale.dates':'November 11–17',
-      'sale.title':'11:11 · All products on sale',
-      'sale.detail':'Mix and match any products. Your discount is based on the total number of items.',
-      'sale.one':'1 item','sale.two':'2 items','sale.three':'3+ items',
-      'sale.add':'+ Add a product','sale.remove':'Remove',
-      'sale.subtotal':'Subtotal','sale.discount':'Discount','sale.total':'Order total',
-      'sale.invalid_qty':'Enter a whole number of items between 1 and 70,000 in total.',
-      'sale.price_changed':'The sale price has changed. Review your total and submit again.',
+      'contact.invalid_qty':'Enter a whole number of items between 1 and 70,000 in total.',
       'contact.f_note':'Additional Notes','contact.f_note_ph':'Delivery address, questions, etc.',
       'contact.f_submit':'Send Order',
       'contact.form_required':'Please enter your name and phone number.',
@@ -3062,14 +2973,7 @@
       'contact.f_opt7':'喜来芝茉莉花茶 — 50袋/盒',
       'contact.f_opt8':'批发订购','contact.f_opt9':'其他 / 咨询',
       'contact.f_qty':'数量','contact.f_email':'电子邮件（选填）',
-      'sale.bar':'11.11 特惠 · 1件 −10% · 2件 −20% · 3件以上 −30% · 截至11月17日','sale.cta':'11:11 特惠 · 最高立减 30%','sale.dates':'11月11日–17日',
-      'sale.title':'11:11 · 全场特惠',
-      'sale.detail':'全场商品可自由搭配，折扣按订单商品总件数计算。',
-      'sale.one':'1 件','sale.two':'2 件','sale.three':'3 件及以上',
-      'sale.add':'+ 添加商品','sale.remove':'移除',
-      'sale.subtotal':'商品小计','sale.discount':'优惠金额','sale.total':'订单总额',
-      'sale.invalid_qty':'商品总数量须为 1 至 70,000 之间的整数。',
-      'sale.price_changed':'优惠金额已变更。请核对订单总额后重新提交。',
+      'contact.invalid_qty':'商品总数量须为 1 至 70,000 之间的整数。',
       'contact.f_note':'备注','contact.f_note_ph':'收货地址、问题及其他...',
       'contact.f_submit':'提交订单',
       'contact.form_required':'请输入您的姓名和联系电话。',
@@ -3213,7 +3117,6 @@
 
     // Sync lang for the module script and re-render orders if loaded
     window.__currentLang = lang;
-    updateSale();
     const fb = window.__fb;
     if (fb?.auth?.currentUser && fb?.loadMyOrders) {
       fb.loadMyOrders(fb.auth.currentUser.uid);
@@ -3244,98 +3147,10 @@
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
   window.__uiReady = true;
 
-  // ── Sale and order form ──
+  // ── Order form ──
   const orderForm = document.getElementById('orderForm');
   const orderProduct = document.getElementById('orderProduct');
   const orderQty = document.getElementById('orderQty');
-  const extraProducts = document.getElementById('extraOrderProducts');
-  const addProduct = document.getElementById('addOrderProduct');
-  const priceSummary = document.getElementById('orderPriceSummary');
-  const saleBanner = document.getElementById('saleBanner');
-  const heroSale = document.getElementById('heroSale');
-  const heroProducts = document.getElementById('heroProducts');
-  const saleBar = document.getElementById('saleBar');
-
-  // During the sale, product cards show the 1-item sale price next to the struck regular price.
-  function updateCardPrices(active, now) {
-    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.mn;
-    for (const key of Object.keys(UNIT_PRICES)) {
-      const base = t[`products.${key}_price`];
-      const parts = base && base.match(/^(\D*)([\d,]+)([\s\S]*)$/);
-      if (!parts) continue;
-      const [, prefix, amount, rest] = parts;
-      const sale = Math.round(Number(amount.replace(/,/g, '')) * (100 - saleRate(1, now)) / 100);
-      const html = active
-        ? `<s class="price-old">${prefix}${amount}${rest.split('<')[0].trimEnd()}</s>${prefix}${sale.toLocaleString('en-US')}${rest}`
-        : base;
-      document.querySelectorAll(`[data-i18n="products.${key}_price"]`).forEach(el => { el.innerHTML = html; });
-    }
-  }
-  const catalogueOptions = [...orderProduct.options].filter(option => Object.hasOwn(UNIT_PRICES, option.value));
-  const inquiryOptions = [...orderProduct.options].filter(option => !catalogueOptions.includes(option));
-
-  function selectedItems() {
-    const lines = [[orderProduct.value, Number(orderQty.value || 1)]];
-    for (const row of extraProducts.children) {
-      lines.push([row.querySelector('select').value, row.querySelector('input').valueAsNumber]);
-    }
-    const items = {};
-    let qty = 0;
-    for (const [product, quantity] of lines) {
-      if (!Object.hasOwn(UNIT_PRICES, product) || !Number.isInteger(quantity) || quantity < 1) return null;
-      items[product] = (items[product] || 0) + quantity;
-      qty += quantity;
-    }
-    return qty <= 70000 ? { items, qty } : null;
-  }
-
-  function updateSale(now = Date.now()) {
-    const active = saleActive(now);
-    const hasExtras = extraProducts.childElementCount > 0;
-    saleBanner.hidden = heroSale.hidden = saleBar.hidden = !active;
-    document.body.classList.toggle('sale-on', active);
-    updateCardPrices(active, now);
-    heroProducts.hidden = active;
-    addProduct.hidden = !active || orderProduct.disabled || !Object.hasOwn(UNIT_PRICES, orderProduct.value)
-      || extraProducts.childElementCount >= catalogueOptions.length - 1;
-    inquiryOptions.forEach(option => { option.disabled = hasExtras; });
-
-    const selection = selectedItems();
-    priceSummary.hidden = !selection || (!active && !hasExtras);
-    if (priceSummary.hidden) return;
-    const { items, qty } = selection;
-    const subtotal = orderSubtotal(items);
-    const discount = saleDiscount(subtotal, qty, now);
-    const money = amount => `${amount.toLocaleString(currentLang)} ₮`;
-    document.getElementById('orderSubtotal').textContent = money(subtotal);
-    document.getElementById('orderSavings').textContent = `${money(discount)} (${saleRate(qty, now)}%)`;
-    document.getElementById('orderFinalTotal').textContent = money(subtotal - discount);
-  }
-
-  addProduct.addEventListener('click', () => {
-    const row = document.getElementById('extraOrderProduct').content.firstElementChild.cloneNode(true);
-    const select = row.querySelector('select');
-    const placeholder = orderProduct.options[0].cloneNode(true);
-    placeholder.disabled = true;
-    select.append(placeholder, ...catalogueOptions.map(option => option.cloneNode(true)));
-    select.value = '';
-    row.querySelectorAll('label span, button').forEach(el => { el.textContent = TRANSLATIONS[currentLang][el.dataset.i18n]; });
-    row.querySelector('button').addEventListener('click', () => {
-      row.remove();
-      updateSale();
-      (addProduct.hidden ? orderProduct : addProduct).focus();
-    });
-    extraProducts.append(row);
-    updateSale();
-    select.focus();
-  });
-  orderProduct.addEventListener('change', () => updateSale());
-  orderQty.addEventListener('input', () => updateSale());
-  extraProducts.addEventListener('input', () => updateSale());
-  extraProducts.addEventListener('change', () => updateSale());
-  setInterval(() => {
-    if (saleBanner.hidden === saleActive()) updateSale();
-  }, 1000);
   applyLang(currentLang);
 
   if (orderForm) {
@@ -3353,8 +3168,7 @@
       const name    = document.getElementById('orderName').value.trim();
       const phone   = document.getElementById('orderPhone').value.trim();
       const product = orderProduct.value;
-      const selection = selectedItems();
-      const qty = selection?.qty ?? Number(orderQty.value || 1);
+      const qty     = Number(orderQty.value || 1);
       const email   = document.getElementById('orderEmail').value.trim();
       const note    = document.getElementById('orderNote').value.trim();
 
@@ -3368,25 +3182,9 @@
         errorEl.textContent = t['contact.form_phone_digits'];
         return;
       }
-      if ((!selection && (Object.hasOwn(UNIT_PRICES, product) || extraProducts.childElementCount))
-        || !Number.isInteger(qty) || qty < 1 || qty > 70000) {
-        errorEl.textContent = t['sale.invalid_qty'];
+      if (!Number.isInteger(qty) || qty < 1 || qty > 70000) {
+        errorEl.textContent = t['contact.invalid_qty'];
         return;
-      }
-
-      const now = Date.now();
-      const active = saleActive(now);
-      if (selection && saleBanner.hidden === active) {
-        updateSale(now);
-        errorEl.textContent = t['sale.price_changed'];
-        return;
-      }
-      let orderDetails = { product };
-      if (selection && (active || extraProducts.childElementCount)) {
-        const subtotal = orderSubtotal(selection.items);
-        const discount = saleDiscount(subtotal, qty, now);
-        orderDetails = { items: selection.items, unitPrices: UNIT_PRICES, currency: 'MNT', subtotal,
-          discount, total: subtotal - discount, amountPaid: 0 };
       }
 
       if (btn.disabled) return;
@@ -3402,7 +3200,7 @@
 
       try {
         const docRef = await fb.addDoc(fb.collection(fb.db, 'orders'), {
-          name, phone, qty, email, note, ...orderDetails,
+          name, phone, product, qty, email, note,
           lang:      currentLang,
           timestamp: fb.serverTimestamp(),
           // Guests order without an account; signed-in orders are tied to it for order history.
@@ -3416,7 +3214,6 @@
         const shortId = docRef.id.substring(0, 8).toUpperCase();
         orderIdEl.textContent = (t['contact.form_order_id'] || 'Order #:') + ' ' + shortId;
         orderForm.querySelectorAll('input,select,textarea,button').forEach(el => el.disabled = true);
-        addProduct.hidden = true;
         btn.style.display = 'none';
         successEl.style.display = 'flex';
 
@@ -3429,21 +3226,16 @@
               customer_name:  name,
               customer_phone: phone,
               customer_email: email || '—',
-              product:        selection && Object.keys(selection.items).length > 1
-                ? Object.entries(selection.items).map(([key, count]) => `${key} × ${count}`).join(', ')
-                : product,
+              product:        product,
               qty:            qty,
-              discount:       orderDetails.discount ?? '',
-              total:          orderDetails.total ?? '',
               note:           note || '—',
             });
           }
         } catch (_) { /* email failure must never break the order flow */ }
 
       } catch (err) {
-        updateSale();
         console.error('Order submit error:', err);
-        errorEl.textContent = t[selection && active !== saleActive() ? 'sale.price_changed' : 'contact.form_error'];
+        errorEl.textContent = t['contact.form_error'];
         btn.disabled = false;
         btnSpan.textContent = t['contact.f_submit'];
       }
