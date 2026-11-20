@@ -642,9 +642,13 @@
 
 <!-- ═══ HOME ═══ -->
 <div class="view" data-view="home">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
+  <section class="hero banner">
+    <picture class="banner-media">
+      <source media="(max-width: 700px)" srcset="brand_assets/hero-banner-mobile.jpg" />
+      <img src="brand_assets/hero-banner.jpg" alt="Монгол Алтайн барагшун — Алтайн нурууны дэвсгэр дээрх бүтээгдэхүүн" width="1344" height="752" fetchpriority="high" />
+    </picture>
+    <div class="wrap banner-inner">
+      <div class="banner-copy">
         <p class="eyebrow" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</p>
         <h1 data-i18n="hero.h1">Монгол Алтайн<br><span class="accent">3000 жилийн түүхт</span><br>эрдэнэс — таны гарт</h1>
         <p class="hero-lead" data-i18n="hero.body">Монгол Алтайн нурууны 3500–4000 м өндөрт нарны хурц гэрэл, салхи шуурганаас тусгаарлагдан бүрэлдэж тогтсон байгалийн биологийн идэвхт бодис — <strong style="color:var(--cream)">Барагшун</strong> нь 40 гаруй эрдэс бодис агуулсан, эрдэм шинжилгээгээр батлагдсан гайхамшигт бүтээгдэхүүн.</p>
@@ -658,10 +662,6 @@
           <div><dt>100<sup>%</sup></dt><dd data-i18n="hero.proof3">Байгалийн цэвэр</dd></div>
           <div><dt>MNS</dt><dd data-i18n="hero.proof4">Монгол стандарт</dd></div>
         </dl>
-      </div>
-      <div class="hero-media">
-        <img src="Products/product-1.jpg" alt="Өтгөн барагшун 100мл" width="558" height="1000" fetchpriority="high" />
-        <a href="#shop" class="hero-tag"><img src="Products/product-1.jpg" alt="" /><div><b data-i18n="products.p1_name">Өтгөн барагшун</b><span>50,000 ₮</span></div></a>
       </div>
     </div>
   </section>
