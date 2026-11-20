@@ -26,7 +26,8 @@
       }, 300);
     });
   </script>
-  <link rel="stylesheet" href="shop.css?v=1" />
+  <link rel="stylesheet" href="shop.css?v=2" />
+  <link rel="stylesheet" href="season.css?v=1" />
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -465,7 +466,9 @@
 <body>
 
 <!-- ═══ HEADER ═══ -->
+<div class="ny-bar"><svg class="ny-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.8 4.6 2 7.1L12 17l-6.2 4 2-7.1L2 9.3l7.4-.4z"/></svg><span><b data-i18n="ny.greet">Шинэ оны мэнд хүргэе!</b> <span class="ny-hide-sm" data-i18n="ny.sub">Ойр дотныхондоо эрүүл мэнд бэлэглээрэй.</span></span><a href="#shop" data-i18n="ny.cta">Бэлэг сонгох →</a></div>
 <nav id="navbar">
+  <div class="ny-garland" aria-hidden="true"></div>
   <div class="wrap nav-inner">
     <a href="#home" class="nav-logo" aria-label="Барагшун">
       <img src="brand_assets/Transparent Baragshun logo copy.png" alt="" />
@@ -645,9 +648,8 @@
   <section class="hero banner">
     <picture class="banner-media">
       <source media="(max-width: 700px)" srcset="brand_assets/hero-banner-mobile.jpg" />
-      <img src="brand_assets/hero-banner.jpg" alt="Монгол Алтайн барагшун — цастай Алтайн нуруу, шинэ жилийн чимэглэлтэй бүтээгдэхүүн" width="1344" height="752" fetchpriority="high" />
+      <img src="brand_assets/hero-banner.jpg" alt="Монгол Алтайн барагшун — цастай Алтайн нуруу, шинэ оны салют, чимэглэлтэй бүтээгдэхүүн" width="1344" height="752" fetchpriority="high" />
     </picture>
-    <div class="banner-snow" aria-hidden="true"></div>
     <div class="wrap banner-inner">
       <div class="banner-copy">
         <p class="eyebrow" data-i18n="hero.label">Байгалийн цэвэр эрч хүч · Монгол Алтай</p>
@@ -679,7 +681,8 @@
   <section class="section">
     <div class="wrap">
       <div class="section-row">
-        <div><p class="eyebrow" data-i18n="products.label">Манай бүтээгдэхүүн</p><h2 class="h2" data-i18n="home.featured">Онцлох бүтээгдэхүүн</h2></div>
+        <div><p class="eyebrow" data-i18n="products.label">Манай бүтээгдэхүүн</p><h2 class="h2" data-i18n="home.featured_ny">Шинэ жилийн бэлэг</h2></div>
+        <div class="ny-ornaments" aria-hidden="true"><div class="ny-orn"><i style="height:40px"></i><b></b><span style="width:26px;height:26px;background:radial-gradient(circle at 35% 30%,#f3d9a0,#a07a3c)"></span></div><div class="ny-orn"><i style="height:62px"></i><b></b><span style="width:20px;height:20px;background:radial-gradient(circle at 35% 30%,#9bb8e6,#1d2f57)"></span></div><div class="ny-orn"><i style="height:30px"></i><b></b><span style="width:30px;height:30px;background:radial-gradient(circle at 35% 30%,#f6efe2,#a99a80)"></span></div></div>
         <a href="#shop" class="link-arrow"><span data-i18n="home.view_all">Бүгдийг үзэх</span> →</a>
       </div>
       <div class="products-grid">
@@ -1336,6 +1339,7 @@
 </nav>
 
 <script src="shop.js"></script>
+<script src="season.js"></script>
 
 <script type="module">
   // Navbar scroll
@@ -1790,6 +1794,7 @@
   };
 
   for (const [lang, extra] of Object.entries({"mn": {"nav.home": "Нүүр", "nav.shop": "Дэлгүүр", "nav.cart": "Сагс", "home.featured": "Онцлох бүтээгдэхүүн", "home.view_all": "Бүгдийг үзэх", "home.trust1_t": "МНС стандарт", "home.trust2_t": "Лабораторид шалгагдсан", "home.trust3_t": "100% байгалийн", "home.trust3_s": "Алтайн 3500–4000 м", "home.trust4_t": "Хүргэлттэй", "home.trust4_s": "Хүсэлтээр", "shop.all": "Бүгд", "shop.thick": "Өтгөн барагшун", "shop.liquid": "Шингэн барагшун", "shop.tea": "Цай", "shop.add": "Сагсанд нэмэх", "cart.title": "Таны сагс", "cart.empty": "Сагс хоосон байна", "cart.browse": "Бүтээгдэхүүн үзэх", "cart.remove": "Хасах", "cart.total": "Нийт", "cart.checkout": "Захиалга өгөх", "cart.note": "Бид тантай холбогдож захиалгыг баталгаажуулна.", "cart.added": "Сагсанд нэмэгдлээ", "checkout.your_items": "Таны сагс", "checkout.edit": "Засах", "learn.t_what": "Танилцуулга"}, "en": {"nav.home": "Home", "nav.shop": "Shop", "nav.cart": "Cart", "home.featured": "Featured products", "home.view_all": "View all", "home.trust1_t": "MNS certified", "home.trust2_t": "Lab tested", "home.trust3_t": "100% natural", "home.trust3_s": "Altai, 3500–4000 m", "home.trust4_t": "Delivery", "home.trust4_s": "On request", "shop.all": "All", "shop.thick": "Concentrated", "shop.liquid": "Liquid", "shop.tea": "Tea", "shop.add": "Add to cart", "cart.title": "Your cart", "cart.empty": "Your cart is empty", "cart.browse": "Browse products", "cart.remove": "Remove", "cart.total": "Total", "cart.checkout": "Checkout", "cart.note": "We will call you to confirm your order.", "cart.added": "Added to cart", "checkout.your_items": "Your items", "checkout.edit": "Edit", "learn.t_what": "Overview"}, "zh": {"nav.home": "首页", "nav.shop": "商店", "nav.cart": "购物车", "home.featured": "精选产品", "home.view_all": "查看全部", "home.trust1_t": "蒙古国标准认证", "home.trust2_t": "实验室检测", "home.trust3_t": "100% 天然", "home.trust3_s": "阿尔泰山 3500–4000 米", "home.trust4_t": "提供配送", "home.trust4_s": "按需配送", "shop.all": "全部", "shop.thick": "浓缩", "shop.liquid": "液态", "shop.tea": "茶", "shop.add": "加入购物车", "cart.title": "购物车", "cart.empty": "购物车是空的", "cart.browse": "浏览产品", "cart.remove": "删除", "cart.total": "合计", "cart.checkout": "去下单", "cart.note": "我们会致电确认您的订单。", "cart.added": "已加入购物车", "checkout.your_items": "您的商品", "checkout.edit": "修改", "learn.t_what": "简介"}})) Object.assign(TRANSLATIONS[lang], extra);
+  for (const [lang, extra] of Object.entries({"mn": {"ny.greet": "Шинэ оны мэнд хүргэе!", "ny.sub": "Ойр дотныхондоо эрүүл мэнд бэлэглээрэй.", "ny.cta": "Бэлэг сонгох →", "home.featured_ny": "Шинэ жилийн бэлэг"}, "en": {"ny.greet": "Happy New Year!", "ny.sub": "Give the gift of health to the people you love.", "ny.cta": "Shop gifts →", "home.featured_ny": "New Year gifts"}, "zh": {"ny.greet": "新年快乐！", "ny.sub": "把健康作为礼物送给亲人。", "ny.cta": "挑选礼物 →", "home.featured_ny": "新年礼物"}})) Object.assign(TRANSLATIONS[lang], extra);
   window.__TRANSLATIONS = TRANSLATIONS;
 
   let currentLang = localStorage.getItem('lang') || 'mn';

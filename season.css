@@ -1,0 +1,78 @@
+/* New Year season decorations. Remove the season.css / season.js tags (and the ny-* markup) to switch off. */
+
+/* Greeting bar */
+.ny-bar {
+  position: relative; z-index: 51; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+  min-height: 38px; padding: 7px 16px; text-align: center;
+  background: linear-gradient(90deg, #121a2c, #1c2338 50%, #121a2c); border-bottom: 1px solid rgba(201,169,110,.25);
+  font-size: .82rem; color: var(--text);
+}
+.ny-bar b { color: var(--gold-lt); font-weight: 600; }
+.ny-bar a { color: var(--gold-lt); font-weight: 600; white-space: nowrap; }
+.ny-bar a:hover { color: var(--text); }
+.ny-star { width: 14px; height: 14px; color: var(--gold); flex-shrink: 0; animation: ny-twinkle 2.4s ease-in-out infinite; }
+
+/* Light garland along the bottom of the header */
+.ny-garland {
+  position: absolute; left: 0; right: 0; top: 100%; height: 22px; pointer-events: none; overflow: hidden;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='22'%3E%3Cpath d='M0 1 Q45 16 90 1' fill='none' stroke='%23c9a96e' stroke-opacity='.55' stroke-width='1.2'/%3E%3C/svg%3E") repeat-x 0 0 / 90px 22px;
+}
+.ny-bulb {
+  position: absolute; top: 8px; width: 7px; height: 10px; border-radius: 50% 50% 45% 45%;
+  background: var(--c, #ffd98a); box-shadow: 0 0 8px 2px var(--g, rgba(255,217,138,.7));
+  animation: ny-twinkle var(--d, 2.2s) ease-in-out infinite; animation-delay: var(--delay, 0s);
+}
+.ny-bulb::before { content: ''; position: absolute; left: 1.5px; top: -3px; width: 4px; height: 3px; border-radius: 1px; background: #8a7347; }
+@keyframes ny-twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* Page snowfall canvas */
+#nySnow { position: fixed; inset: 0; z-index: 45; width: 100%; height: 100%; pointer-events: none; }
+
+/* Snow caps on cards and panels */
+.season-ny .product-img::after,
+.season-ny .trust::before,
+.season-ny .contact-form::before,
+.season-ny .cart-head::before {
+  content: ''; position: absolute; left: -2px; right: -2px; top: -1px; height: 14px; z-index: 2; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M0 0h200v6c-8 4-14 7-22 5s-10-6-19-5-12 7-22 7-12-6-21-6-13 7-23 6-11-6-20-6-13 6-22 6-12-5-20-5-11 5-17 3S3 6 0 7z' fill='%23eef3fb'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.25));
+}
+.season-ny .trust, .season-ny .contact-form, .season-ny .cart-head { position: relative; }
+.season-ny .trust { overflow: visible; }
+.season-ny .trust::before { border-radius: var(--radius) var(--radius) 0 0; }
+.season-ny .contact-form::before { border-radius: 18px 18px 0 0; }
+
+/* Hanging ornaments beside the featured title */
+.section-row { position: relative; }
+.ny-ornaments { position: absolute; right: 180px; top: -64px; display: flex; gap: 26px; pointer-events: none; }
+.ny-orn { position: relative; display: flex; flex-direction: column; align-items: center; transform-origin: top center; animation: ny-swing 4s ease-in-out infinite; }
+.ny-orn:nth-child(2) { animation-delay: -1.3s; }
+.ny-orn:nth-child(3) { animation-delay: -2.6s; }
+.ny-orn i { display: block; width: 1px; background: rgba(201,169,110,.6); }
+.ny-orn b { display: block; width: 6px; height: 4px; margin-top: -1px; border-radius: 1px; background: #a98a52; }
+.ny-orn span { display: block; border-radius: 50%; box-shadow: inset -4px -5px 10px rgba(0,0,0,.35), inset 3px 3px 6px rgba(255,255,255,.35); }
+@keyframes ny-swing { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+
+/* Seasonal badge on the featured cards */
+.ny-gift-tag {
+  display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; padding: 3px 10px; vertical-align: middle;
+  border-radius: 999px; background: rgba(201,169,110,.12); border: 1px solid rgba(201,169,110,.35);
+  font: 600 .72rem/1.4 'Noto Sans', sans-serif; color: var(--gold-lt); letter-spacing: 0;
+}
+
+/* Snowy ground above the footer */
+.season-ny footer { position: relative; }
+.season-ny footer::before {
+  content: ''; position: absolute; left: 0; right: 0; top: -18px; height: 20px; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 20' preserveAspectRatio='none'%3E%3Cpath d='M0 20V12c20-6 38-9 60-6s36 8 58 7 34-9 58-9 40 9 64 8 36-8 58-8 38 7 58 6 30-5 44-4v14z' fill='%23dfe7f3' fill-opacity='.92'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+
+@media (max-width: 900px) {
+  .ny-ornaments { right: 8px; top: -58px; gap: 18px; transform: scale(.8); transform-origin: top right; }
+  .ny-bar { font-size: .76rem; min-height: 34px; }
+}
+@media (max-width: 640px) { .ny-bar .ny-hide-sm { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ny-bulb, .ny-star, .ny-orn { animation: none; }
+  #nySnow { display: none; }
+}
