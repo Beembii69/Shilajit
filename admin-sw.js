@@ -1,5 +1,5 @@
 // Cache public app assets only. Never cache Firebase requests or employee records.
-const CACHE = 'baragshun-admin-v1';
+const CACHE = 'baragshun-admin-v2';
 const BASE = new URL('./', self.location.href);
 const ASSETS = ['admin-app.css','admin-app.js','admin-offline.html','admin.webmanifest','app-icons/icon-192.png','app-icons/icon-512.png','app-icons/icon-maskable-512.png','app-icons/apple-touch-icon.png'].map(path => new URL(path,BASE).href);
 self.addEventListener('install', event => {

@@ -23,8 +23,8 @@
   const total = $('orderTotal');
   const submit = form.querySelector('button[type="submit"]');
   const progress = document.createElement('div');
-  progress.className = 'wizard-progress'; progress.setAttribute('aria-label','???????? ??????? ???????');
-  const names = ['?????????', '????????????', '???????'];
+  progress.className = 'wizard-progress'; progress.setAttribute('aria-label','Захиалга бүртгэх алхам');
+  const names = ['Захиалагч', 'Бүтээгдэхүүн', 'Хүргэлт'];
   names.forEach((name, index) => { const item = document.createElement('span'); item.textContent = `${index + 1}. ${name}`; progress.append(item); });
   form.prepend(progress);
   const steps = names.map((name, index) => {
@@ -40,8 +40,8 @@
   [5,6,7,8].forEach(index => delivery.append(labels[index])); steps[2].append(delivery);
   grid.remove();
   const actions = document.createElement('div'); actions.className = 'wizard-actions';
-  const back = document.createElement('button'); back.type = 'button'; back.className = 'logout-btn'; back.textContent = '? ?????';
-  const next = document.createElement('button'); next.type = 'button'; next.className = 'login-btn'; next.textContent = '???????????? ?';
+  const back = document.createElement('button'); back.type = 'button'; back.className = 'logout-btn'; back.textContent = '← Буцах';
+  const next = document.createElement('button'); next.type = 'button'; next.className = 'login-btn'; next.textContent = 'Үргэлжлүүлэх →';
   actions.append(back,next,submit); form.append(actions);
   let step = 0;
   function showStep(index, focus = false) {
@@ -56,7 +56,7 @@
       if (!input.checkValidity()) { input.reportValidity(); return false; }
     }
     const source = form.elements.source.value;
-    form.elements.sourceDetail.setCustomValidity(['market','other'].includes(source) && !form.elements.sourceDetail.value.trim() ? '??????? ????? ?? ????????? ?????? ??????? ??.' : '');
+    form.elements.sourceDetail.setCustomValidity(['market','other'].includes(source) && !form.elements.sourceDetail.value.trim() ? 'Дэлгүүрийн нэр эсвэл эх үүсвэрийг бичнэ үү.' : '');
     if (section.contains(form.elements.sourceDetail) && !form.elements.sourceDetail.checkValidity()) { form.elements.sourceDetail.reportValidity(); return false; }
     return true;
   }
@@ -87,7 +87,7 @@
   // Do not queue new operational writes when the device is known to be offline.
   function onlineState() {
     $('appConnection').hidden = navigator.onLine;
-    document.querySelector('.live-dot').textContent = navigator.onLine ? '??????' : '??????';
+    document.querySelector('.live-dot').textContent = navigator.onLine ? 'Шууд' : 'Офлайн';
   }
   window.addEventListener('online', onlineState); window.addEventListener('offline', onlineState); onlineState();
   document.addEventListener('submit', event => {
